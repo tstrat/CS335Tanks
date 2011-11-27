@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,8 +23,10 @@ public class World {
 	 * World goes through all its actors, and makes them use their act() method.
 	 */
 	public void makeActorsAct() {
-		for(int i = 0; i < actors.size(); i++)
-			actors.get(i).act();		
+		Iterator<Actor> it = actors.iterator();
+		
+		while (it.hasNext())
+			it.next().act();
 	}
 	
 	/*
@@ -37,11 +40,13 @@ public class World {
 	 * 				The Command to send to this GameHandler.
 	 */
 	public void command(List<Command> commands) {
-		for(int i = 0; i < actors.size(); i++) {
-			Actor a = actors.get(i);
+		Iterator<Actor> it = actors.iterator();
+		
+		while (it.hasNext()) {
+			Actor a = it.next();
 			if(a instanceof Tank) {
 				for(Command c: commands) {
-					((Tank) actors.get(i)).receiveCommand(c);
+					((Tank) a).receiveCommand(c);
 				}
 			}
 		}		
