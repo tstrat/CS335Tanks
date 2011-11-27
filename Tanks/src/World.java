@@ -51,5 +51,24 @@ public class World {
 			}
 		}		
 	}
+	
+	/*
+	 * returns a list of drawables for the GUIs to draw.
+	 */
+	public List<Drawable> getDrawables() {
+		Iterator<Actor> it = actors.iterator();
+		List<Drawable> list = new LinkedList<Drawable>();
+		
+		while (it.hasNext()) {
+			Actor a = it.next();
+			// If there is a better way than instanceof, please use it
+			// Also, as of now, all actors are drawable, so really we
+			// this part is kinda unneeded 
+			if(a instanceof Drawable) {
+				list.add((Drawable)a);
+			}
+		}
+		return list;
+	}
 
 }
