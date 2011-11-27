@@ -1,6 +1,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.Timer;
 
 /*
@@ -12,7 +14,7 @@ import javax.swing.Timer;
 public class GameHandler implements ActionListener {
 	
 	private World w;
-	private ArrayList<Command> commands;
+	private List<Command> commands;
 	private Timer timer;
 	
 	public GameHandler() {

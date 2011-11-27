@@ -5,7 +5,7 @@ import java.util.List;
 
 public class World {
 	
-	private LinkedList<Actor> actors;
+	private List<Actor> actors;
 	
 	public World() {
 		actors = new LinkedList<Actor>();
