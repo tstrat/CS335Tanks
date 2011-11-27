@@ -37,7 +37,7 @@ public class World {
 	 * only follow commands relevent to them.
 	 * 
 	 * param c:
-	 * 				The Command to send to this GameHandler.
+	 * 				The Command to send to the tanks.
 	 */
 	public void command(List<Command> commands) {
 		Iterator<Actor> it = actors.iterator();
