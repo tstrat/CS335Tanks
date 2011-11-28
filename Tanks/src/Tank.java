@@ -3,8 +3,8 @@ public class Tank extends Obstacle{
 	
 	private int myPlayer;
 	
-	public Tank(int x, int y, String img, int player, int tankType) {
-		super(x, y, img);
+	public Tank(double x, double y, int player, int tankType) {
+		super(x, y, 0);
 		myPlayer = player;
 		// TODO depending on tankType, it will set this 
 		// tank's guns, health, etc		
