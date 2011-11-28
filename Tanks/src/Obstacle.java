@@ -1,20 +1,18 @@
 
-public class Obstacle implements Actor, Collidable{
+public class Obstacle extends Actor implements Collidable{
 	
 	protected int health;
 	protected int maxHealth;
 	
-	double x;
-	double y;
-	double rotation;
-	
-	public Obstacle(double x, double y, double rotation) {
+
+	public Obstacle(double x, double y, int rotation) {
 		this.x = x;
 		this.y = y;
 		this.rotation = rotation;
+		exists = true;
 	}
 	
-	public Obstacle(double x, double y, double rotation, int health) {
+	public Obstacle(double x, double y, int rotation, int health) {
 		this(x, y, rotation);
 		
 		maxHealth = health;
@@ -33,50 +31,12 @@ public class Obstacle implements Actor, Collidable{
 
 	@Override
 	public void act() {
-		// TODO Auto-generated method stub
-		
+		if(health <= 0)
+			exists = false;
 	}
-
-	@Override
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	@Override
-	public double getX() {
-		return x;
-	}
-
-	@Override
-	public void setY(double y) {
-		this.y = y;
-	}
-
-	@Override
-	public double getY() {
-		return y;
-	}
-
-	@Override
-	public void setRotation(double rotation) {
-		this.rotation = rotation;
-	}
-
-	@Override
-	public double getRotation() {
-		return rotation;
-	}
-
-	@Override
-	public double getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	public void receiveDamage(int d) {
+		health -= d;
 	}
 
 }

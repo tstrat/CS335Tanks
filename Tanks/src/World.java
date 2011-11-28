@@ -59,4 +59,8 @@ public class World {
 		return actors;
 	}
 
+	public void addActor(Actor a) {
+		actors.add(a);		
+	}
+
 }
