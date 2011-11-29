@@ -1,3 +1,4 @@
+package gameModel;
 
 public class Obstacle extends Actor implements Collidable{
 	

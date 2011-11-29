@@ -1,3 +1,4 @@
+package gameModel;
 
 public class Missile extends Actor implements Collidable{
 	
