@@ -3,7 +3,7 @@ public abstract class Actor {
 	
 	protected boolean exists;
 	protected double x, y;
-	protected int rotation;
+	protected double rotation;
 	
 	public abstract void act();
 	
@@ -30,10 +30,10 @@ public abstract class Actor {
 		return y;
 	}
 	
-	public void setRotation(int rotation) {
-		this.rotation = rotation;
+	public void setRotation(double d) {
+		this.rotation = d;
 	}
-	public int getRotation() {
+	public double getRotation() {
 		return rotation;
 	}
 	
