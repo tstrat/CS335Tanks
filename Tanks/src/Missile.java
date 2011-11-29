@@ -12,9 +12,8 @@ public class Missile extends Actor implements Collidable{
 
 	@Override
 	public void act() {
-		double theta = rotation / 2 * Math.PI;
-		x += speed * Math.cos(theta);
-		y += speed * Math.sin(theta);
+		x += speed * Math.cos(rotation);
+		y += speed * Math.sin(rotation);
 	}
 
 
