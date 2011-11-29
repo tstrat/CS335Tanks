@@ -5,14 +5,14 @@ public class Obstacle extends Actor implements Collidable{
 	protected int maxHealth;
 	
 
-	public Obstacle(double x, double y, int rotation) {
+	public Obstacle(double x, double y, double rotation) {
 		this.x = x;
 		this.y = y;
 		this.rotation = rotation;
 		exists = true;
 	}
 	
-	public Obstacle(double x, double y, int rotation, int health) {
+	public Obstacle(double x, double y, double rotation, int health) {
 		this(x, y, rotation);
 		
 		maxHealth = health;
