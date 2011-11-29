@@ -47,11 +47,7 @@ public class GameHandler implements ActionListener {
 	 * 				The Command to send to this GameHandler.
 	 */
 	public void receiveCommand(Command c) {
-		if(c.getOrder() == 0 /* don't know how we're doing commands, so... this is supposed to be "Pause Game" somehow */)
-			pause();
-		else {
-			commands.add(c);
-		}
+
 	}
 
 	private void pause() {
