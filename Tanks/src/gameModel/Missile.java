@@ -42,4 +42,9 @@ public class Missile extends Actor implements Collidable{
 		exists = false;
 	}
 
+	@Override
+	public DrawObject getDraw() {
+		return null;
+	}
+
 }

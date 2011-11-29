@@ -40,4 +40,9 @@ public class Obstacle extends Actor implements Collidable{
 		health -= d;
 	}
 
+	@Override
+	public DrawObject getDraw() {
+		return new DrawSingleFrameObject();
+	}
+
 }

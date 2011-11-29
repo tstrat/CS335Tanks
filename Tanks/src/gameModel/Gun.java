@@ -39,5 +39,10 @@ public class Gun extends Actor {
 			cDTimer--;*/
 	}
 
+	@Override
+	public DrawObject getDraw() {
+		return null;
+	}
+
 
 }

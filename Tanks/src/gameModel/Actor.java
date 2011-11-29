@@ -38,4 +38,6 @@ public abstract class Actor {
 		return rotation;
 	}
 	
+	public abstract DrawObject getDraw();
+	
 }
