@@ -28,9 +28,8 @@ public class Tank extends Obstacle{
 	 * for the tank, it moves mySpeed pixels forward.
 	 */
 	public void button_W() {
-		double theta = rotation / 2 * Math.PI;
-		x += speed * Math.cos(theta);
-		y += speed * Math.sin(theta);
+		x += speed * Math.cos(rotation);
+		y += speed * Math.sin(rotation);
 	}
 	
 	/*
