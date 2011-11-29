@@ -6,12 +6,12 @@ public class Tank extends Obstacle{
 	private double speed;
 	private Gun gun;
 	
-	public Tank(double x, double y, double rotation, int player, TankType tankType) {
+	public Tank(double x, double y, double rotation, int player) {
 		super(x, y, rotation);
 		this.player = player;
-		this.health =tankType.health();
-		this.speed = tankType.speed();
-		this.gun = tankType.gun();	
+		this.health = 500;
+		this.speed = 1;
+		this.gun = new Gun(1);	
 	}
 
 
