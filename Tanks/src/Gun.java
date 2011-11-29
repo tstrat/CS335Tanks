@@ -3,13 +3,13 @@ public class Gun extends Actor {
 
 	private int damage;
 	private double shellSpeed;
-	private int coolDown;
-	private int cDTimer;
+/*	private int coolDown;
+	private int cDTimer;*/
 	
 	public Gun(int i) {
 		if(i == 1) 
 			setGunStandard();
-		cDTimer = 0;
+		//cDTimer = 0;
 		exists = true;
 	}
 
@@ -20,7 +20,7 @@ public class Gun extends Actor {
 	private void setGunStandard() {
 		damage = 80;
 		shellSpeed = 7.5;
-		coolDown = 30;
+		//coolDown = 30;
 	}
 
 	public void fireMissile(World w) {
@@ -29,13 +29,13 @@ public class Gun extends Actor {
 		m.setY(getY());
 		m.setRotation(getRotation());
 		w.addActor(m);
-		cDTimer += coolDown;
+		//cDTimer += coolDown;
 	}
 
 	@Override
 	public void act() {
-		if(cDTimer > 0)
-			cDTimer--;
+/*		if(cDTimer > 0)
+			cDTimer--;*/
 	}
 
 

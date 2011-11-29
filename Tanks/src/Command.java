@@ -1,16 +1,10 @@
 
-public class Command {
+public abstract class Command {
 
 	private int myPlayer;
-	private int myOrder;
 	
-	public Command(int order, int Player) {
+	public Command(int Player) {
 		myPlayer = Player;
-		myOrder = order;
-	}
-
-	public int getOrder() {
-		return myOrder;
 	}
 	
 	public int getPlayer() {
