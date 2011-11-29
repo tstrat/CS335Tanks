@@ -1,3 +1,4 @@
+package gameModel;
 
 public class RotateCommand extends Command {
 
