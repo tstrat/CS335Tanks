@@ -25,13 +25,12 @@ public class TanksDisplay extends JPanel {
 	
 	@Override
 	public void paint(Graphics g) {
-		super.paint(g);
-		
 		for (Actor a : world.getActors()) {
-			a.getDraw().draw(g, a.getX(), a.getY(), a.getRotation(), this);
+			a.getDraw().draw(g, a.getX(), a.getY(), a.getRotation());
 		}
 		Toolkit.getDefaultToolkit().sync();
-		g.dispose();
+		
+		super.paint(g);
 	}
 	
 }

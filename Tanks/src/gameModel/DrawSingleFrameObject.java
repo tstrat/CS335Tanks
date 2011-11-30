@@ -24,14 +24,10 @@ public class DrawSingleFrameObject implements DrawObject {
 	
 
 	@Override
-	public void draw(Graphics g, double x, double y, double rotation, ImageObserver obs) {
-/*		int[] xPoints = new int[] { (int)x, (int)x + 50, (int)x };
-		int[] yPoints = new int[] { (int)y, (int)y + 25, (int)y + 50 };
-		
-		g.drawPolygon(xPoints, yPoints, 3);*/
+	public void draw(Graphics g, double x, double y, double rotation) {
 		at.translate(x, y);
 		at.rotate(rotation);
-		((Graphics2D)g).drawImage(img, at, obs);		
+		((Graphics2D)g).drawImage(img, at, null);		
 		at.setToIdentity();
 	}
 

@@ -40,9 +40,11 @@ public class Obstacle extends Actor implements Collidable{
 		health -= d;
 	}
 
+	// TODO: This stuff should be moved to the relevant classes.
+	static DrawObject draw = new DrawSingleFrameObject("tankStan.png");
 	@Override
 	public DrawObject getDraw() {
-		return new DrawSingleFrameObject("tankStan.png");
+		return draw;
 	}
 
 }

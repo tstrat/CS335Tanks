@@ -5,6 +5,6 @@ import java.awt.image.ImageObserver;
 
 public interface DrawObject {
 
-	void draw(Graphics g, double x, double y, double rotation, ImageObserver obs);
+	void draw(Graphics g, double x, double y, double rotation);
 	
 }
