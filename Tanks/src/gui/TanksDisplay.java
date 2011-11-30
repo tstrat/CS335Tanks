@@ -6,6 +6,7 @@ import gameModel.World;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 
@@ -27,8 +28,10 @@ public class TanksDisplay extends JPanel {
 		super.paint(g);
 		
 		for (Actor a : world.getActors()) {
-			a.getDraw().draw(g, a.getX(), a.getY(), a.getRotation());
+			a.getDraw().draw(g, a.getX(), a.getY(), a.getRotation(), this);
 		}
+		Toolkit.getDefaultToolkit().sync();
+		g.dispose();
 	}
 	
 }

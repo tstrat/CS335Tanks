@@ -42,7 +42,7 @@ public class Obstacle extends Actor implements Collidable{
 
 	@Override
 	public DrawObject getDraw() {
-		return new DrawSingleFrameObject();
+		return new DrawSingleFrameObject("tankStan.png");
 	}
 
 }
