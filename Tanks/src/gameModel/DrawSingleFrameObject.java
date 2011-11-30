@@ -30,8 +30,9 @@ public class DrawSingleFrameObject implements DrawObject {
 		
 		g.drawPolygon(xPoints, yPoints, 3);*/
 		at.translate(x, y);
-		//at.rotate(rotation);
+		at.rotate(rotation);
 		((Graphics2D)g).drawImage(img, at, obs);		
+		at.setToIdentity();
 	}
 
 }

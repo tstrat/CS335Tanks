@@ -20,7 +20,7 @@ public class TanksDisplay extends JPanel {
 		setPreferredSize(new Dimension(600, 800));
 		
 		world = new World();
-		world.addActor(new Tank(200, 300, 0, 0));
+		world.addActor(new Tank(200, 300, 2, 2));
 	}
 	
 	@Override
