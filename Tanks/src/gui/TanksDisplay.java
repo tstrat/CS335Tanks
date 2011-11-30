@@ -17,7 +17,7 @@ public class TanksDisplay extends JPanel {
 	public TanksDisplay() {
 		super(true); // It is double buffered.
 		
-		setPreferredSize(new Dimension(600, 800));
+		setPreferredSize(new Dimension(800, 600));
 		
 		world = new World();
 		world.addActor(new Tank(200, 300, 2, 2));
