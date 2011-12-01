@@ -17,8 +17,8 @@ public class GameHandler implements CommandReceiver, ActionListener {
 	private List<Command> commands;
 	private Timer timer;
 	
-	public GameHandler() {
-		w = new World();
+	public GameHandler(World w) {
+		this.w = w;
 		timer = new Timer(20, this);
 		timer.start();
 	}
