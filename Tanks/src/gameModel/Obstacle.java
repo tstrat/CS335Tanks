@@ -1,16 +1,17 @@
 package gameModel;
 
+import java.awt.Rectangle;
+
 public class Obstacle extends Actor implements Collidable{
 	
 	protected int health;
 	protected int maxHealth;
+	private Rectangle boundaries;
 	
-
 	public Obstacle(double x, double y, double rotation) {
-		this.x = x;
-		this.y = y;
-		this.rotation = rotation;
+		super(x, y, rotation);
 		exists = true;
+		boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
 	}
 	
 	public Obstacle(double x, double y, double rotation, int health) {
@@ -18,6 +19,7 @@ public class Obstacle extends Actor implements Collidable{
 		
 		maxHealth = health;
 		this.health = health;
+		boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
 	}
 	
 	@Override
@@ -41,10 +43,18 @@ public class Obstacle extends Actor implements Collidable{
 	}
 
 	// TODO: This stuff should be moved to the relevant classes.
-	static DrawObject draw = new DrawSingleFrameObject("tankStan.png");
+	private static DrawObject draw = new DrawSingleFrameObject("tankStan.png");
+	
 	@Override
 	public DrawObject getDraw() {
 		return draw;
 	}
+	
+
+	public Rectangle getCollisionBox() {
+		boundaries.setLocation((int)x, (int)y);
+		return boundaries;
+	}
+
 
 }

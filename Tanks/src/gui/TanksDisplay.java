@@ -1,23 +1,32 @@
 package gui;
 
 import gameModel.Actor;
+<<<<<<< HEAD
 import gameModel.Command;
 import gameModel.CommandReceiver;
 import gameModel.GameHandler;
 import gameModel.MoveCommand;
 import gameModel.RotateCommand;
+=======
+import gameModel.Missile;
+>>>>>>> branch 'master' of https://bitbucket.org/parkovski/tanks.git
 import gameModel.Tank;
 import gameModel.World;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+<<<<<<< HEAD
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+=======
+import java.util.Observable;
+import java.util.Observer;
+>>>>>>> branch 'master' of https://bitbucket.org/parkovski/tanks.git
 
 import javax.swing.JPanel;
 
-public class TanksDisplay extends JPanel {
+public class TanksDisplay extends JPanel implements Observer {
 
 	private World world;
 	private GameHandler handler;
@@ -34,8 +43,12 @@ public class TanksDisplay extends JPanel {
 		world = new World();
 		handler = new GameHandler(world);
 		world.addActor(new Tank(200, 300, 2, 2));
+<<<<<<< HEAD
 		
 		addKeyListener(new TanksKeyboardListener(handler, 2));
+=======
+		world.addActor(new Missile(200, 300, 2, 50, 2));
+>>>>>>> branch 'master' of https://bitbucket.org/parkovski/tanks.git
 	}
 
 	@Override
@@ -102,6 +115,11 @@ public class TanksDisplay extends JPanel {
 			// This is also unnecessary.
 		}
 		
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		repaint();
 	}
 
 }

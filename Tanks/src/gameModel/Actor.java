@@ -8,14 +8,12 @@ public abstract class Actor implements CommandReceiver {
 	
 	public abstract void act();
 	
-	/*
-	 * I don't know how these will work, so I made them
-	 * not abstract (so no one had to implement them) and
-	 * had them return 0.
-	 * --Seungwoo Sun
-	 */
-	public double getWidth() {return 0;}
-	public double getHeight() {return 0;}
+	public Actor(double x, double y, double rotation) {
+		this.x = x;
+		this.y = y;
+		this.rotation = rotation;
+		
+	}
 	
 	public void setX(double x) {
 		this.x = x;
@@ -37,6 +35,7 @@ public abstract class Actor implements CommandReceiver {
 	public double getRotation() {
 		return rotation;
 	}
+	
 	
 	public abstract DrawObject getDraw();
 	
