@@ -29,6 +29,7 @@ public class DrawSingleFrameObject implements DrawObject {
 	public void draw(Graphics g, double x, double y, double rotation) {
 		at.translate(x, y);
 		at.rotate(rotation);
+		at.translate( -getWidth() / 2, -getHeight() / 2);
 		((Graphics2D)g).drawImage(img, at, null);		
 		at.setToIdentity();
 	}
