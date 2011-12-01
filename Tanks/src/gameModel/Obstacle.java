@@ -11,7 +11,7 @@ public class Obstacle extends Actor implements Collidable{
 	public Obstacle(double x, double y, double rotation) {
 		super(x, y, rotation);
 		exists = true;
-		boundaries = new Rectangle(draw.getwidth(), draw.getHeight());
+		boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
 	}
 	
 	public Obstacle(double x, double y, double rotation, int health) {
@@ -19,7 +19,7 @@ public class Obstacle extends Actor implements Collidable{
 		
 		maxHealth = health;
 		this.health = health;
-		boundaries = new Rectangle(draw.getwidth(), draw.getHeight());
+		boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
 	}
 	
 	@Override

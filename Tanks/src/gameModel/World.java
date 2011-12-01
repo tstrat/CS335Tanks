@@ -2,9 +2,10 @@ package gameModel;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 
 
-public class World {
+public class World extends Observable {
 	
 	private List<Actor> actors;
 	
@@ -28,6 +29,8 @@ public class World {
 		
 		while (it.hasNext())
 			it.next().act();
+		
+		notifyObservers();
 	}
 	
 	/**

@@ -36,7 +36,7 @@ public class DrawSingleFrameObject implements DrawObject {
 
 
 	@Override
-	public int getwidth() {
+	public int getWidth() {
 		// TODO Auto-generated method stub
 		return img.getWidth(null);
 	}
@@ -48,5 +48,9 @@ public class DrawSingleFrameObject implements DrawObject {
 		// TODO Auto-generated method stub
 		return img.getHeight(null);
 	}
+
+
+
+
 
 }

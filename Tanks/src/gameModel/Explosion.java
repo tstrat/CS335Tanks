@@ -22,7 +22,7 @@ public class Explosion extends Actor implements Collidable {
 		return draw;
 	}
 	
-	private Rectangle boundaries = new Rectangle(draw.getwidth(), draw.getHeight());
+	private Rectangle boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
 	public Rectangle getCollisionBox() {
 		boundaries.setLocation((int)x, (int)y);
 		return boundaries;
