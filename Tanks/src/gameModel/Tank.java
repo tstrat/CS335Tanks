@@ -14,11 +14,12 @@ public class Tank extends Obstacle{
 		this.gun = new Gun(1);	
 	}
 
-
-	public int getPlayer() {
+	@Override
+	public int getPlayerNumber() {
 		return player;
 	}
 
+	@Override
 	public void receiveCommand(Command c) {
 		// TODO Auto-generated method stub
 		

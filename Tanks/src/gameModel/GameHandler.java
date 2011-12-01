@@ -11,7 +11,7 @@ import javax.swing.Timer;
  * but not HOW to do things. That is up for the implementer
  * of World to decide.
  */
-public class GameHandler implements ActionListener {
+public class GameHandler implements CommandReceiver, ActionListener {
 	
 	private World w;
 	private List<Command> commands;
@@ -23,6 +23,7 @@ public class GameHandler implements ActionListener {
 		timer.start();
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// First, tell the world to handle collisions
 		w.handleCollisions();
@@ -37,23 +38,33 @@ public class GameHandler implements ActionListener {
 		w.makeActorsAct();		
 	}
 
-	/*
+	/**
 	 * The recieveCommand is how the GameHandler receives commands
 	 * from an external source so that it can relay them to the world.
 	 * If the command is a pause command, the GameHandler will pause
 	 * the game. Otherwise, it will add the command to the list of 
 	 * commands to send to the World
 	 * 
-	 * param c:
-	 * 				The Command to send to this GameHandler.
+	 * @param c The Command to send to this GameHandler.
 	 */
+	@Override
 	public void receiveCommand(Command c) {
-
+		commands.add(c);
 	}
 
 	private void pause() {
 		timer.stop();
 		// TODO: creates window that will restart the timer
+		// This should be done in the GUI, not here.
+	}
+	
+	/**
+	 * Determines whether the game is paused.
+	 * 
+	 * @return True if the game is paused, false otherwise.
+	 */
+	public boolean isPaused() {
+		return !timer.isRunning();
 	}
 
 }
