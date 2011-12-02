@@ -3,11 +3,9 @@ package gui;
 import gameModel.Actor;
 import gameModel.Command;
 import gameModel.CommandReceiver;
-import gameModel.FireCommand;
 import gameModel.GameHandler;
 import gameModel.MoveCommand;
 import gameModel.RotateCommand;
-import gameModel.Missile;
 import gameModel.Tank;
 import gameModel.World;
 
