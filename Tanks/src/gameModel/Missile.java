@@ -40,7 +40,6 @@ public class Missile extends Collidable{
 	public void collide(Collidable c) {
 		if(framesOld > 10){
 			if(c instanceof Obstacle) {
-				System.out.println(boundaries.intersection(c.getCollisionBox()).toString());
 				this.explode();
 				((Obstacle) c).receiveDamage(damage);
 			}
