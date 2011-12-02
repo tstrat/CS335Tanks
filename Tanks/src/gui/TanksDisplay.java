@@ -39,6 +39,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		world.addActor(new Tank(200, 300, 2, 2));
 		world.addActor(new Missile(200, 300, 2, 50, 2));
 
+		setFocusable(true);
+		requestFocus();
 		addKeyListener(new TanksKeyboardListener(handler, 2));
 	}
 
