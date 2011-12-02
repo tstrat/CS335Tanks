@@ -37,6 +37,8 @@ public class Tank extends Obstacle {
 			rotation += ((RotateCommand) c).getRotation();
 		} else if (c instanceof FireCommand) {
 			fire();
+		} else if (c instanceof RotateGunCommand) {
+			this.gun.rotateTowards(((RotateGunCommand) c).getX(), ((RotateGunCommand) c).getY());
 		}
 	}
 	
@@ -82,7 +84,7 @@ public class Tank extends Obstacle {
 	}
 
 	public void fire() {
-		if (missiles.size() < 5)
+		if (missiles.size() < 50)
 			missiles.addAll(gun.fireMissile());
 	}
 

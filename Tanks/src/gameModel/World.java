@@ -1,4 +1,5 @@
 package gameModel;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +11,7 @@ public class World extends Observable {
 	private List<Actor> actors;
 	
 	public World() {
-		actors = new LinkedList<Actor>();
+		actors = new ArrayList<Actor>();
 		// TODO: the world should be initialized by reading from 
 		// some map file, somehow
 		
@@ -25,10 +26,9 @@ public class World extends Observable {
 	 * World goes through all its actors, and makes them use their act() method.
 	 */
 	public void makeActorsAct() {
-		Iterator<Actor> it = actors.iterator();
-		
-		while (it.hasNext())
-			it.next().act();
+		for(int i = 0; i < actors.size(); i++) {
+			actors.get(i).act();
+		}
 		setChanged();
 		notifyObservers();
 	}
@@ -45,12 +45,8 @@ public class World extends Observable {
 	 * @param commands The list of Commands to send to the tanks.
 	 */
 	public void command(List<Command> commands) {
-		// TODO This method can be optimized to cache the players,
-		// avoiding the two loops.
-		Iterator<Actor> it = actors.iterator();
-		
-		while (it.hasNext()) {
-			Actor a = it.next();
+		for(int i = 0; i < actors.size(); i++) {
+			Actor a = actors.get(i);
 			for(Command c: commands) {
 				if (a.getPlayerNumber() == c.getPlayer())
 					a.receiveCommand(c);
