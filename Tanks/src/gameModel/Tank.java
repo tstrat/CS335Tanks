@@ -29,7 +29,6 @@ public class Tank extends Obstacle {
 		} else if (c instanceof RotateCommand) {
 			rotation += ((RotateCommand) c).getRotation();
 		}
-		System.out.println("omg guys");
 	}
 
 	/**
