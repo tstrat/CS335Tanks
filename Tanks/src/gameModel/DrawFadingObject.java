@@ -10,13 +10,12 @@ import java.awt.geom.AffineTransform;
 import javax.swing.ImageIcon;
 
 public class DrawFadingObject extends DrawSingleFrameObject {
-	float f;
-	AlphaComposite ac;
+	private float f;
+	private AlphaComposite ac;
 	
 	public DrawFadingObject(String imgName) {
 		super(imgName);
-		ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f);
-		f = 1;
+		ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f = 1);
 	}
 	
 	@Override

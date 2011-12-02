@@ -20,6 +20,7 @@ public class Missile extends Collidable{
 		framesOld++;
 		x += speed * Math.cos(rotation);
 		y += speed * Math.sin(rotation);
+		DustCloud.add(w, x, y);
 	}
 	
 	public void bounce() {
