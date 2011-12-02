@@ -1,8 +1,5 @@
 package gameModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Gun extends Actor {
 
 	private int damage;
@@ -14,7 +11,7 @@ public class Gun extends Actor {
 		super(w, x, y, rotation);
 		if (i == 1)
 			setGunStandard();
-		cD = 25;
+		cD = 45;
 		cDTimer = 0;
 		exists = true;
 	}
@@ -25,15 +22,12 @@ public class Gun extends Actor {
 		// coolDown = 30;
 	}
 
-	public List<Missile> fireMissile() {
-		List<Missile> missles = new ArrayList<Missile>();
+	public void fireMissile() {
 		if (cDTimer == 0) {
 			Missile m = new Missile(w, x, y, rotation, damage, shellSpeed);
 			w.addActor(m);
-			missles.add(m);
 			cDTimer += cD;
 		}
-		return missles;
 	}
 
 	@Override

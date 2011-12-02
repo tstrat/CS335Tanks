@@ -8,8 +8,6 @@ public class Tank extends Obstacle {
 	private int player;
 	private double speed;
 	private Gun gun;
-	private List<Missile> missiles;
-
 	public Tank(World w, double x, double y, double rotation, int player) {
 		super(w, x, y, rotation);
 		this.player = player;
@@ -18,7 +16,7 @@ public class Tank extends Obstacle {
 		this.gun = new Gun(w, x, y, rotation, 1);
 		w.addActor(this);
 		w.addActor(this.gun);
-		missiles = new ArrayList<Missile>();
+		new ArrayList<Missile>();
 	}
 
 	@Override
@@ -86,8 +84,7 @@ public class Tank extends Obstacle {
 	}
 
 	public void fire() {
-		if (missiles.size() < 50)
-			missiles.addAll(gun.fireMissile());
+		gun.fireMissile();
 	}
 
 	// TODO: This stuff should be moved to the relevant classes.
