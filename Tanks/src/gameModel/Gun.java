@@ -79,4 +79,9 @@ public class Gun extends Actor {
 		return draw;
 	}
 
+	public void rotate(double rotation) {
+		this.rotation += rotation;
+		
+	}
+
 }

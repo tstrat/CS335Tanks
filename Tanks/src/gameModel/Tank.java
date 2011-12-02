@@ -39,6 +39,8 @@ public class Tank extends Obstacle {
 			fire();
 		} else if (c instanceof RotateGunCommand) {
 			this.gun.rotateTowards(((RotateGunCommand) c).getX(), ((RotateGunCommand) c).getY());
+		} else if (c instanceof RotateGunCommand2) {
+			this.gun.rotate(((RotateGunCommand2) c).getRotation());
 		}
 	}
 	

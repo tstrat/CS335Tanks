@@ -8,6 +8,7 @@ import gameModel.GameHandler;
 import gameModel.MoveCommand;
 import gameModel.RotateCommand;
 import gameModel.RotateGunCommand;
+import gameModel.RotateGunCommand2;
 import gameModel.Tank;
 import gameModel.World;
 
@@ -48,7 +49,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		setFocusable(true);
 		requestFocus();
 		addKeyListener(new TanksKeyboardListener(handler, 2));
-		addMouseListener(new TanksMouseListener(handler, 2));
+		addKeyListener(new TankTurretKeyboardListener(handler, 2));
+		//addMouseListener(new TanksMouseListener(handler, 2));
 	}
 
 	@Override
@@ -185,6 +187,54 @@ public class TanksDisplay extends JPanel implements Observer {
 			
 		}
 		
+	}
+	
+	private class TankTurretKeyboardListener implements KeyListener {
+
+		private CommandReceiver receiver;
+		private int player;
+
+		public TankTurretKeyboardListener(CommandReceiver receiver, int player) {
+			this.receiver = receiver;
+			this.player = player;
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			int keyCode = e.getKeyCode();
+
+			Command c = null;
+
+			// TODO: This shouldn't be hard wired to player 2.
+			switch (keyCode) {
+			case KeyEvent.VK_J:
+				c = new RotateGunCommand2(player, -.05);
+				break;
+
+			case KeyEvent.VK_K:
+				c = new FireCommand(player);
+				break;
+
+			case KeyEvent.VK_L:
+				c = new RotateGunCommand2(player, .05);
+				break;
+
+			}
+
+			if (c != null)
+				receiver.receiveCommand(c);
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// We don't need to do anything here.
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// This is also unnecessary.
+		}
+
 	}
 
 	@Override
