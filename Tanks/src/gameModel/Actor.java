@@ -64,4 +64,8 @@ public abstract class Actor implements CommandReceiver {
 		// Do nothing.
 	}
 	
+	public boolean exists() {
+		return exists;
+	}
+	
 }

@@ -1,8 +1,6 @@
 package gameModel;
 
-import java.awt.Rectangle;
-
-public class Terrain extends Actor implements Collidable {
+public class Terrain extends Collidable {
 
 	public Terrain(World w, double x, double y, double rotation) {
 		super(w, x, y, rotation);
@@ -18,12 +16,6 @@ public class Terrain extends Actor implements Collidable {
 	@Override
 	public DrawObject getDraw() {
 		return draw;
-	}
-	
-	private Rectangle boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
-	public Rectangle getCollisionBox() {
-		boundaries.setLocation((int)x, (int)y);
-		return boundaries;
 	}
 	
 	@Override

@@ -98,6 +98,16 @@ public class Tank extends Obstacle {
 		return draw;
 	}
 	
+	@Override
+	public boolean exists() {
+		if(health <= 0) {
+			this.gun.destroy();
+			return false;
+		}
+		return true;
+		
+	}
+	
 
 
 }

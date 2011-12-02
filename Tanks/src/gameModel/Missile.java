@@ -1,22 +1,23 @@
 package gameModel;
 
-import java.awt.Rectangle;
-
-public class Missile extends Actor implements Collidable{
+public class Missile extends Collidable{
 	
 	private int damage;
 	private double speed;
+	private int framesOld;
 	
 	public Missile(World w, double x, double y, double rotation, int d, double s) {
 		super(w, x, y, rotation);
 		damage = d;
 		speed = s;
 		exists = true;
+		framesOld = 0;
 	}
 
 	@Override
 	public void act() {
 		bounce();
+		framesOld++;
 		x += speed * Math.cos(rotation);
 		y += speed * Math.sin(rotation);
 	}
@@ -37,14 +38,16 @@ public class Missile extends Actor implements Collidable{
 
 	@Override
 	public void collide(Collidable c) {
-		// TODO Auto-generated method stub
-		if(c instanceof Obstacle) {
-			this.explode();
-			((Obstacle) c).receiveDamage(damage);
-		}
-		else if(c instanceof Missile) {
-			this.explode();
-			((Missile) c).explode();
+		if(framesOld > 10){
+			if(c instanceof Obstacle) {
+				System.out.println(boundaries.intersection(c.getCollisionBox()).toString());
+				this.explode();
+				((Obstacle) c).receiveDamage(damage);
+			}
+			else if(c instanceof Missile) {
+				this.explode();
+				((Missile) c).explode();
+			}
 		}
 			
 	}
@@ -54,7 +57,6 @@ public class Missile extends Actor implements Collidable{
 		// This is problematic, as are all SFX;
 		// Since they all require knowing the 
 		// world
-		
 		exists = false;
 	}
 
@@ -66,10 +68,6 @@ public class Missile extends Actor implements Collidable{
 		return draw;
 	}
 	
-	private Rectangle boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
-	public Rectangle getCollisionBox() {
-		boundaries.setLocation((int)x, (int)y);
-		return boundaries;
-	}
+
 
 }

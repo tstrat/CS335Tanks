@@ -83,5 +83,9 @@ public class Gun extends Actor {
 		this.rotation += rotation;
 		
 	}
+	
+	public void destroy() {
+		exists = false;
+	}
 
 }
