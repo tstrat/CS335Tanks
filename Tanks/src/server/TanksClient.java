@@ -14,16 +14,18 @@ public class TanksClient {
 	private ObjectInputStream is;
 	private Thread receivingThread;
 	
-	private String name;
+	private GameHandler gh;
+	private String ip = "";
 	
-	public TanksClient(String name){
-		this.name = name;
+	public TanksClient(GameHandler gameHandler, String ip){
+		this.gh = gameHandler;
+		this.ip = ip;
 		start();
 	}
 	
 	public void start(){
 		try {
-			client = new Socket("localhost", 4002);
+			client = new Socket(ip, 4002);
 			
 			os = new ObjectOutputStream(client.getOutputStream());
 			is = new ObjectInputStream(client.getInputStream());
@@ -44,6 +46,7 @@ public class TanksClient {
 			while (true) {
 				try {
 					Command c = (Command) is.readObject();
+					gh.receiveCommand(c);
 					
 				} catch (IOException e) {
 					JOptionPane

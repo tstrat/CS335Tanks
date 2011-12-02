@@ -21,8 +21,15 @@ public class Tank extends Obstacle {
 
 	@Override
 	public void receiveCommand(Command c) {
-		// TODO Auto-generated method stub
-
+		if (c instanceof MoveCommand) {
+			double delta = ((MoveCommand) c).getX();
+			
+			x += delta * Math.cos(rotation);
+			y += delta * Math.sin(rotation);
+		} else if (c instanceof RotateCommand) {
+			rotation += ((RotateCommand) c).getRotation();
+		}
+		System.out.println("omg guys");
 	}
 
 	/**
