@@ -100,15 +100,15 @@ public class TanksDisplay extends JPanel implements Observer {
 				c = new MoveCommand(player, -5, 0);
 				break;
 				
-			case KeyEvent.VK_K:
+			case KeyEvent.VK_J:
 				c = new RotateGunCommand2(player, -.05);
 				break;
 
-			case KeyEvent.VK_L:
+			case KeyEvent.VK_K:
 				c = new FireCommand(player);
 				break;
 
-			case KeyEvent.VK_SEMICOLON:
+			case KeyEvent.VK_L:
 				c = new RotateGunCommand2(player, .05);
 				break;
 
