@@ -2,9 +2,10 @@ package gameModel;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 
 
-public class World {
+public class World extends Observable {
 	
 	private List<Actor> actors;
 	
@@ -28,27 +29,29 @@ public class World {
 		
 		while (it.hasNext())
 			it.next().act();
+		
+		notifyObservers();
 	}
 	
-	/*
+	/**
 	 * command() commands the actors with the list of commands
 	 * passed through the parameter. This method first goes
-	 * throught all the actors, and find which ones are Tanks.
-	 * It then gives each tank all the commands; each tank will
-	 * only follow commands relevent to them.
+	 * through all the actors, checks the Actor's player number.
+	 * If the player number matches the one on the Command, it
+	 * receives the command.
 	 * 
-	 * param c:
-	 * 				The Command to send to the tanks.
+	 * @param commands The list of Commands to send to the tanks.
 	 */
 	public void command(List<Command> commands) {
+		// TODO This method can be optimized to cache the players,
+		// avoiding the two loops.
 		Iterator<Actor> it = actors.iterator();
 		
 		while (it.hasNext()) {
 			Actor a = it.next();
-			if(a instanceof Tank) {
-				for(Command c: commands) {
-					((Tank) a).receiveCommand(c);
-				}
+			for(Command c: commands) {
+				if (a.getPlayerNumber() == c.getPlayer())
+					a.receiveCommand(c);
 			}
 		}		
 	}

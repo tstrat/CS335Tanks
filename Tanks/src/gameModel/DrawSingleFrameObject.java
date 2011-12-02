@@ -1,8 +1,10 @@
 package gameModel;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
 
@@ -27,8 +29,29 @@ public class DrawSingleFrameObject implements DrawObject {
 	public void draw(Graphics g, double x, double y, double rotation) {
 		at.translate(x, y);
 		at.rotate(rotation);
+		at.translate( -getWidth() / 2, -getHeight() / 2);
 		((Graphics2D)g).drawImage(img, at, null);		
 		at.setToIdentity();
 	}
+
+
+
+	@Override
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return img.getWidth(null);
+	}
+
+
+
+	@Override
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return img.getHeight(null);
+	}
+
+
+
+
 
 }

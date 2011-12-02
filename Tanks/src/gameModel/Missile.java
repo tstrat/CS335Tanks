@@ -1,11 +1,14 @@
 package gameModel;
 
+import java.awt.Rectangle;
+
 public class Missile extends Actor implements Collidable{
 	
 	private int damage;
 	private double speed;
 	
-	public Missile(int d, double s) {
+	public Missile(double x, double y, double rotation, int d, double s) {
+		super(x, y, rotation);
 		damage = d;
 		speed = s;
 		exists = true;
@@ -42,9 +45,18 @@ public class Missile extends Actor implements Collidable{
 		exists = false;
 	}
 
+	// TODO: This stuff should be moved to the relevant classes.
+	private static DrawObject draw = new DrawSingleFrameObject("missile.png");
+	
 	@Override
 	public DrawObject getDraw() {
-		return null;
+		return draw;
+	}
+	
+	private Rectangle boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
+	public Rectangle getCollisionBox() {
+		boundaries.setLocation((int)x, (int)y);
+		return boundaries;
 	}
 
 }

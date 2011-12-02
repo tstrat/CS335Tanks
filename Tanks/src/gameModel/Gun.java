@@ -1,20 +1,21 @@
 package gameModel;
 
+import java.awt.Rectangle;
+
 public class Gun extends Actor {
 
 	private int damage;
 	private double shellSpeed;
-/*	private int coolDown;
-	private int cDTimer;*/
 	
-	public Gun(int i) {
+	public Gun(double x, double y, double rotation, int i) {
+		super(x, y, rotation);
 		if(i == 1) 
 			setGunStandard();
 		//cDTimer = 0;
 		exists = true;
 	}
 
-	/*
+	/**
 	 * We can make an enum concerning guns,
 	 * as was done with Tank.
 	 */
@@ -25,7 +26,7 @@ public class Gun extends Actor {
 	}
 
 	public void fireMissile(World w) {
-		Missile m = new Missile(damage, shellSpeed);
+		Missile m = new Missile(x, y, rotation, damage, shellSpeed);
 		m.setX(x);
 		m.setY(getY());
 		m.setRotation(getRotation());
@@ -39,9 +40,11 @@ public class Gun extends Actor {
 			cDTimer--;*/
 	}
 
+	// TODO: This stuff should be moved to the relevant classes.
+	private static DrawObject draw = new DrawSingleFrameObject("gunStan.png");
 	@Override
 	public DrawObject getDraw() {
-		return null;
+		return draw;
 	}
 
 
