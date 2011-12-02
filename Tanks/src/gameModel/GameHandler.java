@@ -1,6 +1,7 @@
 package gameModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Timer;
 
@@ -20,6 +21,14 @@ public class GameHandler implements CommandReceiver, ActionListener {
 		w = new World();
 		timer = new Timer(20, this);
 		timer.start();
+		commands = new ArrayList<Command>();
+	}
+	
+	public GameHandler(World wor) {
+		w = wor;
+		timer = new Timer(20, this);
+		timer.start();
+		commands = new ArrayList<Command>();
 	}
 
 	@Override

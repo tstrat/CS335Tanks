@@ -1,6 +1,7 @@
 package gui;
 
 import gameModel.Actor;
+import gameModel.GameHandler;
 import gameModel.Missile;
 import gameModel.Tank;
 import gameModel.World;
@@ -19,12 +20,15 @@ public class TanksDisplay extends JPanel implements Observer {
 
 	public TanksDisplay() {
 		super(true); // It is double buffered.
-
 		setPreferredSize(new Dimension(800, 600));
 
 		world = new World();
-		world.addActor(new Tank(200, 300, 2, 2));
-		world.addActor(new Missile(200, 300, 2, 50, 2));
+		Tank t = new Tank(200, 300, 2, 2);
+		world.addActor(t);
+		t.fire(world);
+		
+		new GameHandler(world);
+		world.addObserver(this);
 	}
 
 	@Override

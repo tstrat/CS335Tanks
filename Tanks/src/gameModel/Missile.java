@@ -16,8 +16,21 @@ public class Missile extends Actor implements Collidable{
 
 	@Override
 	public void act() {
+		bounce();
 		x += speed * Math.cos(rotation);
 		y += speed * Math.sin(rotation);
+	}
+	
+	public void bounce() {
+		if(x < 0)
+			setRotation(-(Math.PI + getRotation()));
+		else if(x > 800)
+			setRotation(-(Math.PI + getRotation()));
+		if(y > 600)
+			setRotation(-(getRotation()));
+		if(y < 0)
+			setRotation(-(getRotation()));
+		
 	}
 
 

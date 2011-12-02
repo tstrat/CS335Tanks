@@ -10,6 +10,7 @@ public class BasicFrame extends JFrame {
 		add(new TanksDisplay());
 		
 		pack();
+		setResizable(false);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

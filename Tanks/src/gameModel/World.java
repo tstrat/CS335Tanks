@@ -29,9 +29,11 @@ public class World extends Observable {
 		
 		while (it.hasNext())
 			it.next().act();
-		
+		setChanged();
 		notifyObservers();
 	}
+	
+	
 	
 	/**
 	 * command() commands the actors with the list of commands
