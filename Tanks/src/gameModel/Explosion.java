@@ -4,8 +4,8 @@ import java.awt.Rectangle;
 
 public class Explosion extends Actor implements Collidable {
 
-	public Explosion(double x, double y, double rotation) {
-		super(x, y, rotation);
+	public Explosion(World w, double x, double y, double rotation) {
+		super(w, x, y, rotation);
 		// TODO Auto-generated constructor stub
 	}
 

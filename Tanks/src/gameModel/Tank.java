@@ -1,17 +1,24 @@
 package gameModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tank extends Obstacle {
 
 	private int player;
 	private double speed;
 	private Gun gun;
+	private List<Missile> missiles;
 
-	public Tank(double x, double y, double rotation, int player) {
-		super(x, y, rotation);
+	public Tank(World w, double x, double y, double rotation, int player) {
+		super(w, x, y, rotation);
 		this.player = player;
 		this.health = 500;
 		this.speed = 1;
-		this.gun = new Gun(x, y, rotation, 1);
+		this.gun = new Gun(w, x, y, rotation, 1);
+		w.addActor(this);
+		w.addActor(this.gun);
+		missiles = new ArrayList<Missile>();
 	}
 
 	@Override
@@ -28,7 +35,16 @@ public class Tank extends Obstacle {
 			y += delta * Math.sin(rotation);
 		} else if (c instanceof RotateCommand) {
 			rotation += ((RotateCommand) c).getRotation();
+		} else if (c instanceof FireCommand) {
+			fire();
 		}
+	}
+	
+	@Override
+	public void act() {
+		this.gun.setX(x);
+		this.gun.setY(y);
+		super.act();
 	}
 
 	/**
@@ -65,8 +81,9 @@ public class Tank extends Obstacle {
 		rotation -= .05;
 	}
 
-	public void fire(World w) {
-		gun.fireMissile(w);
+	public void fire() {
+		if (missiles.size() < 5)
+			missiles.addAll(gun.fireMissile());
 	}
 
 	// TODO: This stuff should be moved to the relevant classes.

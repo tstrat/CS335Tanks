@@ -4,8 +4,8 @@ import java.awt.Rectangle;
 
 public class Terrain extends Actor implements Collidable {
 
-	public Terrain(double x, double y, double rotation) {
-		super(x, y, rotation);
+	public Terrain(World w, double x, double y, double rotation) {
+		super(w, x, y, rotation);
 		// TODO Auto-generated constructor stub
 	}
 

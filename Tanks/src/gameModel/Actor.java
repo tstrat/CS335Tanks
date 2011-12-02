@@ -5,10 +5,12 @@ public abstract class Actor implements CommandReceiver {
 	protected boolean exists;
 	protected double x, y;
 	protected double rotation;
+	protected World w;
 	
 	public abstract void act();
 	
-	public Actor(double x, double y, double rotation) {
+	public Actor(World w, double x, double y, double rotation) {
+		this.w = w;
 		this.x = x;
 		this.y = y;
 		this.rotation = rotation;

@@ -3,6 +3,7 @@ package gui;
 import gameModel.Actor;
 import gameModel.Command;
 import gameModel.CommandReceiver;
+import gameModel.FireCommand;
 import gameModel.GameHandler;
 import gameModel.MoveCommand;
 import gameModel.RotateCommand;
@@ -26,22 +27,21 @@ public class TanksDisplay extends JPanel implements Observer {
 	private GameHandler handler;
 
 	/**
-	 * The default constructor creates a World and GameHandler
-	 * and adds a Tank to the World.
+	 * The default constructor creates a World and GameHandler and adds a Tank
+	 * to the World.
 	 */
 	public TanksDisplay() {
 		super(true); // It is double buffered.
-		
+
 		setPreferredSize(new Dimension(800, 600));
 
 		world = new World();
-		Tank t = new Tank(200, 300, 2, 2);
-		world.addActor(t);
-		t.fire(world);
-		
+		Tank t = new Tank(world, 200, 300, 2, 2);
+		t.fire();
+
 		handler = new GameHandler(world);
 		world.addObserver(this);
-		
+
 		setFocusable(true);
 		requestFocus();
 		addKeyListener(new TanksKeyboardListener(handler, 2));
@@ -55,10 +55,10 @@ public class TanksDisplay extends JPanel implements Observer {
 		}
 		Toolkit.getDefaultToolkit().sync();
 	}
-	
+
 	/**
-	 * This class handles keyboard commands for the TanksDisplay.
-	 * Basic commands are W/A/S/D.
+	 * This class handles keyboard commands for the TanksDisplay. Basic commands
+	 * are W/A/S/D.
 	 * 
 	 * @author Parker Snell
 	 */
@@ -66,37 +66,38 @@ public class TanksDisplay extends JPanel implements Observer {
 
 		private CommandReceiver receiver;
 		private int player;
-		
+
 		public TanksKeyboardListener(CommandReceiver receiver, int player) {
 			this.receiver = receiver;
 			this.player = player;
 		}
-		
+
 		@Override
 		public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
-			
+
 			Command c = null;
-			
+
 			// TODO: This shouldn't be hard wired to player 2.
 			switch (keyCode) {
 			case KeyEvent.VK_A:
 				c = new RotateCommand(player, -.05);
 				break;
-				
+
 			case KeyEvent.VK_D:
 				c = new RotateCommand(player, .05);
 				break;
-				
+
 			case KeyEvent.VK_W:
 				c = new MoveCommand(player, 5, 0);
 				break;
-				
+
 			case KeyEvent.VK_S:
 				c = new MoveCommand(player, -5, 0);
 				break;
+
 			}
-			
+
 			if (c != null)
 				receiver.receiveCommand(c);
 		}
@@ -110,7 +111,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		public void keyTyped(KeyEvent e) {
 			// This is also unnecessary.
 		}
-		
+
 	}
 
 	@Override

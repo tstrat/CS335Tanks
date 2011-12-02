@@ -8,14 +8,14 @@ public class Obstacle extends Actor implements Collidable{
 	protected int maxHealth;
 	private Rectangle boundaries;
 	
-	public Obstacle(double x, double y, double rotation) {
-		super(x, y, rotation);
+	public Obstacle(World w, double x, double y, double rotation) {
+		super(w, x, y, rotation);
 		exists = true;
 		boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
 	}
 	
-	public Obstacle(double x, double y, double rotation, int health) {
-		this(x, y, rotation);
+	public Obstacle(World w, double x, double y, double rotation, int health) {
+		this(w, x, y, rotation);
 		
 		maxHealth = health;
 		this.health = health;

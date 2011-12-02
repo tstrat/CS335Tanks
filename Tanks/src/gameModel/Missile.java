@@ -7,8 +7,8 @@ public class Missile extends Actor implements Collidable{
 	private int damage;
 	private double speed;
 	
-	public Missile(double x, double y, double rotation, int d, double s) {
-		super(x, y, rotation);
+	public Missile(World w, double x, double y, double rotation, int d, double s) {
+		super(w, x, y, rotation);
 		damage = d;
 		speed = s;
 		exists = true;
