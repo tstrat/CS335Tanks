@@ -4,7 +4,7 @@ public class DustCloud extends Actor {
 
 	public int ticsLeft;
 	public DustCloud(World w, double x, double y) {
-		super(w, x, y, 0);
+		super(w, x, y, Math.random());
 		ticsLeft = 100;
 	}
 
@@ -13,7 +13,7 @@ public class DustCloud extends Actor {
 		ticsLeft--;
 	}
 
-	static DrawObject draw = new DrawFadingObject("dustCloud.png");
+	private DrawObject draw = new DrawFadingObject("dustCloud.png");
 	@Override
 	public DrawObject getDraw() {
 		return draw;
@@ -25,9 +25,8 @@ public class DustCloud extends Actor {
 	}
 
 	public static void add(World w, double x, double y) {
-		w.addActor(new DustCloud(w, x, y));
-		System.out.println("yo");
-		
+		if (Math.random() < 0.5)
+			w.addActor(new DustCloud(w, x, y));
 	}
 
 }

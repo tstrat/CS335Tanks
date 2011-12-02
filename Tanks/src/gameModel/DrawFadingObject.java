@@ -31,11 +31,15 @@ public class DrawFadingObject extends DrawSingleFrameObject {
 		at.setToIdentity();
 		fade();
 	}
-	public void fade(){
-		if(f < .01)
+	public void fade() {
+		if (f == 0.0f)
 			return;
-		f -= .01;
-		 ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f); 
+		
+		f -= .05f;
+		if (f <= 0.05f)
+			f = 0.0f;
+		
+		ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f); 
 	}
 
 
