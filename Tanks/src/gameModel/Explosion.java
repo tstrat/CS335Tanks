@@ -1,26 +1,14 @@
 package gameModel;
 
-public class Explosion extends Collidable {
+public class Explosion {
 
-	public Explosion(World w, double x, double y, double rotation) {
-		super(w, x, y, rotation);
-		// TODO Auto-generated constructor stub
+	public Explosion(World w, double x, double y, int damage, double radius) {
+		System.out.println(damage);
+		for(int i = 0; i < damage; i += 40) {
+			w.addActor(new FireBall(w, x, y, 2 * Math.PI * Math.random(), Math.random() * radius/ 20));
+			System.out.println(i);
+		}
 	}
 
-	@Override
-	public void collide(Collidable c) {
-		// TODO Auto-generated method stub
 
-	}
-
-	// TODO: This stuff should be moved to the relevant classes.
-	private static DrawObject draw = new DrawSingleFrameObject("missile.png");	
-	@Override
-	public DrawObject getDraw() {
-		return draw;
-	}
-	
-	@Override
-	public void act() {
-	}
 }

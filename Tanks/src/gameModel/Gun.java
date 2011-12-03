@@ -17,7 +17,7 @@ public class Gun extends Actor {
 	}
 
 	private void setGunStandard() {
-		damage = 80;
+		damage = 300;
 		shellSpeed = 7.5;
 		// coolDown = 30;
 	}

@@ -5,9 +5,11 @@ public class Missile extends Collidable{
 	private int damage;
 	private double speed;
 	private int framesOld;
+	private int bounces;
 	
 	public Missile(World w, double x, double y, double rotation, int d, double s) {
 		super(w, x, y, rotation);
+		bounces = 0;
 		damage = d;
 		speed = s;
 		exists = true;
@@ -24,15 +26,22 @@ public class Missile extends Collidable{
 	}
 	
 	public void bounce() {
-		if(x < 0)
+		if(x < 0) {
 			setRotation(-(Math.PI + getRotation()));
-		else if(x > 800)
+			bounces++;
+		} else if(x > 800) {
 			setRotation(-(Math.PI + getRotation()));
-		if(y > 600)
+			bounces++;
+		}
+		if(y > 600) {
 			setRotation(-(getRotation()));
-		if(y < 0)
+			bounces++;
+		} else if(y < 0){
 			setRotation(-(getRotation()));
-		
+			bounces++;
+		}
+		if(bounces > 2)
+			explode();
 	}
 
 
@@ -57,6 +66,9 @@ public class Missile extends Collidable{
 		// This is problematic, as are all SFX;
 		// Since they all require knowing the 
 		// world
+		if(exists)
+			new Explosion(w, x, y, 200, 50);
+		
 		exists = false;
 	}
 

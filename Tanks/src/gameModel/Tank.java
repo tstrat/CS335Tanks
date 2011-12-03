@@ -11,7 +11,7 @@ public class Tank extends Obstacle {
 	public Tank(World w, double x, double y, double rotation, int player) {
 		super(w, x, y, rotation);
 		this.player = player;
-		this.health = 500;
+		this.health = 2000;
 		this.speed = 1;
 		this.gun = new Gun(w, x, y, rotation, 1);
 		w.addActor(this);
