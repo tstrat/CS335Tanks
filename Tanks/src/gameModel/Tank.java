@@ -13,7 +13,7 @@ public class Tank extends Obstacle {
 		oldX = x;
 		oldY = y;
 		this.player = player;
-		this.health = 2000;
+		this.health = 2500;
 		this.speed = 1;
 		this.gun = new Gun(w, x, y, rotation, 1);
 		w.addActor(this);
@@ -37,6 +37,7 @@ public class Tank extends Obstacle {
 			y += delta * Math.sin(rotation);
 		} else if (c instanceof RotateCommand) {
 			rotation += ((RotateCommand) c).getRotation();
+			this.gun.rotate(((RotateCommand) c).getRotation());
 		} else if (c instanceof FireCommand) {
 			fire();
 		} else if (c instanceof RotateGunCommand) {

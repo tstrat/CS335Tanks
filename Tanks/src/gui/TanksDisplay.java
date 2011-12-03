@@ -102,26 +102,26 @@ public class TanksDisplay extends JPanel implements Observer {
 		public void step() {
 			// WASD move/rotate.
 			if (keyStates[KEY_W])
-				receiver.receiveCommand(new MoveCommand(player, 5, 0));
+				receiver.receiveCommand(new MoveCommand(player, 3, 0));
 			
 			if (keyStates[KEY_A])
-				receiver.receiveCommand(new RotateCommand(player, -0.05));
+				receiver.receiveCommand(new RotateCommand(player, -0.03));
 			
 			if (keyStates[KEY_S])
-				receiver.receiveCommand(new MoveCommand(player, -5, 0));
+				receiver.receiveCommand(new MoveCommand(player, -1.5, 0));
 			
 			if (keyStates[KEY_D])
-				receiver.receiveCommand(new RotateCommand(player, 0.05));
+				receiver.receiveCommand(new RotateCommand(player, 0.03));
 			
 			// JKL gun.
 			if (keyStates[KEY_J])
-				receiver.receiveCommand(new RotateGunCommand2(player, -0.05));
+				receiver.receiveCommand(new RotateGunCommand2(player, -0.065));
 			
 			if (keyStates[KEY_K])
 				receiver.receiveCommand(new FireCommand(player));
 			
 			if (keyStates[KEY_L])
-				receiver.receiveCommand(new RotateGunCommand2(player, 0.05));
+				receiver.receiveCommand(new RotateGunCommand2(player, 0.06));
 		}
 
 		@Override
