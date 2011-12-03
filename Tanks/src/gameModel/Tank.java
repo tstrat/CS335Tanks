@@ -13,7 +13,7 @@ public class Tank extends Obstacle {
 		oldX = x;
 		oldY = y;
 		this.player = player;
-		this.health = 20000;
+		this.health = 2000;
 		this.speed = 1;
 		this.gun = new Gun(w, x, y, rotation, 1);
 		w.addActor(this);
@@ -116,6 +116,7 @@ public class Tank extends Obstacle {
 	public boolean exists() {
 		if(health <= 0) {
 			this.gun.destroy();
+			new Explosion(w, x, y, 50, 200, 1);
 			return false;
 		}
 		return true;

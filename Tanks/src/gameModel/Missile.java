@@ -67,7 +67,7 @@ public class Missile extends Collidable{
 		// Since they all require knowing the 
 		// world
 		if(exists)
-			new Explosion(w, x, y, 200, 50);
+			new Explosion(w, x, y, 10, 50, 2);
 		
 		exists = false;
 	}

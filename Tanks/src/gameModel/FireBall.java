@@ -4,17 +4,19 @@ public class FireBall extends Collidable {
 	
 	private int lifeTime;
 	private double speed;
+	private int damage;
 	
-	public FireBall(World w, double x, double y, double rotation, double speed) {
+	public FireBall(World w, double x, double y, double rotation, double speed, int damage) {
 		super(w, x, y, rotation);
 		lifeTime = 20;
 		this.speed = speed;
+		this.damage = damage;
 	}
 
 	@Override
 	public void collide(Collidable c) {
 		if(c instanceof Obstacle) {
-			((Obstacle) c).receiveDamage(2);
+			((Obstacle) c).receiveDamage(damage);
 		}
 
 	}
