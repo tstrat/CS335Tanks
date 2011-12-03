@@ -49,7 +49,7 @@ public class Missile extends Collidable{
 
 	@Override
 	public void collide(Collidable c) {
-		if(framesOld > 10){
+		if(framesOld > 8){
 			if(c instanceof Obstacle) {
 				this.explode();
 				((Obstacle) c).receiveDamage(damage);
@@ -68,7 +68,7 @@ public class Missile extends Collidable{
 		// Since they all require knowing the 
 		// world
 		if(exists)
-			new Explosion(w, x, y, 10, 50, 2);
+			new Explosion(w, x, y, 3, 50, 6);
 		
 		exists = false;
 	}

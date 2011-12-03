@@ -27,6 +27,10 @@ public class Obstacle extends Collidable{
 	public int getHealth() {
 		return health;
 	}
+	
+	public int getMaxHealth() {
+		return maxHealth;
+	}
 
 	@Override
 	public void act() {
