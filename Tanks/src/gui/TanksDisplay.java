@@ -9,7 +9,6 @@ import gameModel.MoveCommand;
 import gameModel.RotateCommand;
 import gameModel.RotateGunCommand;
 import gameModel.RotateGunCommand2;
-import gameModel.Tank;
 import gameModel.World;
 
 import java.awt.Color;
@@ -19,7 +18,6 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -42,8 +40,6 @@ public class TanksDisplay extends JPanel implements Observer {
 		setBackground(new Color(245, 228, 156));
 
 		world = new World();
-		Tank t = new Tank(world, 200, 300, 2, 2);
-
 		handler = new GameHandler(world);
 		world.addObserver(this);
 
