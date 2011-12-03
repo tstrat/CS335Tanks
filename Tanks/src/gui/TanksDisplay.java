@@ -44,6 +44,7 @@ public class TanksDisplay extends JPanel implements Observer {
 
 		world = new World();
 		new Tank(world, 200, 300, 2, 2);
+		new Tank(world, 500, 400, 2, 3);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 
