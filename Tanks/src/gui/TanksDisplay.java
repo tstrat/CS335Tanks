@@ -12,6 +12,7 @@ import gameModel.RotateGunCommand2;
 import gameModel.Tank;
 import gameModel.World;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -38,6 +39,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		super(true); // It is double buffered.
 
 		setPreferredSize(new Dimension(800, 600));
+		setBackground(new Color(245, 228, 156));
 
 		world = new World();
 		Tank t = new Tank(world, 200, 300, 2, 2);
