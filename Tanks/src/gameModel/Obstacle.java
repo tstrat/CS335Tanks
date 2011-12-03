@@ -1,25 +1,21 @@
 package gameModel;
 
-import java.awt.Rectangle;
-
-public class Obstacle extends Actor implements Collidable{
+public class Obstacle extends Collidable{
 	
 	protected int health;
 	protected int maxHealth;
-	private Rectangle boundaries;
+	private static int drawPriority = 10;
 	
-	public Obstacle(double x, double y, double rotation) {
-		super(x, y, rotation);
+	public Obstacle(World w, double x, double y, double rotation) {
+		super(w, x, y, rotation);
 		exists = true;
-		boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
 	}
 	
-	public Obstacle(double x, double y, double rotation, int health) {
-		this(x, y, rotation);
+	public Obstacle(World w, double x, double y, double rotation, int health) {
+		this(w, x, y, rotation);
 		
 		maxHealth = health;
 		this.health = health;
-		boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
 	}
 	
 	@Override
@@ -31,11 +27,13 @@ public class Obstacle extends Actor implements Collidable{
 	public int getHealth() {
 		return health;
 	}
+	
+	public int getMaxHealth() {
+		return maxHealth;
+	}
 
 	@Override
 	public void act() {
-		if(health <= 0)
-			exists = false;
 	}
 	
 	public void receiveDamage(int d) {
@@ -50,11 +48,15 @@ public class Obstacle extends Actor implements Collidable{
 		return draw;
 	}
 	
-
-	public Rectangle getCollisionBox() {
-		boundaries.setLocation((int)x, (int)y);
-		return boundaries;
+	@Override
+	public boolean exists() {
+		return (health > 0);
 	}
 
+	@Override
+	public int getDrawPriority() {
+		// TODO Auto-generated method stub
+		return drawPriority;
+	}
 
 }

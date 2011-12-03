@@ -12,8 +12,8 @@ import javax.swing.ImageIcon;
 
 public class DrawSingleFrameObject implements DrawObject {
 	
-	private Image img;
-	private AffineTransform at;
+	protected Image img;
+	protected AffineTransform at;
 	
 	// Default constructor for now. This will just draw a black triangle.
 	public DrawSingleFrameObject(String imgName) {

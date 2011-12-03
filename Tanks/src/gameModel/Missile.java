@@ -1,50 +1,63 @@
 package gameModel;
 
-import java.awt.Rectangle;
-
-public class Missile extends Actor implements Collidable{
+public class Missile extends Collidable{
 	
 	private int damage;
 	private double speed;
+	private int framesOld;
+	private int bounces;
+	private static int drawPriority = 11;
 	
-	public Missile(double x, double y, double rotation, int d, double s) {
-		super(x, y, rotation);
+	public Missile(World w, double x, double y, double rotation, int d, double s) {
+		super(w, x, y, rotation);
+		bounces = 0;
 		damage = d;
 		speed = s;
 		exists = true;
+		framesOld = 0;
 	}
 
 	@Override
 	public void act() {
 		bounce();
+		framesOld++;
 		x += speed * Math.cos(rotation);
 		y += speed * Math.sin(rotation);
+		DustCloud.add(w, x, y);
 	}
 	
 	public void bounce() {
-		if(x < 0)
+		if(x < 0) {
 			setRotation(-(Math.PI + getRotation()));
-		else if(x > 800)
+			bounces++;
+		} else if(x > 800) {
 			setRotation(-(Math.PI + getRotation()));
-		if(y > 600)
+			bounces++;
+		}
+		if(y > 600) {
 			setRotation(-(getRotation()));
-		if(y < 0)
+			bounces++;
+		} else if(y < 0){
 			setRotation(-(getRotation()));
-		
+			bounces++;
+		}
+		if(bounces > 2)
+			explode();
 	}
 
 
 
 	@Override
 	public void collide(Collidable c) {
-		// TODO Auto-generated method stub
-		if(c instanceof Obstacle) {
-			this.explode();
-			((Obstacle) c).receiveDamage(damage);
-		}
-		else if(c instanceof Missile) {
-			this.explode();
-			((Missile) c).explode();
+		if(framesOld > 8){
+			if(c instanceof Obstacle) {
+				this.explode();
+				((Obstacle) c).receiveDamage(damage);
+			}
+			else if(c instanceof Missile) {
+				this.explode();
+				((Missile) c).explode();
+			}
 		}
 			
 	}
@@ -54,6 +67,8 @@ public class Missile extends Actor implements Collidable{
 		// This is problematic, as are all SFX;
 		// Since they all require knowing the 
 		// world
+		if(exists)
+			new Explosion(w, x, y, 3, 50, 6);
 		
 		exists = false;
 	}
@@ -65,11 +80,13 @@ public class Missile extends Actor implements Collidable{
 	public DrawObject getDraw() {
 		return draw;
 	}
-	
-	private Rectangle boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
-	public Rectangle getCollisionBox() {
-		boundaries.setLocation((int)x, (int)y);
-		return boundaries;
+
+	@Override
+	public int getDrawPriority() {
+		// TODO Auto-generated method stub
+		return drawPriority;
 	}
+	
+
 
 }

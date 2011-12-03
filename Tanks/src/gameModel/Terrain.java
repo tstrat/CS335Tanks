@@ -1,11 +1,11 @@
 package gameModel;
 
-import java.awt.Rectangle;
+public class Terrain extends Collidable {
+	
+	private static int drawPriority = 1;
 
-public class Terrain extends Actor implements Collidable {
-
-	public Terrain(double x, double y, double rotation) {
-		super(x, y, rotation);
+	public Terrain(World w, double x, double y, double rotation) {
+		super(w, x, y, rotation);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -20,14 +20,20 @@ public class Terrain extends Actor implements Collidable {
 		return draw;
 	}
 	
-	private Rectangle boundaries = new Rectangle(draw.getWidth(), draw.getHeight());
-	public Rectangle getCollisionBox() {
-		boundaries.setLocation((int)x, (int)y);
-		return boundaries;
+	@Override
+	public void act() {		
+	}
+
+	@Override
+	public int compareTo(Actor o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	@Override
-	public void act() {		
+	public int getDrawPriority() {
+		// TODO Auto-generated method stub
+		return drawPriority;
 	}
 
 }

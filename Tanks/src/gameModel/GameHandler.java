@@ -29,6 +29,7 @@ public class GameHandler implements CommandReceiver, ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// First, tell the world to handle collisions
 		w.handleCollisions();
+		w.cleanup();
 		
 		// Next, tell the world to relay the commands from
 		// the server to its tanks, then clears the command

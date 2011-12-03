@@ -1,17 +1,26 @@
 package gameModel;
 
+import java.util.ArrayList;
+
 public class Tank extends Obstacle {
 
 	private int player;
 	private double speed;
 	private Gun gun;
-
-	public Tank(double x, double y, double rotation, int player) {
-		super(x, y, rotation);
+	private double oldX, oldY;
+	public Tank(World w, double x, double y, double rotation, int player) {
+		super(w, x, y, rotation);
+		oldX = x;
+		oldY = y;
 		this.player = player;
-		this.health = 500;
+		this.maxHealth = 2500;
+		this.health = 2500;
 		this.speed = 1;
-		this.gun = new Gun(x, y, rotation, 1);
+		this.gun = new Gun(w, x, y, rotation, 1);
+		w.addActor(this);
+		w.addActor(this.gun);
+		w.addActor(new HealthBar(w, this));
+		new ArrayList<Missile>();
 	}
 
 	@Override
@@ -19,16 +28,45 @@ public class Tank extends Obstacle {
 		return player;
 	}
 
+	
 	@Override
 	public void receiveCommand(Command c) {
 		if (c instanceof MoveCommand) {
 			double delta = ((MoveCommand) c).getX();
-			
+			oldX = x;
+			oldY = y;
 			x += delta * Math.cos(rotation);
 			y += delta * Math.sin(rotation);
 		} else if (c instanceof RotateCommand) {
 			rotation += ((RotateCommand) c).getRotation();
+			this.gun.rotate(((RotateCommand) c).getRotation());
+		} else if (c instanceof FireCommand) {
+			fire();
+		} else if (c instanceof RotateGunCommand) {
+			this.gun.rotateTowards(((RotateGunCommand) c).getX(), ((RotateGunCommand) c).getY());
+		} else if (c instanceof RotateGunCommand2) {
+			this.gun.rotate(((RotateGunCommand2) c).getRotation());
 		}
+	}
+	
+	@Override
+	public void act() {
+		this.gun.setX(x);
+		this.gun.setY(y);
+		super.act();
+		stayInBounds();
+	}
+	
+	private void stayInBounds() {
+		if(x < 0)
+			x = 0;
+		else if(x > 800)
+			x = 800;
+		if(y < 0)
+			y = 0;
+		else if(y > 600)
+			y = 600;
+		
 	}
 
 	/**
@@ -65,8 +103,8 @@ public class Tank extends Obstacle {
 		rotation -= .05;
 	}
 
-	public void fire(World w) {
-		gun.fireMissile(w);
+	public void fire() {
+		gun.fireMissile();
 	}
 
 	// TODO: This stuff should be moved to the relevant classes.
@@ -75,6 +113,25 @@ public class Tank extends Obstacle {
 	@Override
 	public DrawObject getDraw() {
 		return draw;
+	}
+	
+	@Override
+	public boolean exists() {
+		if(health <= 0) {
+			this.gun.destroy();
+			new Explosion(w, x, y, 8, 100, 2);
+			return false;
+		}
+		return true;
+		
+	}
+	
+	@Override
+	public void collide(Collidable c) {
+		if(c instanceof Obstacle) {
+			x = oldX;
+			y = oldY;
+		}
 	}
 	
 
