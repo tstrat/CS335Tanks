@@ -6,6 +6,7 @@ public class Missile extends Collidable{
 	private double speed;
 	private int framesOld;
 	private int bounces;
+	private static int drawPriority = 11;
 	
 	public Missile(World w, double x, double y, double rotation, int d, double s) {
 		super(w, x, y, rotation);
@@ -78,6 +79,12 @@ public class Missile extends Collidable{
 	@Override
 	public DrawObject getDraw() {
 		return draw;
+	}
+
+	@Override
+	public int getDrawPriority() {
+		// TODO Auto-generated method stub
+		return drawPriority;
 	}
 	
 

@@ -5,6 +5,7 @@ public class FireBall extends Collidable {
 	private int lifeTime;
 	private double speed;
 	private int damage;
+	private static int drawPriority = 25;
 	
 	public FireBall(World w, double x, double y, double rotation, double speed, int damage) {
 		super(w, x, y, rotation);
@@ -38,6 +39,12 @@ public class FireBall extends Collidable {
 	@Override
 	public DrawObject getDraw() {
 		return draw;
+	}
+	
+	@Override
+	public int getDrawPriority() {
+		// TODO Auto-generated method stub
+		return drawPriority;
 	}
 
 }

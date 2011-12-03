@@ -2,6 +2,7 @@ package gameModel;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -66,6 +67,7 @@ public class World extends Observable {
 	 * Returns the Actors list, mainly for the GUI.
 	 */
 	public List<Actor> getActors() {
+		Collections.sort(actors);
 		return actors;
 	}
 

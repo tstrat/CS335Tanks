@@ -6,6 +6,7 @@ public class Gun extends Actor {
 	private double shellSpeed;
 	private int cDTimer;
 	private int cD;
+	private static int drawPriority = 20;
 
 	public Gun(World w, double x, double y, double rotation, int i) {
 		super(w, x, y, rotation);
@@ -80,6 +81,12 @@ public class Gun extends Actor {
 	
 	public void destroy() {
 		exists = false;
+	}
+	
+	@Override
+	public int getDrawPriority() {
+		// TODO Auto-generated method stub
+		return drawPriority;
 	}
 
 }

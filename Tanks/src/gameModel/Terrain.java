@@ -1,6 +1,8 @@
 package gameModel;
 
 public class Terrain extends Collidable {
+	
+	private static int drawPriority = 1;
 
 	public Terrain(World w, double x, double y, double rotation) {
 		super(w, x, y, rotation);
@@ -20,6 +22,18 @@ public class Terrain extends Collidable {
 	
 	@Override
 	public void act() {		
+	}
+
+	@Override
+	public int compareTo(Actor o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public int getDrawPriority() {
+		// TODO Auto-generated method stub
+		return drawPriority;
 	}
 
 }

@@ -3,6 +3,8 @@ package gameModel;
 public class DustCloud extends Actor {
 
 	public int ticsLeft;
+	private static int drawPriority = 12;
+	
 	public DustCloud(World w, double x, double y) {
 		super(w, x, y, Math.random());
 		ticsLeft = 100;
@@ -29,4 +31,9 @@ public class DustCloud extends Actor {
 			w.addActor(new DustCloud(w, x, y));
 	}
 
+	@Override
+	public int getDrawPriority() {
+		// TODO Auto-generated method stub
+		return drawPriority;
+	}
 }

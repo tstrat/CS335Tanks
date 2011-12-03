@@ -4,6 +4,7 @@ public class Obstacle extends Collidable{
 	
 	protected int health;
 	protected int maxHealth;
+	private static int drawPriority = 10;
 	
 	public Obstacle(World w, double x, double y, double rotation) {
 		super(w, x, y, rotation);
@@ -46,6 +47,12 @@ public class Obstacle extends Collidable{
 	@Override
 	public boolean exists() {
 		return (health > 0);
+	}
+
+	@Override
+	public int getDrawPriority() {
+		// TODO Auto-generated method stub
+		return drawPriority;
 	}
 
 }

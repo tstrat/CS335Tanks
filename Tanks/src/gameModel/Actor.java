@@ -1,12 +1,11 @@
 package gameModel;
 
-public abstract class Actor implements CommandReceiver {
+public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	
 	protected boolean exists;
 	protected double x, y;
 	protected double rotation;
 	protected World w;
-	
 	public abstract void act();
 	
 	public Actor(World w, double x, double y, double rotation) {
@@ -38,6 +37,8 @@ public abstract class Actor implements CommandReceiver {
 		return rotation;
 	}
 	
+	public abstract int getDrawPriority();
+	
 	
 	public abstract DrawObject getDraw();
 	
@@ -67,5 +68,9 @@ public abstract class Actor implements CommandReceiver {
 	public boolean exists() {
 		return exists;
 	}
-	
+	@Override
+	public int compareTo(Actor o) {
+		// TODO Auto-generated method stub
+		return getDrawPriority() - o.getDrawPriority();
+	}
 }
