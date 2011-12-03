@@ -11,7 +11,7 @@ public class Gun extends Actor {
 		super(w, x, y, rotation);
 		if (i == 1)
 			setGunStandard();
-		cD = 45;
+		cD = 10;
 		cDTimer = 0;
 		exists = true;
 	}
