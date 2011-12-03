@@ -20,7 +20,6 @@ public class Tank extends Obstacle {
 		w.addActor(this);
 		w.addActor(this.gun);
 		w.addActor(new HealthBar(w, this));
-		new ArrayList<Missile>();
 	}
 
 	@Override
