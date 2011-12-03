@@ -7,8 +7,11 @@ public class Tank extends Obstacle {
 	private int player;
 	private double speed;
 	private Gun gun;
+	private double oldX, oldY;
 	public Tank(World w, double x, double y, double rotation, int player) {
 		super(w, x, y, rotation);
+		oldX = x;
+		oldY = y;
 		this.player = player;
 		this.health = 2000;
 		this.speed = 1;
@@ -23,11 +26,13 @@ public class Tank extends Obstacle {
 		return player;
 	}
 
+	
 	@Override
 	public void receiveCommand(Command c) {
 		if (c instanceof MoveCommand) {
 			double delta = ((MoveCommand) c).getX();
-			
+			oldX = x;
+			oldY = y;
 			x += delta * Math.cos(rotation);
 			y += delta * Math.sin(rotation);
 		} else if (c instanceof RotateCommand) {
@@ -46,6 +51,19 @@ public class Tank extends Obstacle {
 		this.gun.setX(x);
 		this.gun.setY(y);
 		super.act();
+		stayInBounds();
+	}
+	
+	private void stayInBounds() {
+		if(x < 0)
+			x = 0;
+		else if(x > 800)
+			x = 800;
+		if(y < 0)
+			y = 0;
+		else if(y > 600)
+			y = 600;
+		
 	}
 
 	/**
@@ -102,6 +120,14 @@ public class Tank extends Obstacle {
 		}
 		return true;
 		
+	}
+	
+	@Override
+	public void collide(Collidable c) {
+		if(c instanceof Obstacle) {
+			x = oldX;
+			y = oldY;
+		}
 	}
 	
 
