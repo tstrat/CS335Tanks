@@ -4,26 +4,34 @@ public class Missile extends Collidable{
 	
 	/**
 	 * How much damage a missile does.
-	 */
-	
+	 */	
 	private int damage;
 	
 	/**
 	 * How fast a missile moves.
-	 */
-	
+	 */	
 	private double speed;
+	
+	/**
+	 * How many tics old the missile is
+	 */
 	private int framesOld;
 	
 	/**
 	 * A tracker of how many times a missile has "bounced" against different surfaces.  After two "bounces", it explodes.
-	 */
-	
+	 */	
 	private int bounces;
+	
+	/**
+	 * The prority this Actor has when drawn over other Actors. a higher priority
+	 * means it is drawn over the lower priority Actors.
+	 */
 	private static int drawPriority = 11;
 	
 	/**
 	 * A constructor for a new missile object. Sets its location, its damage, and its speed.
+	 * 
+	 * @see Actor.Actor(World, double, double, double)
 	 * 
 	 * @param w - The current game world.
 	 * @param x - The missile's x-coordinate.
@@ -46,8 +54,7 @@ public class Missile extends Collidable{
 	 * Updates the missile's position based on its speed.
 	 * Also, calls DustCloud to make sure the missile has
 	 * a cloud graphic following it. 
-	 */
-	
+	 */	
 	@Override
 	public void act() {
 		bounce();
@@ -60,8 +67,7 @@ public class Missile extends Collidable{
 	/**
 	 * If the missile has reached the edge of the map, makes it bounce
 	 * off that wall.  If it has already bounced 2 times, it explodes.
-	 */
-	
+	 */	
 	public void bounce() {
 		if(x < 0) {
 			setRotation(-(Math.PI + getRotation()));
@@ -82,7 +88,12 @@ public class Missile extends Collidable{
 	}
 
 
-
+	/**
+	 * The collide method dictates how it interacts with objects it is colliding with. It first
+	 * checks to make sure the Missile hasn't just been made (so it doesn't collide with the tank
+	 * that fired it). If it hasn't, it will damage any obstacle it collides with, and explode if
+	 * it came in contact with either an obstacle or a missile.
+	 */
 	@Override
 	public void collide(Collidable c) {
 		if(framesOld > 8){
@@ -98,25 +109,34 @@ public class Missile extends Collidable{
 			
 	}
 	
+	/**
+	 * explode creates a new explosion object at the missile's location and sets its existence
+	 * to false.
+	 */
 	public void explode() {
-		//TODO: makes a new explosion object
-		// This is problematic, as are all SFX;
-		// Since they all require knowing the 
-		// world
 		if(exists)
 			new Explosion(w, x, y, 3, 50, 6);
 		
 		exists = false;
 	}
 
-	// TODO: This stuff should be moved to the relevant classes.
+	/**
+	 * The DrawObject that defines how the GUI draws the Missile.
+	 */
 	private static DrawObject draw = new DrawSingleFrameObject("missile.png");
 	
+	/**
+	 * Returns the DrawObject of the missile, which controls how the Missile is drawn.
+	 */
 	@Override
 	public DrawObject getDraw() {
 		return draw;
 	}
 
+	/**
+	 * Returns the priority of this gun's draw. A higher priority object is drawn over
+	 * a lower priority object in the main GUI.
+	 */
 	@Override
 	public int getDrawPriority() {
 		// TODO Auto-generated method stub

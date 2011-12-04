@@ -30,7 +30,7 @@ public class Gun extends Actor {
 	private int cD;
 	/**
 	 * The prority this Actor has when drawn over other Actors. a higher priority
-	 * means it is drawn first.
+	 * means it is drawn over the lower priority Actors.
 	 */
 	private static int drawPriority = 20;
 
