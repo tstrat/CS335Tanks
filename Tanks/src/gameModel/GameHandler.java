@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.swing.Timer;
 
-/*
+/**
  * To be expanded later. GameHandler contains a World. 
  * Every time interval it tells the World WHAT to do,
  * but not HOW to do things. That is up for the implementer
@@ -18,6 +18,12 @@ public class GameHandler implements CommandReceiver, ActionListener {
 	private List<Command> commands;
 	private Timer timer;
 	
+	/**
+	 * Constructs a new GameHandler. (What does timer do here?) 
+	 * @param w - the game world
+	 * 
+	 */
+	
 	public GameHandler(World w) {
 		this.w = w;
 		commands = new ArrayList<Command>();
@@ -25,6 +31,10 @@ public class GameHandler implements CommandReceiver, ActionListener {
 		timer.start();
 	}
 
+	/**
+	 * This method provides a way to update the game world, based on collision detection and player commands.
+	 */
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// First, tell the world to handle collisions
@@ -55,6 +65,10 @@ public class GameHandler implements CommandReceiver, ActionListener {
 		commands.add(c);
 	}
 
+	/**
+	 * Pauses the current game.
+	 */
+	
 	private void pause() {
 		timer.stop();
 		// TODO: creates window that will restart the timer

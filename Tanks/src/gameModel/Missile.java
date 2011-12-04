@@ -2,11 +2,36 @@ package gameModel;
 
 public class Missile extends Collidable{
 	
+	/**
+	 * How much damage a missile does.
+	 */
+	
 	private int damage;
+	
+	/**
+	 * How fast a missile moves.
+	 */
+	
 	private double speed;
 	private int framesOld;
+	
+	/**
+	 * A tracker of how many times a missile has "bounced" against different surfaces.  After two "bounces", it explodes.
+	 */
+	
 	private int bounces;
 	private static int drawPriority = 11;
+	
+	/**
+	 * A constructor for a new missile object. Sets its location, its damage, and its speed.
+	 * 
+	 * @param w - The current game world.
+	 * @param x - The missile's x-coordinate.
+	 * @param y - The missile's y-coordinate.
+	 * @param rotation - the current tank turret rotation. Effects the direction the missile will travel in.
+	 * @param d - How much damage this missile will do.
+	 * @param s - How fast this missile will move.
+	 */
 	
 	public Missile(World w, double x, double y, double rotation, int d, double s) {
 		super(w, x, y, rotation);
@@ -17,6 +42,12 @@ public class Missile extends Collidable{
 		framesOld = 0;
 	}
 
+	/**
+	 * Updates the missile's position based on its speed.
+	 * Also, calls DustCloud to make sure the missile has
+	 * a cloud graphic following it. 
+	 */
+	
 	@Override
 	public void act() {
 		bounce();
@@ -25,6 +56,11 @@ public class Missile extends Collidable{
 		y += speed * Math.sin(rotation);
 		DustCloud.add(w, x, y);
 	}
+	
+	/**
+	 * If the missile has reached the edge of the map, makes it bounce
+	 * off that wall.  If it has already bounced 2 times, it explodes.
+	 */
 	
 	public void bounce() {
 		if(x < 0) {
