@@ -115,7 +115,7 @@ public class TanksDisplay extends JPanel implements Observer {
 			
 			// JKL gun.
 			if (keyStates[KEY_J])
-				receiver.receiveCommand(new RotateGunCommand2(player, -0.065));
+				receiver.receiveCommand(new RotateGunCommand2(player, -0.06));
 			
 			if (keyStates[KEY_K])
 				receiver.receiveCommand(new FireCommand(player));

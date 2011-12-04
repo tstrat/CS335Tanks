@@ -2,7 +2,8 @@ package gameModel;
 
 public class HealthBar extends Actor {
 	private Tank o;
-
+	private static int drawPriority = 25;
+	
 	public HealthBar(World w, Tank o) {
 		super(w, o.getX(), o.getY() + 30, 0);
 		this.o = o;
@@ -26,7 +27,7 @@ public class HealthBar extends Actor {
 	@Override
 	public int getDrawPriority() {
 		// TODO Auto-generated method stub
-		return 30;
+		return drawPriority;
 	}
 
 	private DrawObject draw;
