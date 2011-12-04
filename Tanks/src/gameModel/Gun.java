@@ -59,7 +59,10 @@ public class Gun extends Actor {
 	}
 
 	/**
-	 * 
+	 * The fireMissile method is how the gun fires missiles. It checks the remaining
+	 * cooldown on the gun, and if it is zero, it will fire and reset the cooldown to
+	 * the max cooldown, and adds a new Missile at the gun's location, with its
+	 * rotation.
 	 */
 	public void fireMissile() {
 		if (cDTimer == 0) {
@@ -69,6 +72,9 @@ public class Gun extends Actor {
 		}
 	}
 
+	/**
+	 * Every act iteration, the cDTimer increments down, to a minimum of zero.
+	 */
 	@Override
 	public void act() {
 		if (cDTimer > 0)
@@ -76,6 +82,15 @@ public class Gun extends Actor {
 
 	}
 
+	/**
+	 * rotateTowards rotates the gun towards a point, given by its coordinate x
+	 * and y.
+	 * 
+	 * @param x
+	 * 			The x coordinate of the point Gun is orienting itself towards.
+	 * @param y
+	 * 			The y coordinate of the point Gun is orienting itself towards.
+	 */
 	public void rotateTowards(double x, double y) {
 		if (rotation < 0)
 			rotation += 2 * Math.PI;
@@ -100,23 +115,40 @@ public class Gun extends Actor {
 			rotation -= .2;
 	}
 
-	// TODO: This stuff should be moved to the relevant classes.
+	/**
+	 * The DrawObject that defines how the GUI draws the Gun.
+	 */
 	private static DrawObject draw = new DrawSingleFrameObject("gunStan.png");
 
+	/**
+	 * Returns the DrawObject of the gun, which controls how the Gun is drawn.
+	 */
 	@Override
 	public DrawObject getDraw() {
 		return draw;
 	}
 
+	/**
+	 * rotates the Gun by the paramter rotation radians.
+	 * 
+	 * @param rotation
+	 * 			the radians to rotate the gun.
+	 */
 	public void rotate(double rotation) {
 		this.rotation += rotation;
-		
 	}
 	
+	/**
+	 * destroy sets the Gun's existence to false.
+	 */
 	public void destroy() {
 		exists = false;
 	}
 	
+	/**
+	 * Returns the priority of this gun's draw. A higher priority object is drawn over
+	 * a lower priority object in the main GUI.
+	 */
 	@Override
 	public int getDrawPriority() {
 		return drawPriority;
