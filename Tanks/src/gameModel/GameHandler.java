@@ -75,6 +75,13 @@ public class GameHandler implements CommandReceiver, ActionListener {
 		// This should be done in the GUI, not here.
 	}
 	
+	
+	private void unpause()
+	{
+		timer.restart();
+		//TODO: should this start or restart?
+	}
+	
 	/**
 	 * Determines whether the game is paused.
 	 * 
