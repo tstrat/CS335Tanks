@@ -149,7 +149,7 @@ public class Tank extends Obstacle {
 	public boolean exists() {
 		if (health <= 0) {
 			this.gun.destroy();
-			new Explosion(w, x, y, 8, 100, 2);
+			Explosion.createExplosion(w, x, y, 8, 100, 2);
 			return false;
 		}
 		return true;

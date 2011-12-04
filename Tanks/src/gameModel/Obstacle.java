@@ -32,8 +32,11 @@ public class Obstacle extends Collidable{
 	}
 	
 	/**
-	 * Creates a new obstacle in the game world, specifically for tanks.
+	 * Creates a new obstacle in the game world.
 	 * Sets health, location, and direction (rotation).
+	 * 
+	 * @see Actor.Actor(World, double, double, double)
+	 * 
 	 * @param w - The current game world
 	 * @param x - X-position
 	 * @param y - y-position
