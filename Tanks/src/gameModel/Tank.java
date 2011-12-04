@@ -141,7 +141,7 @@ public class Tank extends Obstacle {
 	}
 
 	/**
-	 * Returns whether the tank is in existence or not (if it isn't, the World needs to emove Tank from its Actor
+	 * Returns whether the tank is in existence or not (if it isn't, the World needs to remove Tank from its Actor
 	 * List). This is determined by whether the tank's health is greater than zero. If the tank dies. it explodes
 	 * violently and its gun is destroyed too.
 	 */
