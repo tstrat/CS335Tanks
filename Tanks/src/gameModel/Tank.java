@@ -108,7 +108,6 @@ public class Tank extends Obstacle {
 		stayInBounds();
 		this.gun.setX(x);
 		this.gun.setY(y);
-		super.act();
 	}
 
 	/**

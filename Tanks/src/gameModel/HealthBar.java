@@ -31,7 +31,7 @@ public class HealthBar extends Actor {
 	}
 
 	/**
-	 * Calls updateBar() every turn to make sure the health bar is always correct.
+	 * Calls updateBar() every turn.
 	 */
 	
 	@Override
@@ -40,19 +40,33 @@ public class HealthBar extends Actor {
 	}
 
 	
-	
+	/**
+	 * Sets the location of the HealthBar to 30 pixels above the tank.
+	 */
 	private void updateBar() {
 		x = o.getX();
 		y = o.getY() - 30;
 	}
-
+	
+	/**
+	 * Returns the priority of this HealthBar draw. A higher priority object is drawn over
+	 * a lower priority object in the main GUI.
+	 */
 	@Override
 	public int getDrawPriority() {
 		// TODO Auto-generated method stub
 		return drawPriority;
 	}
 
+	
+	/**
+	 * The DrawObject that defines how the GUI draws the HealthBar.
+	 */
 	private DrawObject draw;
+	
+	/**
+	 * Returns the DrawObject of the HealthBar, which controls how the HealthBar is drawn.
+	 */
 	@Override
 	public DrawObject getDraw() {
 		((DrawHealthObject)draw).updateHealth(o.getHealth(), o.getMaxHealth());
