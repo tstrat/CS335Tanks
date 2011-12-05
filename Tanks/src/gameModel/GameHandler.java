@@ -76,8 +76,7 @@ public class GameHandler implements CommandReceiver, ActionListener {
 	}
 	
 	
-	private void unpause()
-	{
+	private void unpause() {
 		timer.restart();
 		//TODO: should this start or restart?
 	}
