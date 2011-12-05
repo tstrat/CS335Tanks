@@ -56,7 +56,7 @@ public class DustCloud extends Actor {
 	}
 
 	/**
-	 * Adds the DustCloud to the world
+	 * Adds the DustCloud to the world, 50% of the time.
 	 * 
 	 * @param w The World that the Actor belongs to, is being added to.
 	 * @param x X-position in pixels.

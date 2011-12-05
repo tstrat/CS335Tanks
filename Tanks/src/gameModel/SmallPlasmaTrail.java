@@ -11,9 +11,16 @@ public class SmallPlasmaTrail extends Actor {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Always adds a trail, unlike the other missile, so determining
+	 * when a trail should be added must be done in the plasma ball class.
+	 * 
+	 * @param w The World to add the trail to.
+	 * @param x The x-position of the trail.
+	 * @param y The y-position of the trail.
+	 */
 	public static void add(World w, double x, double y) {
-		if (Math.random() < 0.2)
-			w.addActor(new SmallPlasmaTrail(w, x, y));
+		w.addActor(new SmallPlasmaTrail(w, x, y));
 	}
 	
 	

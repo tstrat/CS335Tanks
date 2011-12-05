@@ -11,7 +11,9 @@ public class PlasmaBallSmall extends Missile {
 	
 	public void act() {
 		bounce();
-		SmallPlasmaTrail.add(w, x, y);
+		if (framesOld % 5 == 0)
+			SmallPlasmaTrail.add(w, x, y);
+		
 		super.act();
 	}
 
