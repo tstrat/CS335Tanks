@@ -10,32 +10,30 @@ package gameModel;
  * 		that owns this gun).
  *
  */
-public class Gun extends Actor {
+public abstract class Gun extends Actor {
 	
 	/**
 	 * The damage of the missiles the gun fires
 	 */
-	private int damage;	
+	protected int damage;	
 	/**
 	 * The speed of the missiles the gun fires
 	 */
-	private double shellSpeed;	
+	protected double shellSpeed;	
 	/**
 	 * The amount of time (measured in act() iterations) before the gun can fire.
 	 */
-	private int cDTimer;
+	protected int cDTimer;
 	/**
 	 * The amound of time between each shot if the tank is continuously firing.
 	 */
-	private int cD;
-	/**
-	 * The prority this Actor has when drawn over other Actors. a higher priority
-	 * means it is drawn first.
-	 */
-	private static int drawPriority = 20;
+	protected int cD;
+	
+	
+
 
 	/**
-	 * The constructor of the Gun. It sts its world, x and y coordinates, and its
+	 * The constructor of the Gun. It sets its world, x and y coordinates, and its
 	 * rotation to the parameters provided. It is set to fire the missiles at a speed
 	 * of 8 pixels per act iteration, with a cool down of 45 act iterations between
 	 * each shot.
@@ -51,24 +49,16 @@ public class Gun extends Actor {
 	 */
 	public Gun(World w, double x, double y, double rotation) {
 		super(w, x, y, rotation);
-		damage = 300;
-		shellSpeed = 8;
-		cD = 45;
-		cDTimer = 0;
-		exists = true;
 	}
 
 	/**
-	 * 
+	 * The fireMissile method is how the gun fires missiles.
 	 */
-	public void fireMissile() {
-		if (cDTimer == 0) {
-			Missile m = new Missile(w, x, y, rotation, damage, shellSpeed);
-			w.addActor(m);
-			cDTimer += cD;
-		}
-	}
+	public abstract void fireMissile();
 
+	/**
+	 * Every act iteration, the cDTimer increments down, to a minimum of zero.
+	 */
 	@Override
 	public void act() {
 		if (cDTimer > 0)
@@ -76,6 +66,15 @@ public class Gun extends Actor {
 
 	}
 
+	/**
+	 * rotateTowards rotates the gun towards a point, given by its coordinate x
+	 * and y.
+	 * 
+	 * @param x
+	 * 			The x coordinate of the point Gun is orienting itself towards.
+	 * @param y
+	 * 			The y coordinate of the point Gun is orienting itself towards.
+	 */
 	public void rotateTowards(double x, double y) {
 		if (rotation < 0)
 			rotation += 2 * Math.PI;
@@ -100,26 +99,8 @@ public class Gun extends Actor {
 			rotation -= .2;
 	}
 
-	// TODO: This stuff should be moved to the relevant classes.
-	private static DrawObject draw = new DrawSingleFrameObject("gunStan.png");
 
-	@Override
-	public DrawObject getDraw() {
-		return draw;
-	}
-
-	public void rotate(double rotation) {
-		this.rotation += rotation;
 		
-	}
-	
-	public void destroy() {
-		exists = false;
-	}
-	
-	@Override
-	public int getDrawPriority() {
-		return drawPriority;
-	}
+
 
 }

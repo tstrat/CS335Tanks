@@ -5,10 +5,12 @@ import gameModel.Command;
 import gameModel.CommandReceiver;
 import gameModel.FireCommand;
 import gameModel.GameHandler;
+import gameModel.HeavyTank;
 import gameModel.MoveCommand;
 import gameModel.RotateCommand;
 import gameModel.RotateGunCommand;
 import gameModel.RotateGunCommand2;
+import gameModel.StandardTank;
 import gameModel.Tank;
 import gameModel.World;
 
@@ -43,8 +45,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		setBackground(new Color(245, 228, 156));
 
 		world = new World();
-		new Tank(world, 200, 300, 2, 2);
-		new Tank(world, 500, 400, 2, 3);
+		new HeavyTank(world, 200, 300, 2, 2);
+		new StandardTank(world, 500, 400, 2, 3);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 
@@ -102,13 +104,13 @@ public class TanksDisplay extends JPanel implements Observer {
 		public void step() {
 			// WASD move/rotate.
 			if (keyStates[KEY_W])
-				receiver.receiveCommand(new MoveCommand(player, 3, 0));
+				receiver.receiveCommand(new MoveCommand(player, /* isBackward */ false));
 			
 			if (keyStates[KEY_A])
 				receiver.receiveCommand(new RotateCommand(player, -0.03));
 			
 			if (keyStates[KEY_S])
-				receiver.receiveCommand(new MoveCommand(player, -1.5, 0));
+				receiver.receiveCommand(new MoveCommand(player, /* isBackward */ true));
 			
 			if (keyStates[KEY_D])
 				receiver.receiveCommand(new RotateCommand(player, 0.03));
@@ -123,10 +125,30 @@ public class TanksDisplay extends JPanel implements Observer {
 			if (keyStates[KEY_L])
 				receiver.receiveCommand(new RotateGunCommand2(player, 0.06));
 		}
+		
+		/**
+		 * REMOVE THIS FOR PRODUCTION.
+		 */
+		private void changePlayer(int newPlayer) {
+			player = newPlayer;
+		}
 
 		@Override
 		public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
+			
+			// REMOVE FOR PRODUCTION
+			// Changes which player we control.
+			if (e.isControlDown()) {
+				if (keyCode == KeyEvent.VK_1)
+					changePlayer(1);
+				else if (keyCode == KeyEvent.VK_2)
+					changePlayer(2);
+				else if (keyCode == KeyEvent.VK_3)
+					changePlayer(3);
+				else if (keyCode == KeyEvent.VK_4)
+					changePlayer(4);
+			}
 
 			switch (keyCode) {
 			case KeyEvent.VK_A:
@@ -162,7 +184,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		@Override
 		public void keyReleased(KeyEvent e) {
 			int keyCode = e.getKeyCode();
-			
+						
 			switch (keyCode) {
 			case KeyEvent.VK_A:
 				keyStates[KEY_A] = false;

@@ -49,14 +49,42 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	public abstract void act();
 	
 	/**
-	 * Changes this Actor's x-position.
+	 * Moves forward by a given value.
 	 * 
-	 * @param x The new x-position.
+	 * @param delta The amount in pixels to move forward.
 	 */
-	public void setX(double x) {
-		this.x = x;
+	protected final void moveForward(double delta) {
+		x += delta * Math.cos(rotation);
+		y += delta * Math.sin(rotation);
 	}
 	
+	/**
+	 * Moves the Actor forward. Can be overridden to change speed.
+	 * 
+	 * @see Actor.moveBackward
+	 */
+	public void moveForward() {
+		moveForward(1);
+	}
+	
+	/**
+	 * Moves backward by a given value.
+	 * 
+	 * @param delta The amount in pixels to move backward.
+	 */
+	protected final void moveBackward(double delta) {
+		moveForward(-delta);
+	}
+	
+	/**
+	 * Moves the Actor backward. Can be overridden to change speed.
+	 * 
+	 * @see Actor.moveForward
+	 */
+	public void moveBackward() {
+		moveBackward(1);
+	}
+		
 	/**
 	 * Returns this Actor's x-position.
 	 * 
@@ -64,15 +92,6 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 */
 	public double getX() {
 		return x;
-	}
-	
-	/**
-	 * Changes this Actor's y-position.
-	 * 
-	 * @param y The new y-position.
-	 */
-	public void setY(double y) {
-		this.y = y;
 	}
 	
 	/**
@@ -87,10 +106,10 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	/**
 	 * Changes this Actor's rotation.
 	 * 
-	 * @param d The new rotation, in radians.
+	 * @param d The amount to rotate to the right, in radians.
 	 */
-	public void setRotation(double d) {
-		this.rotation = d;
+	public void rotate(double d) {
+		this.rotation += d;
 	}
 	
 	/**
@@ -131,14 +150,14 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	}
 	
 	/**
-	 * This method is only needed by player classes (the ones that
-	 * override getPlayerNumber). It is used to process Commands.
+	 * By default, an Actor applies this Command to itself.
+	 * Override this method if you don't want this behavior.
 	 * 
 	 * @param c The Command to process.
 	 */
 	@Override
 	public void receiveCommand(Command c) {
-		// Do nothing.
+		c.applyTo(this);
 	}
 	
 	/**
@@ -152,6 +171,14 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	}
 	
 	/**
+	 * Changes the exists value to false, after which the object will be
+	 * garbage collected by its World.
+	 */
+	public void destroy() {
+		exists = false;
+	}
+	
+	/**
 	 * Compares Actors based on their draw priority. Those with greater priority
 	 * are considered to be greater than other Actors.
 	 * 
@@ -162,4 +189,16 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 		// TODO Auto-generated method stub
 		return getDrawPriority() - o.getDrawPriority();
 	}
+	
+	/**
+	 * Synchronizes this Actor's position with another Actor.
+	 * Normally used by Guns/Tanks, or other "compound" Actors.
+	 * 
+	 * @param a The other Actor to synchronize with.
+	 */
+	public void syncPosition(Actor a) {
+		x = a.x;
+		y = a.y;
+	}
+	
 }

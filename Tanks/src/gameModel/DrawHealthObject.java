@@ -36,13 +36,13 @@ public class DrawHealthObject implements DrawObject{
 	public void draw(Graphics g, double x1, double y1, double rotation) {
 		int x = (int) x1;
 		int y = (int) y1;
-		g.drawRect(x - 11, y, 32, 6);
+		g.drawRect(x - 11, y, 31, 5);
 		Color old = g.getColor();
 		g.setColor(Color.GREEN);
 		int hWid = (int)((health * 30) / max);
 		g.fillRect(x - 10, y + 1, hWid, 4);
 		g.setColor(Color.RED);
-		g.fillRect((int)x - 9 + hWid, (int)y, 30 - hWid, 4);
+		g.fillRect((int)x - 10 + hWid, (int)y + 1, 30 - hWid, 4);
 		g.setColor(old);
 	}
 	

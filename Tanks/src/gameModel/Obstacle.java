@@ -1,6 +1,6 @@
 package gameModel;
 
-public class Obstacle extends Collidable{
+public abstract class Obstacle extends Collidable{
 	
 	/**
 	 * The amount of health this tank has.
@@ -32,8 +32,11 @@ public class Obstacle extends Collidable{
 	}
 	
 	/**
-	 * Creates a new obstacle in the game world, specifically for tanks.
+	 * Creates a new obstacle in the game world.
 	 * Sets health, location, and direction (rotation).
+	 * 
+	 * @see Actor.Actor(World, double, double, double)
+	 * 
 	 * @param w - The current game world
 	 * @param x - X-position
 	 * @param y - y-position
@@ -48,44 +51,58 @@ public class Obstacle extends Collidable{
 		this.health = health;
 	}
 	
-	@Override
-	public void collide(Collidable c) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+	/**
+	 * Returns the remaining health of the Obstacle.
+	 */
 	public int getHealth() {
 		return health;
 	}
 	
+	/**
+	 * Returns the max health of the Obstacle.
+	 */
 	public int getMaxHealth() {
 		return maxHealth;
 	}
-
-	@Override
-	public void act() {
-	}
 	
+	/**
+	 * This decreases the Obstacle's health by d amount
+	 * 
+	 * @param d
+	 * 			The amount to decrease the Obstacle's health by.
+	 */
 	public void receiveDamage(int d) {
 		health -= d;
 	}
 
-	// TODO: This stuff should be moved to the relevant classes.
+	/**
+	 * The DrawObject that defines how the GUI draws the Obstacle.
+	 */
 	private static DrawObject draw = new DrawSingleFrameObject("tankStan.png");
 	
+	/**
+	 * Returns the DrawObject of the Obstacle, which controls how the HealthBar is drawn.
+	 */
 	@Override
 	public DrawObject getDraw() {
 		return draw;
 	}
 	
+	/**
+	 * This returns whether the Obstacle is still in existence. This is determined by whether
+	 * its health is greater than zero or not.
+	 */
 	@Override
 	public boolean exists() {
 		return (health > 0);
 	}
 
+	/**
+	 * Returns the priority of this Obstacle draw. A higher priority object is drawn over
+	 * a lower priority object in the main GUI.
+	 */
 	@Override
 	public int getDrawPriority() {
-		// TODO Auto-generated method stub
 		return drawPriority;
 	}
 

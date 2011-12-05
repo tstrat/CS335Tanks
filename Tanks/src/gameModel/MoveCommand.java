@@ -1,23 +1,35 @@
 package gameModel;
-
+/**
+ * Creates a Command for moving the tank with keyboard controls
+ *
+ */
 public class MoveCommand extends Command {
 
-	private double x;
-	private double y;
+	private boolean isBackward;
 	
-	public MoveCommand(int player, double x, double y) {
+	/**
+	 * Creates a new constructor for the MoveCommand. Sets player number and location.
+	 * 
+	 * @param player Player number
+	 * @param isBackward True if the Actor should move backward, false otherwise.
+	 */
+	public MoveCommand(int player, boolean isBackward) {
 		super(player);
 		
-		this.x = x;
-		this.y = y;
+		this.isBackward = isBackward;
 	}
-	
-	public double getX() {
-		return x;
-	}
-	
-	public double getY() {
-		return y;
+
+	/**
+	 * Cause the Actor to move.
+	 * 
+	 * @param a The Actor that should move.
+	 */
+	@Override
+	public void applyTo(Actor a) {
+		if (isBackward)
+			a.moveBackward();
+		else
+			a.moveForward();
 	}
 	
 }
