@@ -42,7 +42,7 @@ public class DrawHealthObject implements DrawObject{
 		int hWid = (int)((health * 30) / max);
 		g.fillRect(x - 10, y + 1, hWid, 4);
 		g.setColor(Color.RED);
-		g.fillRect((int)x - 9 + hWid, (int)y, 30 - hWid, 4);
+		g.fillRect((int)x - 10 + hWid, (int)y + 1, 30 - hWid, 4);
 		g.setColor(old);
 	}
 	
