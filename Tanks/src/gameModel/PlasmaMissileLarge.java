@@ -21,7 +21,8 @@ public class PlasmaMissileLarge extends LargeMissile {
 			explode();
 		if (!attached) {
 			super.act();
-			LargePlasmaTrail.add(w, x, y);
+			if (framesOld % 5 == 0)
+				LargePlasmaTrail.add(w, x, y);
 			if(lifeSpan < 300)
 				lifeSpan = 0;
 		}

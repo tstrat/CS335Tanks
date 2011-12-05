@@ -8,12 +8,17 @@ public class LargePlasmaTrail extends Actor {
 	LargePlasmaTrail(World w, double x, double y) {
 		super(w, x, y, 0);
 		ticsLeft = 100;
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Unlike other missiles, this _always_ adds a trail.
+	 * 
+	 * @param w The World to add the trail to.
+	 * @param x The x-position of the trail.
+	 * @param y The y-position of the trail.
+	 */
 	public static void add(World w, double x, double y) {
-		if (Math.random() < 0.2)
-			w.addActor(new LargePlasmaTrail(w, x, y));
+		w.addActor(new LargePlasmaTrail(w, x, y));
 	}
 	
 	@Override
@@ -48,7 +53,6 @@ public class LargePlasmaTrail extends Actor {
 	 */
 	@Override
 	public int getDrawPriority() {
-		// TODO Auto-generated method stub
 		return drawPriority;
 	}
 
