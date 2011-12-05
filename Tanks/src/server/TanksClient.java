@@ -18,18 +18,18 @@ public class TanksClient {
 	private ObjectInputStream is;
 	private Thread receivingThread;
 	
-	private GameHandler gh;
+	private CommandReceiver cr;
 	private String ip = "";
 	
 	/**
-	 * The constructor takes in an ip and a gamehandler, then proceeds to start creating the client socket
+	 * The constructor takes in an ip and a CommandReceiver, then proceeds to start creating the client socket
 	 * and connect it to the server.
 	 * 
 	 * @param gameHandler - GameHandler class that the current player has
 	 * @param ip - String that contains the IP address for the socket to connect to
 	 */
-	public TanksClient(GameHandler gameHandler, String ip){
-		this.gh = gameHandler;
+	public TanksClient(CommandReceiver receiver, String ip){
+		this.cr = receiver;
 		this.ip = ip;
 		start();
 	}
@@ -70,7 +70,7 @@ public class TanksClient {
 					
 					Command c = (Command) is.readObject();
 					
-					gh.receiveCommand(c);
+					cr.receiveCommand(c);
 					
 				} catch (IOException e) {
 					e.printStackTrace();

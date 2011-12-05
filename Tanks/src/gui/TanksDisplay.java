@@ -7,11 +7,11 @@ import gameModel.FireCommand;
 import gameModel.GameHandler;
 import gameModel.HeavyTank;
 import gameModel.MoveCommand;
+import gameModel.MultiplayerBroadcaster;
 import gameModel.RotateCommand;
 import gameModel.RotateGunCommand;
 import gameModel.RotateGunCommand2;
 import gameModel.StandardTank;
-import gameModel.Tank;
 import gameModel.World;
 
 import java.awt.Color;
@@ -27,6 +27,8 @@ import java.util.Observer;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
+import server.TanksClient;
+
 public class TanksDisplay extends JPanel implements Observer {
 
 	private World world;
@@ -38,7 +40,7 @@ public class TanksDisplay extends JPanel implements Observer {
 	 * The default constructor creates a World and GameHandler and adds a Tank
 	 * to the World.
 	 */
-	public TanksDisplay() {
+	public TanksDisplay(String host) {
 		super(true); // It is double buffered.
 
 		setPreferredSize(new Dimension(800, 600));
@@ -49,10 +51,18 @@ public class TanksDisplay extends JPanel implements Observer {
 		new StandardTank(world, 500, 400, 2, 3);
 		handler = new GameHandler(world);
 		world.addObserver(this);
+		
+		CommandReceiver receiver = handler;
+		
+		if (host != null) {
+			// Try to connect to host
+			TanksClient client = new TanksClient(handler, host);
+			receiver = new MultiplayerBroadcaster(handler, client);
+		}
 
 		setFocusable(true);
 		requestFocus();
-		addKeyListener(keyListener = new TanksKeyboardListener(handler, 2));
+		addKeyListener(keyListener = new TanksKeyboardListener(receiver, 2));
 		//addMouseListener(new TanksMouseListener(handler, 2));
 	}
 
