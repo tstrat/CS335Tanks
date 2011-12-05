@@ -68,7 +68,7 @@ public class DustCloud extends Actor {
 	}
 
 	/**
-	 * Returns the priority of this gun's draw. A higher priority object is drawn over
+	 * Returns the priority of this clouds draw. A higher priority object is drawn over
 	 * a lower priority object in the main GUI.
 	 */
 	@Override

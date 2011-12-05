@@ -19,7 +19,7 @@ public class FireBall extends Collidable {
 	 * @param w - The current game world.
 	 * @param x - The DustCloud's x-coordinate.
 	 * @param y - DustCloud's y-coordinate.
-	 * @param rotation
+	 * @param rotation - sets the rotation (direction) the fireball will travel
 	 * @param speed - How fast the fireball moves
 	 * @param damage - How much damage the fireball deals
 	 */
@@ -77,7 +77,7 @@ public class FireBall extends Collidable {
 	}
 	
 	/**
-	 * Returns the priority of this gun's draw. A higher priority object is drawn over
+	 * Returns the priority of this fireball's draw. A higher priority object is drawn over
 	 * a lower priority object in the main GUI.
 	 */
 	@Override
