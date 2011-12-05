@@ -115,7 +115,7 @@ public class Missile extends Collidable{
 	 */
 	public void explode() {
 		if(exists)
-			new Explosion(w, x, y, 3, 50, 6);
+			Explosion.createExplosion(w, x, y, 3, 50, 6);
 		
 		exists = false;
 	}
