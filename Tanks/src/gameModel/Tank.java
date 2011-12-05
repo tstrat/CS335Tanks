@@ -24,6 +24,11 @@ public class Tank extends Obstacle {
 	private Gun gun;
 	
 	/**
+	 * The speed of the Tank
+	 */
+	private double speed;
+	
+	/**
 	 * The position of the Tank in the previous frame. The Tank reverts to this
 	 * position of the tank's current location is invalid.
 	 */
@@ -54,9 +59,10 @@ public class Tank extends Obstacle {
 		this.maxHealth = 2500;
 		this.health = 2500;
 		this.gun = new Gun(w, x, y, rotation);
+		speed = 3;
 		w.addActor(this);
 		w.addActor(this.gun);
-		w.addActor(new HealthBar(w, this));
+		w.addActor(new HealthBar(w, this));		
 	}
 
 	/**
@@ -83,8 +89,8 @@ public class Tank extends Obstacle {
 			double delta = ((MoveCommand) c).getX();
 			oldX = x;
 			oldY = y;
-			x += delta * Math.cos(rotation);
-			y += delta * Math.sin(rotation);
+			x += delta * speed * Math.cos(rotation);
+			y += delta * speed * Math.sin(rotation);
 		} else if (c instanceof RotateCommand) {
 			rotation += ((RotateCommand) c).getRotation();
 			this.gun.rotate(((RotateCommand) c).getRotation());
