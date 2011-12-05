@@ -1,5 +1,10 @@
 package gameModel;
-
+/**
+ * Creates a new world which holds the actors and collidables of the current game.
+ * Does not do the inner gui parts to the game but is the world in which everything
+ * interacts with.
+ * 
+ */
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +18,10 @@ public class World extends Observable {
 	private List<Actor> actors;
 	private List<Collidable> collidables;
 
+	/**
+	 * Constructor for a new World. A world holds a list of Actors and Collidables.
+	 * This constructor initializes those to empty.
+	 */
 	public World() {
 		actors = new ArrayList<Actor>();
 		collidables = new ArrayList<Collidable>();
@@ -21,6 +30,11 @@ public class World extends Observable {
 
 	}
 
+	/**
+	 * Handles all collisions in the world. If a collision is made, checks
+	 * if the two objects are properly colliding and then calls the collide method
+	 * for those objects
+	 */
 	public void handleCollisions() {
 		for (int i = 0; i < collidables.size(); i++) {
 			for (int j = 0; j < collidables.size(); j++) {
@@ -33,7 +47,7 @@ public class World extends Observable {
 		}
 	}
 
-	/*
+	/**
 	 * World goes through all its actors, and makes them use their act() method.
 	 */
 	public void makeActorsAct() {
@@ -70,13 +84,23 @@ public class World extends Observable {
 		Collections.sort(actors);
 		return actors;
 	}
-
+	
+	/**
+	 * Adds and Actor to the world, if also a Collidable
+	 * adds it to that list as well as the actor list.
+	 * 
+	 * @param a - an Actor
+	 */
 	public void addActor(Actor a) {
 		actors.add(a);
 		if (a instanceof Collidable)
 			collidables.add((Collidable) a);
 	}
-
+	
+	/**
+	 * Cleans up unnecessary things in the world. If an actor
+	 * no longer exists it removes that actor
+	 */
 	public void cleanup() {
 		int i = 0;
 		while (i < actors.size()) {
