@@ -125,10 +125,30 @@ public class TanksDisplay extends JPanel implements Observer {
 			if (keyStates[KEY_L])
 				receiver.receiveCommand(new RotateGunCommand2(player, 0.06));
 		}
+		
+		/**
+		 * REMOVE THIS FOR PRODUCTION.
+		 */
+		private void changePlayer(int newPlayer) {
+			player = newPlayer;
+		}
 
 		@Override
 		public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
+			
+			// REMOVE FOR PRODUCTION
+			// Changes which player we control.
+			if (e.isControlDown()) {
+				if (keyCode == KeyEvent.VK_1)
+					changePlayer(1);
+				else if (keyCode == KeyEvent.VK_2)
+					changePlayer(2);
+				else if (keyCode == KeyEvent.VK_3)
+					changePlayer(3);
+				else if (keyCode == KeyEvent.VK_4)
+					changePlayer(4);
+			}
 
 			switch (keyCode) {
 			case KeyEvent.VK_A:
@@ -164,7 +184,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		@Override
 		public void keyReleased(KeyEvent e) {
 			int keyCode = e.getKeyCode();
-			
+						
 			switch (keyCode) {
 			case KeyEvent.VK_A:
 				keyStates[KEY_A] = false;
