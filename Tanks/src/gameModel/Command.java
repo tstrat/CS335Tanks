@@ -1,5 +1,7 @@
 package gameModel;
 
+import java.io.Serializable;
+
 /**
  * A Command is the basic unit of control in Tanks. It can be passed to
  * any CommandReceiver, including over the network, to make an Actor
@@ -9,8 +11,13 @@ package gameModel;
  * 
  * @author Parker Snell
  */
-public abstract class Command {
+public abstract class Command implements Serializable {
 
+	/**
+	 * Mmm yeah i love me them serialVersionUIDs.
+	 */
+	private static final long serialVersionUID = -2082861940128673525L;
+	
 	/**
 	 * The player that should respond to this Command.
 	 */

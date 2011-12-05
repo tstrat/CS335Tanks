@@ -21,6 +21,8 @@ public class TanksClient {
 	private CommandReceiver cr;
 	private String ip = "";
 	
+	private int player = 0;
+	
 	/**
 	 * The constructor takes in an ip and a CommandReceiver, then proceeds to start creating the client socket
 	 * and connect it to the server.
@@ -54,6 +56,15 @@ public class TanksClient {
 		receivingThread.start();
 	}
 	
+	/**
+	 * Gets the current player number for this client. A value of zero is invalid,
+	 * and means that we haven't been assigned a player number yet by the server.
+	 * 
+	 * @return A positive integer, or zero if a number has not yet been assigned.
+	 */
+	public int getPlayerNumber() {
+		return player;
+	}
 	
 	/**
 	 * This thread class is created when the client socket is made.  While it is running,
@@ -68,9 +79,23 @@ public class TanksClient {
 			while (true) {
 				try {
 					
-					Command c = (Command) is.readObject();
+					Object o = is.readObject();
 					
-					cr.receiveCommand(c);
+					// Player number / error handling.
+					// Things that are not commands (or integers)
+					// are ignored.
+					if (!(o instanceof Command)) {
+						if (o instanceof Integer && player == 0)
+							player = (Integer)o;
+						
+						continue;
+					}
+										
+					Command c = (Command) o;
+					
+					// My commands have already been processed by the GameHandler.
+					if (c.getPlayer() != player)
+						cr.receiveCommand(c);
 					
 				} catch (IOException e) {
 					e.printStackTrace();

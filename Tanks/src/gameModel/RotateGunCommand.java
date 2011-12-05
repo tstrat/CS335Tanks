@@ -7,6 +7,11 @@ package gameModel;
  */
 public class RotateGunCommand extends Command {
 
+	/**
+	 * IT'S OVER 9000!!!!!!!111!1!1!oneone!11!one!eleven
+	 */
+	private static final long serialVersionUID = 4390334511004349403L;
+	
 	private int x;
 	private int y;
 	

@@ -28,9 +28,13 @@ public class TanksServer {
 		playerNum = 1;
 		doneConnecting = false;
 		clientList = new LinkedList<ClientManager>();
-		start();
-
-
+		
+		// Start the listener in a new thread.
+		new Thread() {
+			public void run() {
+				TanksServer.this.start();
+			}
+		}.start();
 	}
 	
 	/**
@@ -41,7 +45,7 @@ public class TanksServer {
 	 * 
 	 * Note - boolean doneConnecting is set by another method and called from outside the server class.
 	 */
-	public void start(){
+	private void start(){
 		try {
 			server = new ServerSocket(4002);
 			

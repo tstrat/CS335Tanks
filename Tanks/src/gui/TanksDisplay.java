@@ -47,8 +47,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		setBackground(new Color(245, 228, 156));
 
 		world = new World();
-		new HeavyTank(world, 200, 300, 2, 2);
-		new StandardTank(world, 500, 400, 2, 3);
+		new HeavyTank(world, 200, 300, 2, 1);
+		new StandardTank(world, 500, 400, 2, 2);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		
@@ -306,7 +306,9 @@ public class TanksDisplay extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		keyListener.step();
+		if (keyListener != null)
+			keyListener.step();
+		
 		repaint();
 	}
 

@@ -5,6 +5,12 @@ package gameModel;
  */
 public class RotateCommand extends Command {
 
+	/**
+	 * I don't always pick serialVersionUIDs, but when I do,
+	 * I use 5444246124105249072L.
+	 */
+	private static final long serialVersionUID = 5444246124105249072L;
+	
 	private double rotation;
 	
 	/**
