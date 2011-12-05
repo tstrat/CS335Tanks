@@ -6,8 +6,8 @@ public class HeavyTank extends Tank {
 		super(w, x, y, rotation, player);
 		this.maxHealth = 3600;
 		this.health = 3600;
-		this.gun = new ShotGun(w, x, y, rotation);
-		speed = 1.8;
+		this.gun = new PlasmaCannon(w, x, y, rotation);
+		speed = 2.2;
 		w.addActor(this);
 		w.addActor(this.gun);
 		w.addActor(new HealthBar(w, this));	

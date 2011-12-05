@@ -125,8 +125,10 @@ public class Tank extends Obstacle {
 	 */
 	@Override
 	public void collide(Collidable c) {
-		x = oldX;
-		y = oldY;
+		if(c instanceof Obstacle) {
+			x = oldX;
+			y = oldY;
+		}
 	}
 	
 	/**

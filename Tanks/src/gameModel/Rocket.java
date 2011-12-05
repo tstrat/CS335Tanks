@@ -6,7 +6,7 @@ package gameModel;
  * 		and leaves a trail of DustClouds as it moves.
  *
  */
-public class Rocket extends Missile {
+public class Rocket extends LargeMissile {
 	/**
 	 * The priority this Actor has when drawn over other Actors. a higher priority
 	 * means it is drawn over the lower priority Actors.
@@ -62,7 +62,7 @@ public class Rocket extends Missile {
 	public void collide(Collidable c) {
 		if (framesOld <= framesInactive && bounces == 0)
 			return;	
-		if (c instanceof Rocket) {
+		if (c instanceof LargeMissile) {
 			explode();	
 		}	
 		super.collide(c);

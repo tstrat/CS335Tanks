@@ -9,7 +9,7 @@ package gameModel;
 
 public class DustCloud extends Actor {
 
-	public int ticsLeft;
+	private int ticsLeft;
 	private static int drawPriority = 12;
 	
 	/**
