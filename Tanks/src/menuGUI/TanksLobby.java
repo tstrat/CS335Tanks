@@ -1,3 +1,5 @@
+//TODO: add an area to see what players are connected, create a way to load all saved maps and switch between them.  Perhaps add a drop down box to switch to a specific map?
+
 package menuGUI;
 
 import java.awt.event.ActionEvent;
