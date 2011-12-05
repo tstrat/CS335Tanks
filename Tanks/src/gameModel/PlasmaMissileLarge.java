@@ -10,7 +10,7 @@ public class PlasmaMissileLarge extends LargeMissile {
 		super(w, x, y, rotation, d, s);
 		maxBounces = 2;
 		lifeSpan = 300;
-		framesInactive = 16;
+		framesInactive = 17;
 		attached = false;
 		// TODO Auto-generated constructor stub
 	}
