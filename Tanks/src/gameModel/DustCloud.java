@@ -1,7 +1,7 @@
 package gameModel;
 
 /**
- * Creates a graphical dust cloud that follows missiles after they have been shot by a tank.
+ * Creates a graphical dust cloud that follows rockets after they have been shot by a tank.
  * 
  * @author (Of the Javadoc) Sean
  *
@@ -13,7 +13,7 @@ public class DustCloud extends Actor {
 	private static int drawPriority = 12;
 	
 	/**
-	 * A constructor for a new DustCloud object. Sets its location and it's tics to 100.
+	 * A constructor for a new DustCloud object. Sets its location and its tics to 100.
 	 * Tics are how long the Cloud lasts.
 	 * 
 	 * @param w - The current game world.

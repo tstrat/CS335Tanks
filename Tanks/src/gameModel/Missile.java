@@ -1,33 +1,41 @@
 package gameModel;
 
-public class Missile extends Collidable{
+/**
+ * 
+ * 		The Missile class defines the collidables fired by the Gun classes. They collide with obstacles
+ * 		and damage them.
+ *
+ */
+public abstract class Missile extends Collidable{
 	
 	/**
 	 * How much damage a missile does.
 	 */	
-	private int damage;
+	protected int damage;
 	
 	/**
 	 * How fast a missile moves.
 	 */	
-	private double speed;
+	protected double speed;
 	
 	/**
 	 * How many tics old the missile is
 	 */
-	private int framesOld;
+	protected int framesOld;
 	
 	/**
 	 * A tracker of how many times a missile has "bounced" against different surfaces.  After two "bounces", it explodes.
 	 */	
-	private int bounces;
+	protected int bounces;
 	
 	/**
-	 * The priority this Actor has when drawn over other Actors. a higher priority
-	 * means it is drawn over the lower priority Actors.
+	 * How many times a missile can bounce before it explodes
 	 */
-	private static int drawPriority = 11;
+	protected int maxBounces;
 	
+	protected int framesInactive;
+	
+		
 	/**
 	 * A constructor for a new missile object. Sets its location, its damage, and its speed.
 	 * 
@@ -36,9 +44,9 @@ public class Missile extends Collidable{
 	 * @param w - The current game world.
 	 * @param x - The missile's x-coordinate.
 	 * @param y - The missile's y-coordinate.
-	 * @param rotation - the current tank turret rotation. Effects the direction the missile will travel in.
-	 * @param d - How much damage this missile will do.
-	 * @param s - How fast this missile will move.
+	 * @param rotation - the current tank turret rotation. Affects the direction the missile will travel in.
+	 * @param d - How much damage this Rocket will do.
+	 * @param s - How fast this Rocket will move.
 	 */
 	
 	public Missile(World w, double x, double y, double rotation, int d, double s) {
@@ -57,11 +65,10 @@ public class Missile extends Collidable{
 	 */	
 	@Override
 	public void act() {
-		bounce();
 		framesOld++;
 		x += speed * Math.cos(rotation);
 		y += speed * Math.sin(rotation);
-		DustCloud.add(w, x, y);
+		
 	}
 	
 	/**
@@ -83,7 +90,7 @@ public class Missile extends Collidable{
 			rotation = -rotation;
 			bounces++;
 		}
-		if(bounces > 2)
+		if(bounces > maxBounces)
 			explode();
 	}
 
@@ -96,13 +103,10 @@ public class Missile extends Collidable{
 	 */
 	@Override
 	public void collide(Collidable c) {
-		if (framesOld <= 8 && bounces == 0)
-			return;
-		
-		if (c instanceof Obstacle)
+		if (c instanceof Obstacle) {
 			((Obstacle)c).receiveDamage(damage);
-		
-		explode();	
+			explode();	
+		}		
 	}
 	
 	/**
@@ -110,34 +114,10 @@ public class Missile extends Collidable{
 	 * to false.
 	 */
 	public void explode() {
-		if(exists)
-			Explosion.createExplosion(w, x, y, 3, 50, 6);
-		
 		exists = false;
 	}
 
-	/**
-	 * The DrawObject that defines how the GUI draws the Missile.
-	 */
-	private static DrawObject draw = new DrawSingleFrameObject("missile.png");
-	
-	/**
-	 * Returns the DrawObject of the missile, which controls how the Missile is drawn.
-	 */
-	@Override
-	public DrawObject getDraw() {
-		return draw;
-	}
 
-	/**
-	 * Returns the priority of this gun's draw. A higher priority object is drawn over
-	 * a lower priority object in the main GUI.
-	 */
-	@Override
-	public int getDrawPriority() {
-		// TODO Auto-generated method stub
-		return drawPriority;
-	}
 	
 
 

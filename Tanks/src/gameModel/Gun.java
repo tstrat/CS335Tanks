@@ -10,29 +10,27 @@ package gameModel;
  * 		that owns this gun).
  *
  */
-public class Gun extends Actor {
+public abstract class Gun extends Actor {
 	
 	/**
 	 * The damage of the missiles the gun fires
 	 */
-	private int damage;	
+	protected int damage;	
 	/**
 	 * The speed of the missiles the gun fires
 	 */
-	private double shellSpeed;	
+	protected double shellSpeed;	
 	/**
 	 * The amount of time (measured in act() iterations) before the gun can fire.
 	 */
-	private int cDTimer;
+	protected int cDTimer;
 	/**
 	 * The amound of time between each shot if the tank is continuously firing.
 	 */
-	private int cD;
-	/**
-	 * The prority this Actor has when drawn over other Actors. a higher priority
-	 * means it is drawn over the lower priority Actors.
-	 */
-	private static int drawPriority = 20;
+	protected int cD;
+	
+	
+
 
 	/**
 	 * The constructor of the Gun. It sets its world, x and y coordinates, and its
@@ -51,26 +49,12 @@ public class Gun extends Actor {
 	 */
 	public Gun(World w, double x, double y, double rotation) {
 		super(w, x, y, rotation);
-		damage = 300;
-		shellSpeed = 8;
-		cD = 45;
-		cDTimer = 0;
-		exists = true;
 	}
 
 	/**
-	 * The fireMissile method is how the gun fires missiles. It checks the remaining
-	 * cooldown on the gun, and if it is zero, it will fire and reset the cooldown to
-	 * the max cooldown, and adds a new Missile at the gun's location, with its
-	 * rotation.
+	 * The fireMissile method is how the gun fires missiles.
 	 */
-	public void fireMissile() {
-		if (cDTimer == 0) {
-			Missile m = new Missile(w, x, y, rotation, damage, shellSpeed);
-			w.addActor(m);
-			cDTimer += cD;
-		}
-	}
+	public abstract void fireMissile();
 
 	/**
 	 * Every act iteration, the cDTimer increments down, to a minimum of zero.
@@ -115,26 +99,8 @@ public class Gun extends Actor {
 			rotation -= .2;
 	}
 
-	/**
-	 * The DrawObject that defines how the GUI draws the Gun.
-	 */
-	private static DrawObject draw = new DrawSingleFrameObject("gunStan.png");
 
-	/**
-	 * Returns the DrawObject of the gun, which controls how the Gun is drawn.
-	 */
-	@Override
-	public DrawObject getDraw() {
-		return draw;
-	}
 		
-	/**
-	 * Returns the priority of this gun's draw. A higher priority object is drawn over
-	 * a lower priority object in the main GUI.
-	 */
-	@Override
-	public int getDrawPriority() {
-		return drawPriority;
-	}
+
 
 }

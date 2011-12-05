@@ -5,10 +5,12 @@ import gameModel.Command;
 import gameModel.CommandReceiver;
 import gameModel.FireCommand;
 import gameModel.GameHandler;
+import gameModel.HeavyTank;
 import gameModel.MoveCommand;
 import gameModel.RotateCommand;
 import gameModel.RotateGunCommand;
 import gameModel.RotateGunCommand2;
+import gameModel.StandardTank;
 import gameModel.Tank;
 import gameModel.World;
 
@@ -43,8 +45,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		setBackground(new Color(245, 228, 156));
 
 		world = new World();
-		new Tank(world, 200, 300, 2, 2);
-		new Tank(world, 500, 400, 2, 3);
+		new HeavyTank(world, 200, 300, 2, 2);
+		new StandardTank(world, 500, 400, 2, 3);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 
