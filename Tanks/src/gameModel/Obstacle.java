@@ -69,7 +69,7 @@ public abstract class Obstacle extends Collidable{
 	 * This decreases the Obstacle's health by d amount
 	 * 
 	 * @param d
-	 * 			The amound to decrease the Obstacle's health by.
+	 * 			The amount to decrease the Obstacle's health by.
 	 */
 	public void receiveDamage(int d) {
 		health -= d;

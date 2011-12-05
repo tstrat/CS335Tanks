@@ -33,5 +33,12 @@ public abstract class Command {
 	public int getPlayer() {
 		return myPlayer;
 	}
+	
+	/**
+	 * Applies this Command to an Actor.
+	 * 
+	 * @param a The Actor to take the effects of this Command.
+	 */
+	public abstract void applyTo(Actor a);
 
 }

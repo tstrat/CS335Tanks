@@ -12,7 +12,19 @@ public class FireCommand extends Command {
 	 */
 	public FireCommand(int Player) {
 		super(Player);
-		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * Causes an Actor, which must be a Tank, to fire its gun.
+	 * 
+	 * @param a An Actor which must be of type Tank or a subclass.
+	 */
+	@Override
+	public void applyTo(Actor a) {
+		if (!(a instanceof Tank))
+			throw new IllegalArgumentException("FireCommand only works on Tanks!");
+		
+		((Tank)a).fireMissile();
 	}
 
 }

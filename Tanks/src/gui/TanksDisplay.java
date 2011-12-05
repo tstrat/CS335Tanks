@@ -102,13 +102,13 @@ public class TanksDisplay extends JPanel implements Observer {
 		public void step() {
 			// WASD move/rotate.
 			if (keyStates[KEY_W])
-				receiver.receiveCommand(new MoveCommand(player, 1, 0));
+				receiver.receiveCommand(new MoveCommand(player, /* isBackward */ false));
 			
 			if (keyStates[KEY_A])
 				receiver.receiveCommand(new RotateCommand(player, -0.03));
 			
 			if (keyStates[KEY_S])
-				receiver.receiveCommand(new MoveCommand(player, -.5, 0));
+				receiver.receiveCommand(new MoveCommand(player, /* isBackward */ true));
 			
 			if (keyStates[KEY_D])
 				receiver.receiveCommand(new RotateCommand(player, 0.03));

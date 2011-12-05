@@ -74,34 +74,36 @@ public class Tank extends Obstacle {
 		return player;
 	}
 	
-
 	/**
-	 * The recieveCommand method takes commands from the player that controls this Tank and interprets them.
-	 * It finds out which specific command was issued to the tank and then makes the tank execute the action
-	 * corresponding to that command.
-	 * 
-	 * @param c
-	 * 			The command to interpret and execute.
+	 * Moves the tank forward at its specified speed.
 	 */
 	@Override
-	public void receiveCommand(Command c) {
-		if (c instanceof MoveCommand) {
-			double delta = ((MoveCommand) c).getX();
-			oldX = x;
-			oldY = y;
-			x += delta * speed * Math.cos(rotation);
-			y += delta * speed * Math.sin(rotation);
-		} else if (c instanceof RotateCommand) {
-			rotation += ((RotateCommand) c).getRotation();
-			this.gun.rotate(((RotateCommand) c).getRotation());
-		} else if (c instanceof FireCommand) {
-			gun.fireMissile();
-		} else if (c instanceof RotateGunCommand) {
-			this.gun.rotateTowards(((RotateGunCommand) c).getX(),
-					((RotateGunCommand) c).getY());
-		} else if (c instanceof RotateGunCommand2) {
-			this.gun.rotate(((RotateGunCommand2) c).getRotation());
-		}
+	public void moveForward() {
+		moveForward(speed);
+	}
+	
+	/**
+	 * Moves the tank backward at half its forward speed.
+	 */
+	@Override
+	public void moveBackward() {
+		moveBackward(speed/2.0);
+	}
+	
+	/**
+	 * Rotates the gun by a given amount. This should usually only be called by RotateGunCommand.
+	 * 
+	 * @param r The rotation in radians.
+	 */
+	public void rotateGun(double r) {
+		gun.rotate(r);
+	}
+	
+	/**
+	 * Makes the gun fire a missile.
+	 */
+	public void fireMissile() {
+		gun.fireMissile();
 	}
 
 	/**
@@ -112,8 +114,7 @@ public class Tank extends Obstacle {
 	@Override
 	public void act() {
 		stayInBounds();
-		this.gun.setX(x);
-		this.gun.setY(y);
+		gun.syncPosition(this);
 	}
 
 	/**
@@ -167,10 +168,19 @@ public class Tank extends Obstacle {
 	 */
 	@Override
 	public void collide(Collidable c) {
-		if (c instanceof Obstacle) {
-			x = oldX;
-			y = oldY;
-		}
+		x = oldX;
+		y = oldY;
+	}
+	
+	/**
+	 * Rotates the gun when the Tank rotates.
+	 * 
+	 * @param r The amount to rotate by.
+	 */
+	@Override
+	public void rotate(double r) {
+		gun.rotate(r);
+		super.rotate(r);
 	}
 
 }

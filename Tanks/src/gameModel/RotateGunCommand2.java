@@ -31,4 +31,17 @@ public class RotateGunCommand2 extends Command {
 		return rotation;
 	}
 	
+	/**
+	 * Rotates the gun associated with the Actor, which must be a Tank.
+	 * 
+	 * @param a The Actor (a Tank) whose gun should be rotated.
+	 */
+	@Override
+	public void applyTo(Actor a) {
+		if (!(a instanceof Tank))
+			throw new IllegalArgumentException("RotateGunCommand2 only works on Tanks!");
+		
+		((Tank)a).rotateGun(rotation);
+	}
+	
 }

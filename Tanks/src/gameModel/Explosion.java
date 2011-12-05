@@ -10,7 +10,7 @@ package gameModel;
 public class Explosion {
 
 	/**
-	 * The static method createExplosion creates an explosion of fireballs sccording to
+	 * The static method createExplosion creates an explosion of fireballs according to
 	 * the passed parameters. The fireballs move at a random speed and direction from the
 	 * center, up to a certain point depending on the radius of the explosion.
 	 * 

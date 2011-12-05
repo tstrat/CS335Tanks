@@ -27,5 +27,15 @@ public class RotateCommand extends Command {
 	public double getRotation() {
 		return rotation;
 	}
+
+	/**
+	 * Rotates an Actor by the given rotation.
+	 * 
+	 * @param a The Actor to rotate.
+	 */
+	@Override
+	public void applyTo(Actor a) {
+		a.rotate(rotation);
+	}
 	
 }

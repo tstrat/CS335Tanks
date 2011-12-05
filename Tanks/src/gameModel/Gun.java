@@ -35,7 +35,7 @@ public class Gun extends Actor {
 	private static int drawPriority = 20;
 
 	/**
-	 * The constructor of the Gun. It sts its world, x and y coordinates, and its
+	 * The constructor of the Gun. It sets its world, x and y coordinates, and its
 	 * rotation to the parameters provided. It is set to fire the missiles at a speed
 	 * of 8 pixels per act iteration, with a cool down of 45 act iterations between
 	 * each shot.
@@ -127,24 +127,7 @@ public class Gun extends Actor {
 	public DrawObject getDraw() {
 		return draw;
 	}
-
-	/**
-	 * rotates the Gun by the paramter rotation radians.
-	 * 
-	 * @param rotation
-	 * 			the radians to rotate the gun.
-	 */
-	public void rotate(double rotation) {
-		this.rotation += rotation;
-	}
-	
-	/**
-	 * destroy sets the Gun's existence to false.
-	 */
-	public void destroy() {
-		exists = false;
-	}
-	
+		
 	/**
 	 * Returns the priority of this gun's draw. A higher priority object is drawn over
 	 * a lower priority object in the main GUI.

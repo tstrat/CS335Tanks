@@ -23,7 +23,7 @@ public class Missile extends Collidable{
 	private int bounces;
 	
 	/**
-	 * The prority this Actor has when drawn over other Actors. a higher priority
+	 * The priority this Actor has when drawn over other Actors. a higher priority
 	 * means it is drawn over the lower priority Actors.
 	 */
 	private static int drawPriority = 11;
@@ -70,17 +70,17 @@ public class Missile extends Collidable{
 	 */	
 	public void bounce() {
 		if(x < 0) {
-			setRotation(-(Math.PI + getRotation()));
+			rotation = Math.PI - rotation;
 			bounces++;
 		} else if(x > 800) {
-			setRotation(-(Math.PI + getRotation()));
+			rotation = Math.PI - rotation;
 			bounces++;
 		}
 		if(y > 600) {
-			setRotation(-(getRotation()));
+			rotation = -rotation;
 			bounces++;
 		} else if(y < 0){
-			setRotation(-(getRotation()));
+			rotation = -rotation;
 			bounces++;
 		}
 		if(bounces > 2)
@@ -96,27 +96,13 @@ public class Missile extends Collidable{
 	 */
 	@Override
 	public void collide(Collidable c) {
-		if(framesOld > 8){
-			if(c instanceof Obstacle) {
-				this.explode();
-				((Obstacle) c).receiveDamage(damage);
-			}
-			else if(c instanceof Missile) {
-				this.explode();
-				((Missile) c).explode();
-			}
-		}
-		else if(bounces > 0){
-			if(c instanceof Obstacle) {
-				this.explode();
-				((Obstacle) c).receiveDamage(damage);
-			}
-			else if(c instanceof Missile) {
-				this.explode();
-				((Missile) c).explode();
-			}
-		}
-			
+		if (framesOld <= 8 && bounces == 0)
+			return;
+		
+		if (c instanceof Obstacle)
+			((Obstacle)c).receiveDamage(damage);
+		
+		explode();	
 	}
 	
 	/**

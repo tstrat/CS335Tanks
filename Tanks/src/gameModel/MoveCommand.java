@@ -5,39 +5,31 @@ package gameModel;
  */
 public class MoveCommand extends Command {
 
-	private double x;
-	private double y;
+	private boolean isBackward;
 	
 	/**
 	 * Creates a new constructor for the MoveCommand. Sets player number and location.
 	 * 
-	 * @param player - Player number
-	 * @param x - players x-coordinate
-	 * @param y - players y-coordinate
+	 * @param player Player number
+	 * @param isBackward True if the Actor should move backward, false otherwise.
 	 */
-	public MoveCommand(int player, double x, double y) {
+	public MoveCommand(int player, boolean isBackward) {
 		super(player);
 		
-		this.x = x;
-		this.y = y;
+		this.isBackward = isBackward;
 	}
-	
+
 	/**
-	 * Returns this MoveCommand's x-position for the tank
+	 * Cause the Actor to move.
 	 * 
-	 * @return The current x-position.
+	 * @param a The Actor that should move.
 	 */
-	public double getX() {
-		return x;
-	}
-	
-	/**
-	 * Returns this MoveCommand's y-position for the tank
-	 * 
-	 * @return The current y-position.
-	 */
-	public double getY() {
-		return y;
+	@Override
+	public void applyTo(Actor a) {
+		if (isBackward)
+			a.moveBackward();
+		else
+			a.moveForward();
 	}
 	
 }
