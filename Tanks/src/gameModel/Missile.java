@@ -106,6 +106,16 @@ public class Missile extends Collidable{
 				((Missile) c).explode();
 			}
 		}
+		if(bounces > 0){
+			if(c instanceof Obstacle) {
+				this.explode();
+				((Obstacle) c).receiveDamage(damage);
+			}
+			else if(c instanceof Missile) {
+				this.explode();
+				((Missile) c).explode();
+			}
+		}
 			
 	}
 	
