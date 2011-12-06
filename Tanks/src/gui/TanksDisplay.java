@@ -50,7 +50,7 @@ public class TanksDisplay extends JPanel implements Observer {
 
 		world = new World();
 		new HeavyTank(world, 200, 300, 2, 1);
-		new HoverTank(world, 500, 400, 2, 2);
+		new StandardTank(world, 500, 400, 2, 2);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		
@@ -65,8 +65,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		setFocusable(true);
 		requestFocus();
 		addKeyListener(keyListener = new TanksKeyboardListener(receiver, 2));
-		addMouseListener(mouseListener = new TanksMouseListener(receiver, 2));
-		addMouseMotionListener(mouseListener);
+		//addMouseListener(mouseListener = new TanksMouseListener(receiver, 2));
+		//addMouseMotionListener(mouseListener);
 	}
 
 	@Override
@@ -144,7 +144,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		 */
 		private void changePlayer(int newPlayer) {
 			player = newPlayer;
-			TanksDisplay.this.mouseListener.changePlayer(newPlayer);
+			//TanksDisplay.this.mouseListener.changePlayer(newPlayer);
 		}
 
 		@Override
