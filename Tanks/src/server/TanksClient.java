@@ -78,12 +78,7 @@ public class TanksClient {
 			
 			while (true) {
 				try {
-					
-					if (is.available() == 0) {
-						Thread.sleep(50);
-						continue;
-					}
-					
+										
 					Object o = is.readObject();
 					
 					// Player number / error handling.
@@ -105,8 +100,6 @@ public class TanksClient {
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
