@@ -38,9 +38,7 @@ public class BasicFrame extends JFrame {
 		
 		TanksServer server;
 		if (hosting) {
-			System.out.println("sdfa");
 			server = new TanksServer();
-			System.out.println("83984983");
 		}
 		
 		BasicFrame frame = new BasicFrame(host);
