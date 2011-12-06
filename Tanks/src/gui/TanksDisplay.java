@@ -191,6 +191,10 @@ public class TanksDisplay extends JPanel implements Observer {
 			case KeyEvent.VK_L:
 				keyStates[KEY_L] = true;
 				break;
+				
+			case KeyEvent.VK_SPACE:
+				keyStates[KEY_K] = true;
+				break;
 			}
 		}
 
@@ -226,6 +230,11 @@ public class TanksDisplay extends JPanel implements Observer {
 			case KeyEvent.VK_L:
 				keyStates[KEY_L] = false;
 				break;
+				
+			case KeyEvent.VK_SPACE:
+				keyStates[KEY_K] = false;
+				break;
+
 			}
 		}
 
