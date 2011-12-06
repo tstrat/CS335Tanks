@@ -87,8 +87,4 @@ public abstract class Gun extends Actor {
 			rotation -= .06;	
 	}
 
-
-		
-
-
 }
