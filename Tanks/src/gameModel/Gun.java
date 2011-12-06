@@ -79,8 +79,4 @@ public abstract class Gun extends Actor {
 		rotation = Math.atan2(y - this.y, x - this.x);
 	}
 
-
-		
-
-
 }
