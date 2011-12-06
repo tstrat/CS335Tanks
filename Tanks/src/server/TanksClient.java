@@ -98,6 +98,7 @@ public class TanksClient {
 						cr.receiveCommand(c);
 					
 				} catch (IOException e) {
+					System.out.println(e.getMessage());
 					e.printStackTrace();
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
