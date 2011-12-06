@@ -7,6 +7,11 @@ package gameModel;
  */
 public class RotateGunCommand2 extends Command {
 
+	/**
+	 * If you change this I will hunt you down and kill you.
+	 */
+	private static final long serialVersionUID = -741260137836136482L;
+	
 	private double rotation;
 	
 	/**

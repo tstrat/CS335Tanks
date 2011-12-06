@@ -5,6 +5,11 @@ package gameModel;
  */
 public class MoveCommand extends Command {
 
+	/**
+	 * Sometimes when I'm bored I count from this number to 0.
+	 */
+	private static final long serialVersionUID = -4006440351943291177L;
+	
 	private boolean isBackward;
 	
 	/**

@@ -70,7 +70,8 @@ public class World extends Observable {
 	public void command(List<Command> commands) {
 		for (int i = 0; i < actors.size(); i++) {
 			Actor a = actors.get(i);
-			for (Command c : commands) {
+			for (int j = 0; j < commands.size(); ++j) {
+				Command c = commands.get(j);
 				if (a.getPlayerNumber() == c.getPlayer())
 					a.receiveCommand(c);
 			}

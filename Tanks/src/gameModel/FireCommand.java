@@ -6,6 +6,11 @@ package gameModel;
 public class FireCommand extends Command {
 
 	/**
+	 * That's my lucky number.
+	 */
+	private static final long serialVersionUID = 8232727016546914341L;
+
+	/**
 	 * The constructor for a new FireCommand. Sets the player number
 	 * 
 	 * @param Player - player number
