@@ -76,27 +76,7 @@ public abstract class Gun extends Actor {
 	 * 			The y coordinate of the point Gun is orienting itself towards.
 	 */
 	public void rotateTowards(double x, double y) {
-		if (rotation < 0)
-			rotation += 2 * Math.PI;
-		else if (rotation > 2 * Math.PI)
-			rotation -= 2 * Math.PI;
-		
-		double dx = x - this.x;
-		double dy = y - this.y;
-		double theta = Math.atan(dy / dx);
-		
-		if (dx < 0 && dy > 0) {
-			theta = 1 * Math.PI + theta;
-		} else if (dx < 0 && dy < 0) {
-			theta = Math.PI + theta;
-		} else if (dx > 0 && dy < 0) {
-			theta = 2 * Math.PI + theta;
-		}
-		
-		if (theta > rotation)
-			rotation += .2;
-		if (theta < rotation)
-			rotation -= .2;
+		rotation = Math.atan2(y - this.y, x - this.x);
 	}
 
 

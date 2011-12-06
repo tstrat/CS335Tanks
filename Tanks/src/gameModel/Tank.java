@@ -142,4 +142,14 @@ public class Tank extends Obstacle {
 		super.rotate(r);
 	}
 
+	/**
+	 * Rotates the gun to point at a specific x and y coordinate.
+	 * 
+	 * @param x The x-coordinate to rotate toward.
+	 * @param y The y-coordinate to rotate toward.
+	 */
+	public void rotateGunTo(int x, int y) {
+		gun.rotateTowards(x, y);
+	}
+
 }

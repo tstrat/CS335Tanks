@@ -56,7 +56,7 @@ public class RotateGunCommand extends Command {
 		if (!(a instanceof Tank))
 			throw new IllegalArgumentException("RotateGunCommand only works on Tanks!");
 		
-		// TODO: Write me!
+		((Tank)a).rotateGunTo(x, y);
 	}
 
 }

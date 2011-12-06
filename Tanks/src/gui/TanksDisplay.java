@@ -35,6 +35,7 @@ public class TanksDisplay extends JPanel implements Observer {
 	private GameHandler handler;
 	
 	private TanksKeyboardListener keyListener;
+	private TanksMouseListener mouseListener;
 
 	/**
 	 * The default constructor creates a World and GameHandler and adds a Tank
@@ -63,7 +64,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		setFocusable(true);
 		requestFocus();
 		addKeyListener(keyListener = new TanksKeyboardListener(receiver, 2));
-		//addMouseListener(new TanksMouseListener(handler, 2));
+		addMouseListener(mouseListener = new TanksMouseListener(receiver, 2));
+		addMouseMotionListener(mouseListener);
 	}
 
 	@Override
@@ -141,6 +143,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		 */
 		private void changePlayer(int newPlayer) {
 			player = newPlayer;
+			TanksDisplay.this.mouseListener.changePlayer(newPlayer);
 		}
 
 		@Override
@@ -235,13 +238,25 @@ public class TanksDisplay extends JPanel implements Observer {
 	
 	private class TanksMouseListener implements MouseInputListener {
 
-
 		private CommandReceiver receiver;
 		private int player;
+		
+		private int mouseX, mouseY;
 
 		public TanksMouseListener(CommandReceiver receiver, int player) {
 			this.receiver = receiver;
 			this.player = player;
+		}
+		
+		/**
+		 * Remove for production!
+		 */
+		public void changePlayer(int newPlayer) {
+			player = newPlayer;
+		}
+
+		public void step() {
+			receiver.receiveCommand(new RotateGunCommand(player, mouseX, mouseY));
 		}
 		
 		@Override
@@ -252,8 +267,8 @@ public class TanksDisplay extends JPanel implements Observer {
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			System.out.println("mouse moved");
-			receiver.receiveCommand(new RotateGunCommand(player, e.getX(), e.getY()));
+			mouseX = e.getX();
+			mouseY = e.getY();
 		}
 
 		@Override
@@ -262,7 +277,6 @@ public class TanksDisplay extends JPanel implements Observer {
 
 			Command c = null;
 
-			// TODO: This shouldn't be hard wired to player 2.
 			switch (button) {
 			case MouseEvent.BUTTON1:
 				c = new FireCommand(player);
@@ -301,13 +315,14 @@ public class TanksDisplay extends JPanel implements Observer {
 		}
 		
 	}
-	
-
 
 	@Override
 	public void update(Observable o, Object arg) {
 		if (keyListener != null)
 			keyListener.step();
+		
+		if (mouseListener != null)
+			mouseListener.step();
 		
 		repaint();
 	}
