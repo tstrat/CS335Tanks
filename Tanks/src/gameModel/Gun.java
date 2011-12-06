@@ -81,10 +81,10 @@ public abstract class Gun extends Actor {
 			rotation += 2 * Math.PI;
 		else if (r - rotation < - Math.PI)
 			rotation -= 2 * Math.PI;
-		if(r > rotation+ 0.03)
-			rotation += .06;
-		else if (r < rotation - .03)
-			rotation -= .06;	
+		if(r > rotation+ 0.025)
+			rotation += .05;
+		else if (r < rotation - .025)
+			rotation -= .05;	
 	}
 
 }
