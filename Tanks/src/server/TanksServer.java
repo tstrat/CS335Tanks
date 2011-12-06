@@ -22,6 +22,12 @@ public class TanksServer {
 	private boolean doneConnecting;
 	
 	/**
+	 * Control constants for messages sent between client and server.
+	 */
+	public static final int RECV_PLAYERNO = 1;
+	public static final int RECV_COMMAND = 2;
+	
+	/**
 	 * The constructor creates an empty linkedList of clients.  Then, it starts the server.
 	 */
 	public TanksServer(){
@@ -96,8 +102,10 @@ public class TanksServer {
 	private class ClientManager{
 		
 		private Socket socket;
-		private ObjectInputStream ois;
-		private ObjectOutputStream oos;
+		private InputStream is;
+		private DataInputStream dis;
+		private OutputStream os;
+		private DataOutputStream dos;
 		private Thread commandThread;
 		private int team;
 		/**
@@ -118,12 +126,12 @@ public class TanksServer {
 			
 			
 			try {
-				oos = new ObjectOutputStream(socket.getOutputStream());
-				ois = new ObjectInputStream(socket.getInputStream());
+				os = socket.getOutputStream();
+				is = socket.getInputStream();
+				dis = new DataInputStream(is);
+				dos = new DataOutputStream(os);
 				
-				oos.writeObject(team);  // sends team # back to client.
-				
-			
+				send(RECV_PLAYERNO, teamNum);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -147,11 +155,18 @@ public class TanksServer {
 				while (true){
 					try {
 						
-						Command c = (Command) ois.readObject();
+						int header = dis.readInt();
+						int type = header >> 24;
+						int size = header & 0xFFFFFF;
+						byte[] data = new byte[size];
+						int read = dis.read(data);
 						
-						for (ClientManager manager : clientList)
-							manager.send(c);
-								
+						while (read < size) {
+							read += is.read(data, read, size - read);
+						}
+						
+						receiveBytes(type, data);
+						
 					} catch (IOException e) {
 						
 						try {
@@ -160,12 +175,24 @@ public class TanksServer {
 							e1.printStackTrace();
 						}
 						break;
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
 					}
-				
 				}
+				
 			}
+			
+			/**
+			 * This is called when we have received a full array of bytes matching
+			 * the size specified in the header. The bytes are then sent out to
+			 * each connected client.
+			 * 
+			 * @param type The type of data received.
+			 * @param bytes The array of bytes that make up the data.
+			 */
+			private void receiveBytes(int type, byte[] bytes) {
+				for (ClientManager manager : clientList)
+					manager.send(type, bytes);
+			}
+			
 		}
 		
 		/**
@@ -176,13 +203,49 @@ public class TanksServer {
 		 */
 		public void send(Command c){
 			try {
-				oos.writeObject(c);
+				ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
+				ObjectOutputStream objectstream = new ObjectOutputStream(bytestream);
+				objectstream.writeObject(c);
+				
+				send(RECV_COMMAND, bytestream.toByteArray());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
+		/**
+		 * Sends a message to a client, by attaching a header onto the content
+		 * that you want to send.
+		 * 
+		 * @param type The type of command you are sending.
+		 * @param bytes The raw bytes that make up the message to be sent.
+		 */
+		public void send(int type, byte[] bytes) {
+			try {
+				dos.writeInt((type << 24) | bytes.length);
+				dos.write(bytes);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		/**
+		 * Sends a byte to the client. Intended to be used mainly for
+		 * sending the player number. Note that even though the parameter's type
+		 * is int, this method writes a byte, so values over 255 are not valid.
+		 * 
+		 * @param type The type of command you are sending.
+		 * @param b A byte to be sent to the client.
+		 */
+		public void send(int type, int b) {
+			try {
+				dos.writeInt((type << 24) | 1);
+				dos.write(b);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		/**
 		 * Closes the ObjectOutput and ObjectInput streams  and then closes the client's socket.
@@ -191,8 +254,8 @@ public class TanksServer {
 		 */
 		public void closeClientManager(){
 			try{
-				oos.close();
-				ois.close();
+				is.close();
+				os.close();
 				socket.close();
 			}catch (IOException ioe){
 				ioe.printStackTrace();
