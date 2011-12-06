@@ -9,6 +9,7 @@ public class RotateGunCommand2 extends Command {
 
 	/**
 	 * If you change this I will hunt you down and kill you.
+	 * Slowly. And with a shovel. It won't be fun. Well, not for you.
 	 */
 	private static final long serialVersionUID = -741260137836136482L;
 	
