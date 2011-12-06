@@ -14,8 +14,10 @@ import javax.swing.JOptionPane;
 public class TanksClient {
 	
 	private Socket client;
-	private ObjectOutputStream os;
-	private ObjectInputStream is;
+	private OutputStream os;
+	private InputStream is;
+	private DataInputStream dis;
+	private DataOutputStream dos;
 	private Thread receivingThread;
 	
 	private CommandReceiver cr;
@@ -45,8 +47,10 @@ public class TanksClient {
 		try {
 			client = new Socket(ip, 4002);
 			
-			os = new ObjectOutputStream(client.getOutputStream());
-			is = new ObjectInputStream(client.getInputStream());
+			os = client.getOutputStream();
+			is = client.getInputStream();
+			dis = new DataInputStream(is);
+			dos = new DataOutputStream(os);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -78,35 +82,71 @@ public class TanksClient {
 			
 			while (true) {
 				try {
-										
-					Object o = is.readObject();
 					
-					// Player number / error handling.
-					// Things that are not commands (or integers)
-					// are ignored.
-					if (!(o instanceof Command)) {
-						if (o instanceof Integer && player == 0)
-							player = (Integer)o;
-						
-						continue;
+					int header = dis.readInt();
+					int type = header >> 24;
+					int size = header & 0xFFFFFF;
+					byte[] data = new byte[size];
+					int read = dis.read(data);
+					
+					while (read < size) {
+						read += is.read(data, read, size - read);
 					}
-										
-					Command c = (Command) o;
 					
-					// My commands have already been processed by the GameHandler.
-					if (c.getPlayer() != player)
-						cr.receiveCommand(c);
+					receiveBytes(type, data);
 					
 				} catch (IOException e) {
-					System.out.println(e.getMessage());
 					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
+				}
+			}
+		}
+		
+		/**
+		 * Called when a full array of bytes is received. It is then dealt with according
+		 * to the type specified in the header.
+		 * 
+		 * @param type The type of data received.
+		 * @param data The content of the data received.
+		 */
+		private void receiveBytes(int type, byte[] data) {
+			if (type == TanksServer.RECV_PLAYERNO) {
+				player = data[0];
+			} else if (type == TanksServer.RECV_COMMAND) {
+				try {
+					Command c = (Command)new ObjectInputStream(new ByteArrayInputStream(data))
+								.readObject();
+					
+					// Commands for my player are ignored, since they
+					// are processed by GameHandler.
+					if (c.getPlayer() != player)
+						cr.receiveCommand(c);
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+				catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
 	}// End of Thread class
+	
+	/**
+	 * Sends a packet of data with a header indicating size and type of content.
+	 * 
+	 * @param header The header: (type << 24) | size.
+	 * @param data The data to be sent.
+	 */
+	private void send(int header, byte[] data) {
+		try {
+			dos.writeInt(header);
+			dos.write(data);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * This method sends any commands from this player from its client to the server
@@ -116,7 +156,12 @@ public class TanksClient {
 	 */
 	public void sendCommand(Command c){
 		try {
-			os.writeObject(c);
+			ByteArrayOutputStream bytesout = new ByteArrayOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(bytesout);
+			out.writeObject(c);
+			byte[] data = bytesout.toByteArray();
+			
+			send((TanksServer.RECV_COMMAND << 24) | data.length, data);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
