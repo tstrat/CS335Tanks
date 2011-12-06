@@ -49,8 +49,9 @@ public class TanksDisplay extends JPanel implements Observer {
 		setBackground(new Color(245, 228, 156));
 
 		world = new World();
-		new HeavyTank(world, 200, 300, 2, 1);
-		new StandardTank(world, 500, 400, 2, 2);
+		new HeavyTank(world, 200, 300, 0, 1);
+		new StandardTank(world, 500, 400, 0, 2);
+		new HoverTank(world, 300, 600, 0, 3);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		
