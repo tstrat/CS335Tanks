@@ -28,8 +28,8 @@ public class BounceShard extends Missile {
 	public BounceShard(World w, double x, double y, double rotation, int d,
 			double s) {
 		super(w, x, y, rotation, d, s);
-		maxBounces = 3;
-		framesInactive = 9;
+		maxBounces = 1;
+		framesInactive = 4;
 	}
 
 	/**
@@ -72,8 +72,8 @@ public class BounceShard extends Missile {
 	 */
 	private void bounceHelp() {
 		bounces++;
-		speed +=2;
-		damage += 40;
+		speed +=0;
+		damage += 0;
 	}
 	
 	

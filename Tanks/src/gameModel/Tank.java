@@ -1,5 +1,15 @@
 package gameModel;
-
+/**
+ * 
+ * @author Seungwoo Sun
+ * 
+ *		This class defines the tanks for the game "Tanks!". It is an Actor
+ *		that is player and AI controllable, and takes commands given by the
+ *		player to either move or fire. The Tank is linked to this player (and
+ *		will only take that player's commands), and also has a health bar and
+ *		a rotatable turret from which it fires.
+ *
+ */
 public class Tank extends Obstacle {
 
 	/**

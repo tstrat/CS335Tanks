@@ -6,6 +6,7 @@ import gameModel.CommandReceiver;
 import gameModel.FireCommand;
 import gameModel.GameHandler;
 import gameModel.HeavyTank;
+import gameModel.HoverTank;
 import gameModel.MoveCommand;
 import gameModel.MultiplayerBroadcaster;
 import gameModel.RotateCommand;
@@ -49,7 +50,7 @@ public class TanksDisplay extends JPanel implements Observer {
 
 		world = new World();
 		new HeavyTank(world, 200, 300, 2, 1);
-		new StandardTank(world, 500, 400, 2, 2);
+		new HoverTank(world, 500, 400, 2, 2);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		

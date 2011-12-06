@@ -16,9 +16,9 @@ public class ShotGun extends Gun {
 	public ShotGun(World w, double x, double y, double rotation) {
 		super(w, x, y, rotation);
 		damage = 55;
-		simultRounds = 4;
-		shellSpeed = 6;
-		cD = 35;
+		simultRounds = 5;
+		shellSpeed = 15;
+		cD = 30;
 		cDTimer = 0;
 		exists = true;
 	}
@@ -53,7 +53,7 @@ public class ShotGun extends Gun {
 	/**
 	 * The DrawObject that defines how the GUI draws the Gun.
 	 */
-	private static DrawObject draw = new DrawSingleFrameObject("gunFlak.png");
+	private static DrawObject draw = new DrawSingleFrameObject("shotGun.png");
 
 	/**
 	 * Returns the DrawObject of the gun, which controls how the Gun is drawn.
@@ -62,5 +62,7 @@ public class ShotGun extends Gun {
 	public DrawObject getDraw() {
 		return draw;
 	}
+	
+	
 
 }
