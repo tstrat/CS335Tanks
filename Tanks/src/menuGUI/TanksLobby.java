@@ -35,9 +35,19 @@ public class TanksLobby extends MasterPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        previous = new javax.swing.JButton();
+    	previous = new javax.swing.JButton();
         next = new javax.swing.JButton();
         mainMenu = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        weaponList = new javax.swing.JList();
+        mapDropDownSelector = new javax.swing.JComboBox();
+        mapPreview = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        weaponInfo = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tankList = new javax.swing.JList();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tankInfo = new javax.swing.JTextArea();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -51,46 +61,128 @@ public class TanksLobby extends MasterPanel {
         next.setText("Next");
 
         mainMenu.setText("Main Menu");
-        mainMenu.addActionListener(new mainMenuListener());
 
+        weaponList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Normal cannon", "Plasma cannon" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(weaponList);
+
+        mapDropDownSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        mapPreview.setFocusable(false);
+
+        javax.swing.GroupLayout mapPreviewLayout = new javax.swing.GroupLayout(mapPreview);
+        mapPreview.setLayout(mapPreviewLayout);
+        mapPreviewLayout.setHorizontalGroup(
+            mapPreviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+        mapPreviewLayout.setVerticalGroup(
+            mapPreviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 176, Short.MAX_VALUE)
+        );
+
+        weaponInfo.setColumns(20);
+        weaponInfo.setRows(5);
+        jScrollPane2.setViewportView(weaponInfo);
+
+        tankList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Small Tank", "Medium Tank", "Large Tank" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(tankList);
+
+        tankInfo.setColumns(20);
+        tankInfo.setRows(5);
+        jScrollPane4.setViewportView(tankInfo);
+        
+        
+        //Manually added code, not part of Netbeans
+        mainMenu.addActionListener(new mainMenuListener());
+        //End of manually added code not from NetBeans
+
+        
+        //DON'T MESS WITH THIS.  This sets up all the manual placements and stuff.
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(previous)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 648, Short.MAX_VALUE)
-                        .addComponent(next)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(212, 212, 212)
+                        .addComponent(mapPreview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
+                        .addComponent(next))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(mainMenu)
-                        .addGap(354, 354, 354))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(368, 368, 368)
+                        .addComponent(mapDropDownSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(297, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(previous)
-                    .addComponent(next))
-                .addGap(246, 246, 246)
-                .addComponent(mainMenu)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(209, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(previous)
+                                .addGap(105, 105, 105))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(mapPreview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(mapDropDownSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(68, 68, 68)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(mainMenu)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(next)
+                        .addGap(179, 179, 179)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
     }// </editor-fold>
+        //OKAY DO WHAT YOU WANT TO NOW.
 
 private void previousActionPerformed(java.awt.event.ActionEvent evt) {
 // TODO add your handling code here:
 }
 
-    // Variables declaration - do not modify
-    private javax.swing.JButton mainMenu;
-    private javax.swing.JButton next;
-    private javax.swing.JButton previous;
-    // End of variables declaration
+// Variables declaration - do not modify
+	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JScrollPane jScrollPane2;
+	private javax.swing.JScrollPane jScrollPane3;
+	private javax.swing.JScrollPane jScrollPane4;
+	private javax.swing.JButton mainMenu;
+	private javax.swing.JComboBox mapDropDownSelector;
+	private javax.swing.JPanel mapPreview;
+	private javax.swing.JButton next;
+	private javax.swing.JButton previous;
+	private javax.swing.JTextArea tankInfo;
+	private javax.swing.JList tankList;
+	private javax.swing.JTextArea weaponInfo;
+	private javax.swing.JList weaponList;
+// End of variables declaration
    
     
     private class mainMenuListener implements ActionListener
