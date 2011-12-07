@@ -16,8 +16,7 @@ public class PlasmaCannon extends Gun {
 	@Override
 	public void fireMissile() {
 		if (cDTimer == 0) {
-			PlasmaMissileLarge m = new PlasmaMissileLarge(w, x, y, rotation, damage, shellSpeed);
-			w.addActor(m);
+			new PlasmaMissileLarge(w, x, y, rotation, damage, shellSpeed);
 			cDTimer += cD;
 		}
 	}

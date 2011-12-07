@@ -19,7 +19,7 @@ public class PlasmaBallSmall extends Missile {
 
 
 	public void explode() {
-		w.addActor(new SmallPlasmaTrail(w, x, y));
+		new SmallPlasmaTrail(w, x, y);
 		exists = false;
 	}
 	

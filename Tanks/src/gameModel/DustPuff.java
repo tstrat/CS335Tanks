@@ -40,6 +40,6 @@ public class DustPuff extends DustCloud {
 	 */
 	public static void add(World w, double x, double y) {
 		if (Math.random() < .5)
-			w.addActor(new DustPuff(w, x, y));
+			new DustPuff(w, x, y);
 	}
 }

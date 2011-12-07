@@ -42,6 +42,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 		this.x = x;
 		this.y = y;
 		this.rotation = rotation;
+		w.addActor(this);
 		
 		SoundPlayer player = getSoundPlayer();
 		if (player != null)

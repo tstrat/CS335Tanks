@@ -64,7 +64,7 @@ public class DustCloud extends Actor {
 	 */
 	public static void add(World w, double x, double y) {
 		if (Math.random() < 0.5)
-			w.addActor(new DustCloud(w, x, y));
+			new DustCloud(w, x, y);
 	}
 
 	/**

@@ -8,9 +8,7 @@ public class HeavyTank extends Tank {
 		this.health = 3600;
 		this.gun = new PlasmaCannon(w, x, y, rotation);
 		speed = 2.2;
-		w.addActor(this);
-		w.addActor(this.gun);
-		w.addActor(new HealthBar(w, this));	
+		new HealthBar(w, this);	
 	}
 	
 	/**

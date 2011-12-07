@@ -36,9 +36,7 @@ public class StandardTank extends Tank {
 		this.health = 2500;
 		this.gun = new RocketGun(w, x, y, rotation);
 		speed = 3;
-		w.addActor(this);
-		w.addActor(this.gun);
-		w.addActor(new HealthBar(w, this));		
+		new HealthBar(w, this);		
 	}
 
 	/**

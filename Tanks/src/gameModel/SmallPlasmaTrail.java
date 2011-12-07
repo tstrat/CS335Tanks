@@ -20,7 +20,7 @@ public class SmallPlasmaTrail extends Actor {
 	 * @param y The y-position of the trail.
 	 */
 	public static void add(World w, double x, double y) {
-		w.addActor(new SmallPlasmaTrail(w, x, y));
+		new SmallPlasmaTrail(w, x, y);
 	}
 	
 	

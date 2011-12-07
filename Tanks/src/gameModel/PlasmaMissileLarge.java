@@ -38,14 +38,14 @@ public class PlasmaMissileLarge extends LargeMissile {
 
 	private void breakApart() {
 		for(int i = 0; i < 4; i++)
-			w.addActor(new PlasmaBallSmall(w, x, y, rotation - 252 + i * Math.PI / 10, 150, 8));
+			new PlasmaBallSmall(w, x, y, rotation - 252 + i * Math.PI / 10, 150, 8);
 		explode();
 		
 	}
 	
 	public void explode() {
 		if(exists)
-			w.addActor(new LargePlasmaTrail(w, x, y));
+			new LargePlasmaTrail(w, x, y);
 		exists = false;
 	}
 

@@ -17,10 +17,7 @@ public class HoverTank extends Tank {
 		this.health = 1400;
 		this.gun = new ShotGun(w, x, y, rotation);
 		speed = 4.5;
-		w.addActor(this);
-		w.addActor(this.gun);
-		w.addActor(new HealthBar(w, this));
-		// TODO Auto-generated constructor stub
+		new HealthBar(w, this);	
 	}
 
 	/**

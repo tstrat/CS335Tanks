@@ -34,8 +34,7 @@ public class ShotGun extends Gun {
 		if(cDTimer == 0) {
 			for(int i = 0; i < simultRounds; i++) {
 				double rand = Math.random() * .15;
-				BounceShard m = new BounceShard(w, x, y, rand + rotation + .04 * (i - simultRounds / 2), damage, shellSpeed);
-				w.addActor(m);
+				new BounceShard(w, x, y, rand + rotation + .04 * (i - simultRounds / 2), damage, shellSpeed);
 			}
 			cDTimer += cD;
 		}

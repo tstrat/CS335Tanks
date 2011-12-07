@@ -25,8 +25,7 @@ public class RocketGun extends Gun {
 	 */
 	public void fireMissile() {
 		if (cDTimer == 0) {
-			Rocket m = new Rocket(w, x, y, rotation, damage, shellSpeed);
-			w.addActor(m);
+			new Rocket(w, x, y, rotation, damage, shellSpeed);
 			cDTimer += cD;
 		}
 	}

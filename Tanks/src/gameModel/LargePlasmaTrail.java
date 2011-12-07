@@ -18,7 +18,7 @@ public class LargePlasmaTrail extends Actor {
 	 * @param y The y-position of the trail.
 	 */
 	public static void add(World w, double x, double y) {
-		w.addActor(new LargePlasmaTrail(w, x, y));
+		new LargePlasmaTrail(w, x, y);
 	}
 	
 	@Override
