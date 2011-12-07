@@ -23,7 +23,7 @@ public class SpikePit extends Terrain {
 	}
 
 	// TODO: This stuff should be moved to the relevant classes.
-	private static DrawObject draw = new DrawSingleFrameObject("defaultImg.png");
+	private static DrawObject draw = new DrawSingleFrameObject("spikePit.png");
 
 	/**
 	 * Gets the DrawObject used to draw this Terrain. This can return null, in
