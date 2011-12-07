@@ -15,14 +15,7 @@ public enum Views {
 	MAIN,
 	
 	/**
-	 * A screen to select what map the host wants to play on
-	 */
-	MAP,
-	
-	
-	/**
-	 * A screen that shows the connected players for multiplayer,
-	 * and allows the game to start at the same time for them. 
+	 * A screen that provides the player the chance to pick the map, their tank, and their weapon
 	 */
 	LOBBY,
 	
@@ -35,8 +28,12 @@ public enum Views {
 	 * Where players can change options - most likely, key bindings
 	 */
 	
-	OPTIONS
+	OPTIONS,
 	
+	/**
+	 * Where players choose to host or join a multiplayer game
+	 */
+	MULTIPLAYER_CHOICE
 	
 	
 }
