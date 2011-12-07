@@ -202,7 +202,6 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 */
 	@Override
 	public int compareTo(Actor o) {
-		// TODO Auto-generated method stub
 		return getDrawPriority() - o.getDrawPriority();
 	}
 	
