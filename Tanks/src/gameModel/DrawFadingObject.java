@@ -38,7 +38,6 @@ public class DrawFadingObject extends DrawSingleFrameObject {
 		super(imgName);
 		ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f = 1);
 		df = (float)(1.0 / (double)frames);
-		System.out.println(df);
 	}
 	
 	/**
