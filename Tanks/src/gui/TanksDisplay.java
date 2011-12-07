@@ -12,6 +12,7 @@ import gameModel.MultiplayerBroadcaster;
 import gameModel.RotateCommand;
 import gameModel.RotateGunCommand;
 import gameModel.RotateGunCommand2;
+import gameModel.SoundPlayer;
 import gameModel.StandardTank;
 import gameModel.World;
 
@@ -42,6 +43,11 @@ public class TanksDisplay extends JPanel implements Observer {
 	private TanksMouseListener mouseListener;
 	
 	private Image img;
+	
+	/**
+	 * Background music.
+	 */
+	private SoundPlayer player;
 
 	/**
 	 * The default constructor creates a World and GameHandler and adds a Tank
@@ -69,6 +75,9 @@ public class TanksDisplay extends JPanel implements Observer {
 			TanksClient client = new TanksClient(handler, host);
 			receiver = new MultiplayerBroadcaster(handler, client);
 		}
+		
+		player = new SoundPlayer(World.class.getResource("lullaby.mp3").getFile());
+		player.loop();
 
 		setFocusable(true);
 		requestFocus();
