@@ -13,8 +13,8 @@ public class HoverTank extends Tank {
 
 	public HoverTank(World w, double x, double y, double rotation, int player) {
 		super(w, x, y, rotation, player);
-		this.maxHealth = 1000;
-		this.health = 1000;
+		this.maxHealth = 1400;
+		this.health = 1400;
 		this.gun = new ShotGun(w, x, y, rotation);
 		speed = 4.5;
 		w.addActor(this);

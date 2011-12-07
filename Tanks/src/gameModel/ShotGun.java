@@ -15,7 +15,7 @@ public class ShotGun extends Gun {
 
 	public ShotGun(World w, double x, double y, double rotation) {
 		super(w, x, y, rotation);
-		damage = 55;
+		damage = 70;
 		simultRounds = 5;
 		shellSpeed = 15;
 		cD = 30;

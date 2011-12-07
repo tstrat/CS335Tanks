@@ -73,8 +73,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		setFocusable(true);
 		requestFocus();
 		addKeyListener(keyListener = new TanksKeyboardListener(receiver, 2));
-		//addMouseListener(mouseListener = new TanksMouseListener(receiver, 2));
-		//addMouseMotionListener(mouseListener);
+		addMouseListener(mouseListener = new TanksMouseListener(receiver, 2));
+		addMouseMotionListener(mouseListener);
 	}
 
 	@Override
@@ -153,7 +153,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		 */
 		private void changePlayer(int newPlayer) {
 			player = newPlayer;
-			//TanksDisplay.this.mouseListener.changePlayer(newPlayer);
+			TanksDisplay.this.mouseListener.changePlayer(newPlayer);
 		}
 
 		@Override
