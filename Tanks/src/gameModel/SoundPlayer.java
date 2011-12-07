@@ -113,6 +113,7 @@ public class SoundPlayer {
 		
 		player.setPlayBackListener(null);
 		player.stop();
+		player = null;
 	}
 	
 	/**
