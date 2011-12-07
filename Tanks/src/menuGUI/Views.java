@@ -20,9 +20,14 @@ public enum Views {
 	LOBBY,
 	
 	/**
-	 * The actual game screen
+	 * The actual game screen, for singleplayer
 	 */
-	GAME,
+	GAME_SINGLE,
+	
+	/**
+	 * The actual game screen, for multiplayerplayer
+	 */
+	GAME_MULTI,
 	
 	/**
 	 * Where players can change options - most likely, key bindings

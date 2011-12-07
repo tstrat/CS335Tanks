@@ -6,8 +6,6 @@ import java.awt.event.ActionListener;
 import java.util.Stack;
 
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import menuGUI.MainMenu;
@@ -110,7 +108,13 @@ public class TanksFrame extends JFrame{
 			CardLayout cl3 = (CardLayout) body.getLayout();
 			cl3.show(body, v.name());
 			break;
-			
+		case GAME_SINGLE:
+			currentPanel = new TanksDisplay("127.0.0.1", this); //Pass localhost or 127.0.0.1 as the host variable
+			panels.push(currentPanel);
+			body.add(currentPanel, v.name());
+			CardLayout cl4 = (CardLayout) body.getLayout();
+			cl4.show(body, v.name());
+			break;
 		}
 	}
 	
