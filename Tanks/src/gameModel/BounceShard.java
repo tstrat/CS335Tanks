@@ -29,7 +29,7 @@ public class BounceShard extends Missile {
 			double s) {
 		super(w, x, y, rotation, d, s);
 		maxBounces = 1;
-		framesInactive = 4;
+		framesInactive = 3;
 	}
 
 	/**
