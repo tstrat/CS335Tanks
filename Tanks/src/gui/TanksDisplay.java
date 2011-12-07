@@ -6,6 +6,8 @@ import gameModel.CommandReceiver;
 import gameModel.DrawObject;
 import gameModel.FireCommand;
 import gameModel.GameHandler;
+import gameModel.HealingBeacon;
+import gameModel.HealingPatch;
 import gameModel.HeavyTank;
 import gameModel.HoverTank;
 import gameModel.MoveCommand;
@@ -78,6 +80,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		new Wall(world, 300, 420, 0);
 		new Wall(world, 500, 500, 0);
 		new TNTBarrel(world, 400, 200, 0);
+		new HealingBeacon(world, 200, 200, 0);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		

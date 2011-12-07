@@ -1,13 +1,18 @@
 package gameModel;
 
-public class SpikePit extends Terrain {
+public class HealingPatch extends Terrain {
 
-	private int damage;
 
-	public SpikePit(World w, double x, double y, double rotation, int damage) {
+
+	private boolean broken;
+	private int smoked;
+
+	public HealingPatch(World w, double x, double y, double rotation) {
 		super(w, x, y, rotation);
-		this.damage = damage;
-		exists = true;
+		broken = false;
+		smoked = 0;
+
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -16,13 +21,15 @@ public class SpikePit extends Terrain {
 	 */
 	@Override
 	public void collide(Collidable c) {
-		if (c instanceof Obstacle) {
-			((Obstacle) c).receiveDamage(damage);
+		if(!broken) {
+			if (c instanceof Obstacle) {
+				((Obstacle) c).receiveDamage(-3);
+			}
 		}
 	}
 
 	// TODO: This stuff should be moved to the relevant classes.
-	private static DrawObject draw = new DrawSingleFrameObject("spikePit.png");
+	private static DrawObject draw = new DrawSingleFrameObject("healingpatch.png");
 
 	/**
 	 * Gets the DrawObject used to draw this Terrain. This can return null, in
@@ -43,6 +50,20 @@ public class SpikePit extends Terrain {
 	public int getDrawPriority() {
 		// TODO Auto-generated method stub
 		return drawPriority;
+	}
+	
+	@Override
+	public void act() {
+		if(broken && smoked < 150) {
+			if(Math.random() < .2) {
+				new DustPoof(w, x - 40 + 80*Math.random(), y - 40 + 80*Math.random());
+			}
+			smoked++;
+		}
+	}
+
+	public void breakPatch() {
+		broken = true;		
 	}
 
 }
