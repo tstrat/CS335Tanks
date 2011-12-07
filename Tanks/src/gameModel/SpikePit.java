@@ -2,7 +2,7 @@ package gameModel;
 
 public class SpikePit extends Terrain {
 
-	private static int drawPriority = 25;
+	private static int drawPriority = 1;
 	private int damage;
 
 	public SpikePit(World w, double x, double y, double rotation, int damage) {

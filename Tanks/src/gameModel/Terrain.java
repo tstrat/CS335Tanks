@@ -37,7 +37,7 @@ public class Terrain extends Collidable {
 	 * Gets the DrawObject used to draw this Terrain. This can return null,
 	 * in which case nothing should be drawn.
 	 * 
-	 * @return A DrawObject representing this Terain, or null.
+	 * @return A DrawObject representing this Terrain, or null.
 	 */
 	@Override
 	public DrawObject getDraw() {
