@@ -35,13 +35,16 @@ public class StupidAI extends AIController {
 	 */
 	private void resetTicks() {
 		step = 0;
-		moveTicks = (int)(TRand.random() * 100) + 200;
+		moveTicks = (int)(TRand.random() * 100) + 50;
 		rotateTicks = moveTicks + (int)(TRand.random() * 50);
 	}
 
 	@Override
 	public void act() {
 		++step;
+		
+		//if (step % 10 == 0)
+		//	receiver.receiveCommand(new FireCommand(player));
 		
 		if (step < moveTicks)
 			receiver.receiveCommand(new MoveCommand(player, false));

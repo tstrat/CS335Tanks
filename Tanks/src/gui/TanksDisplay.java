@@ -7,7 +7,6 @@ import gameModel.DrawObject;
 import gameModel.FireCommand;
 import gameModel.GameHandler;
 import gameModel.HealingBeacon;
-import gameModel.HealingPatch;
 import gameModel.HeavyTank;
 import gameModel.HoverTank;
 import gameModel.Indestructible;
@@ -17,9 +16,10 @@ import gameModel.RotateCommand;
 import gameModel.RotateGunCommand;
 import gameModel.RotateGunCommand2;
 import gameModel.SoundPlayer;
-import gameModel.SpikePit;
 import gameModel.StandardTank;
+import gameModel.StupidAI;
 import gameModel.TNTBarrel;
+import gameModel.Tank;
 import gameModel.Wall;
 import gameModel.World;
 
@@ -32,7 +32,6 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.net.URISyntaxException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -69,7 +68,7 @@ public class TanksDisplay extends JPanel implements Observer {
 
 		world = new World();
 		new HeavyTank(world, 200, 300, 0, 1);
-		new StandardTank(world, 500, 400, 0, 2);
+		Tank tank = new StandardTank(world, 500, 400, 0, 2);
 		new HoverTank(world, 300, 600, 0, 3);
 		new Wall(world, 500, 500, 0);
 		new Wall(world, 460, 500, 0);
@@ -95,13 +94,15 @@ public class TanksDisplay extends JPanel implements Observer {
 			receiver = new MultiplayerBroadcaster(handler, client);
 		}
 		
+		new StupidAI(world, tank, receiver);
+		
 		player = SoundPlayer.playerFromResource("lullaby.mp3");
 		player.loop();
 
 		setFocusable(true);
 		requestFocus();
-		addKeyListener(keyListener = new TanksKeyboardListener(receiver, 2));
-		addMouseListener(mouseListener = new TanksMouseListener(receiver, 2));
+		addKeyListener(keyListener = new TanksKeyboardListener(receiver, 1));
+		addMouseListener(mouseListener = new TanksMouseListener(receiver, 1));
 		addMouseMotionListener(mouseListener);
 	}
 
