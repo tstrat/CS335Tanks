@@ -18,6 +18,8 @@ import gameModel.World;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -25,6 +27,7 @@ import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
@@ -37,6 +40,8 @@ public class TanksDisplay extends JPanel implements Observer {
 	
 	private TanksKeyboardListener keyListener;
 	private TanksMouseListener mouseListener;
+	
+	private Image img;
 
 	/**
 	 * The default constructor creates a World and GameHandler and adds a Tank
@@ -56,6 +61,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		world.addObserver(this);
 		
 		CommandReceiver receiver = handler;
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
+		img = ii.getImage();
 		
 		if (host != null) {
 			// Try to connect to host
@@ -73,6 +80,7 @@ public class TanksDisplay extends JPanel implements Observer {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
+		((Graphics2D)g).drawImage(img, 0, 0, null);
 		for (Actor a : world.getActors()) {
 			a.getDraw().draw(g, a.getX(), a.getY(), a.getRotation());
 		}

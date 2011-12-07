@@ -39,7 +39,7 @@ public class DustPuff extends DustCloud {
 	 * @param y Y-position in pixels.
 	 */
 	public static void add(World w, double x, double y) {
-		if (Math.random() < 1)
+		if (Math.random() < .5)
 			w.addActor(new DustPuff(w, x, y));
 	}
 }
