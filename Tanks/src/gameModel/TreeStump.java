@@ -1,5 +1,19 @@
 package gameModel;
 
+/**
+ * This class defines the base of a tree obstacle. The stump is an indestructible
+ * obstacle, and is connected to tree leaves. Whenever the trunk takes damage, there
+ * is a small chance the leaves above will catch fire. The leaves do not collide with
+ * anything, but are drawn over all objects, making them great for cover, until they
+ * catch fire.
+ * 
+ * NOTE: To make forest fires happen, ideal spacing between trees for a gradual, spreading
+ * fire is roughly 100 pixels in eahc direction
+ * 
+ * 
+ * @author Messiah Frickin' Kane
+ *
+ */
 public class TreeStump extends Obstacle {
 	TreeLeaves tL;
 	private static int drawPriority = 10;

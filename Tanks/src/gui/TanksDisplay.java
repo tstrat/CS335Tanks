@@ -80,9 +80,16 @@ public class TanksDisplay extends JPanel implements Observer {
 		new Wall(world, 300, 460, 0);
 		new Wall(world, 300, 420, 0);
 		new Indestructible(world, 300, 380, 0);
-		new TNTBarrel(world, 400, 200, 0);
+
 		new HealingBeacon(world, 200, 200, 0);
-		new TreeStump(world, 450, 200, 0);
+		new TreeStump(world, 500, 200, 0);
+		new TreeStump(world, 400, 200, 0);
+		new TreeStump(world, 500, 300, 0);
+		new TreeStump(world, 400, 300, 0);
+		new TreeStump(world, 700, 200, 0);
+		new TreeStump(world, 600, 200, 0);
+		new TreeStump(world, 700, 300, 0);
+		new TreeStump(world, 600, 300, 0);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		
