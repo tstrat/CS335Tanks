@@ -28,6 +28,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.net.URISyntaxException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -81,7 +82,7 @@ public class TanksDisplay extends JPanel implements Observer {
 			receiver = new MultiplayerBroadcaster(handler, client);
 		}
 		
-		player = new SoundPlayer(World.class.getResource("lullaby.mp3").getFile());
+		player = SoundPlayer.playerFromResource("lullaby.mp3");
 		player.loop();
 
 		setFocusable(true);

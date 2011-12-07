@@ -1,8 +1,11 @@
 package gameModel;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -22,9 +25,9 @@ public class SoundPlayer {
 	private AdvancedPlayer player;
 	
 	/**
-	 * The file name, so that we can create a new player to loop.
+	 * The MP3 file handle.
 	 */
-	private String filename;
+	private File file;
 	
 	/**
 	 * Loads an MP3 file into memory, preparing to play it.
@@ -32,7 +35,30 @@ public class SoundPlayer {
 	 * @param mp3 The name of an MP3 file.
 	 */
 	public SoundPlayer(String mp3) {
-		filename = mp3;
+		file = new File(mp3);
+	}
+	
+	/**
+	 * Loads an MP3 file into memory, preparing to play it.
+	 * 
+	 * @param uri The URI representing the file path.
+	 */
+	public SoundPlayer(URI uri) {
+		file = new File(uri);
+	}
+	
+	/**
+	 * A convenience method to get a SoundPlayer for a given resource filename.
+	 * 
+	 * @param filename The name of the resource file.
+	 * @return A SoundPlayer object for the resource, or null if one couldn't be created.
+	 */
+	public static SoundPlayer playerFromResource(String filename) {
+		try {
+			return new SoundPlayer(SoundPlayer.class.getResource(filename).toURI());
+		} catch (URISyntaxException e) {
+			return null;
+		}
 	}
 	
 	/**
@@ -43,7 +69,7 @@ public class SoundPlayer {
 			@Override
 			public void run() {
 				try {
-					player = new AdvancedPlayer(new BufferedInputStream(new FileInputStream(filename)));
+					player = new AdvancedPlayer(new BufferedInputStream(new FileInputStream(file)));
 					player.play();
 				} catch (JavaLayerException e) {
 					// TODO Auto-generated catch block
@@ -64,7 +90,7 @@ public class SoundPlayer {
 			@Override
 			public void run() {
 				try {
-					player = new AdvancedPlayer(new BufferedInputStream(new FileInputStream(filename)));
+					player = new AdvancedPlayer(new BufferedInputStream(new FileInputStream(file)));
 					player.setPlayBackListener(new TanksPlaybackListener());
 					player.play();
 				} catch (JavaLayerException e) {

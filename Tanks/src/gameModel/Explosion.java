@@ -76,7 +76,7 @@ public class Explosion {
 		 */
 		@Override
 		public SoundPlayer getSoundPlayer() {
-			return new SoundPlayer(getClass().getResource("explode.mp3").getFile());
+			return SoundPlayer.playerFromResource("explode.mp3");
 		}
 		
 	}
