@@ -25,6 +25,7 @@ public abstract class MasterPanel extends JPanel {
 	 *            the TanksFrame
 	 */
 	public MasterPanel(TanksFrame t) {
+		super(true);  // It is double buffered.
 		this.t = t;
 	}
 
