@@ -44,7 +44,7 @@ public class SoundPlayer {
 	 * @param uri The URI representing the file path.
 	 */
 	public SoundPlayer(URI uri) {
-		file = new File(uri);
+		file = new File(uri.getPath());
 	}
 	
 	/**
