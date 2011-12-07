@@ -103,6 +103,13 @@ public class TanksFrame extends JFrame{
 			CardLayout cl2 = (CardLayout) body.getLayout();
 			cl2.show(body, v.name());
 			break;
+		case MULTIPLAYER_CHOICE:
+			currentPanel = new GUI_multiplayerChoice(this);
+			panels.push(currentPanel);
+			body.add(currentPanel, v.name());
+			CardLayout cl3 = (CardLayout) body.getLayout();
+			cl3.show(body, v.name());
+			break;
 			
 		}
 	}
