@@ -29,6 +29,8 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	
 	/**
 	 * Constructs an Actor. At this point, the World does not know about this actor.
+	 * If the Actor has an associated SoundPlayer, the sound will play when the object
+	 * is constructed.
 	 * 
 	 * @param w The World that the Actor belongs to.
 	 * @param x X-position in pixels.
@@ -41,6 +43,9 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 		this.y = y;
 		this.rotation = rotation;
 		
+		SoundPlayer player = getSoundPlayer();
+		if (player != null)
+			player.play();
 	}
 	
 	/**
@@ -136,6 +141,17 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * @return A DrawObject representing this Actor, or null.
 	 */
 	public abstract DrawObject getDraw();
+	
+	/**
+	 * Get a SoundPlayer to be played when this object is first created.
+	 * If this object has no associated sound effect, the default implementation
+	 * of this method can be used, which will return null.
+	 * 
+	 * @return A SoundPlayer representing this object's sound effect, or null.
+	 */
+	public SoundPlayer getSoundPlayer() {
+		return null;
+	}
 	
 	/**
 	 * For non-player objects (the default), this should return 0,

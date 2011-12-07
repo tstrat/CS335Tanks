@@ -3,6 +3,7 @@ package gui;
 import gameModel.Actor;
 import gameModel.Command;
 import gameModel.CommandReceiver;
+import gameModel.DrawObject;
 import gameModel.FireCommand;
 import gameModel.GameHandler;
 import gameModel.HeavyTank;
@@ -95,7 +96,10 @@ public class TanksDisplay extends JPanel implements Observer {
 		super.paint(g);
 		((Graphics2D)g).drawImage(img, 0, 0, null);
 		for (Actor a : world.getActors()) {
-			a.getDraw().draw(g, a.getX(), a.getY(), a.getRotation());
+			DrawObject draw = a.getDraw();
+			if (draw == null)
+				continue;
+			draw.draw(g, a.getX(), a.getY(), a.getRotation());
 		}
 		Toolkit.getDefaultToolkit().sync();
 	}
