@@ -16,6 +16,8 @@ public class DrawFadingObject extends DrawSingleFrameObject {
 	 */
 	private float f;
 	
+	private float df;
+	
 	/**
 	 * The Composite representing a semi-transparent image.
 	 */
@@ -29,6 +31,14 @@ public class DrawFadingObject extends DrawSingleFrameObject {
 	public DrawFadingObject(String imgName) {
 		super(imgName);
 		ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f = 1);
+		df = .05f;
+	}
+	
+	public DrawFadingObject(String imgName, int frames) {
+		super(imgName);
+		ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f = 1);
+		df = (float)(1.0 / (double)frames);
+		System.out.println(df);
 	}
 	
 	/**
@@ -57,8 +67,8 @@ public class DrawFadingObject extends DrawSingleFrameObject {
 		if (f == 0.0f)
 			return;
 		
-		f -= .05f;
-		if (f <= 0.05f)
+		f -= df;
+		if (f <= df)
 			f = 0.0f;
 		
 		ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f); 

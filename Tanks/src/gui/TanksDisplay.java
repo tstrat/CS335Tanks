@@ -20,6 +20,7 @@ import gameModel.SoundPlayer;
 import gameModel.SpikePit;
 import gameModel.StandardTank;
 import gameModel.TNTBarrel;
+import gameModel.TreeStump;
 import gameModel.Wall;
 import gameModel.World;
 
@@ -82,6 +83,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		new Indestructible(world, 300, 380, 0);
 		new TNTBarrel(world, 400, 200, 0);
 		new HealingBeacon(world, 200, 200, 0);
+		new TreeStump(world, 450, 200, 0);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		
