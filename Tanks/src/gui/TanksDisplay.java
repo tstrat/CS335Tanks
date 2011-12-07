@@ -10,6 +10,7 @@ import gameModel.HealingBeacon;
 import gameModel.HealingPatch;
 import gameModel.HeavyTank;
 import gameModel.HoverTank;
+import gameModel.Indestructible;
 import gameModel.MoveCommand;
 import gameModel.MultiplayerBroadcaster;
 import gameModel.RotateCommand;
@@ -78,7 +79,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		new Wall(world, 300, 500, 0);
 		new Wall(world, 300, 460, 0);
 		new Wall(world, 300, 420, 0);
-		new Wall(world, 500, 500, 0);
+		new Indestructible(world, 300, 380, 0);
 		new TNTBarrel(world, 400, 200, 0);
 		new HealingBeacon(world, 200, 200, 0);
 		handler = new GameHandler(world);
