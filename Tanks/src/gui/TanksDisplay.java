@@ -16,6 +16,7 @@ import gameModel.RotateGunCommand2;
 import gameModel.SoundPlayer;
 import gameModel.SpikePit;
 import gameModel.StandardTank;
+import gameModel.TNTBarrel;
 import gameModel.Wall;
 import gameModel.World;
 
@@ -76,7 +77,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		new Wall(world, 300, 460, 0);
 		new Wall(world, 300, 420, 0);
 		new Wall(world, 500, 500, 0);
-		new SpikePit(world, 250, 250, 0, 10);
+		new TNTBarrel(world, 400, 200, 0);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		
