@@ -68,6 +68,7 @@ public class Tank extends Obstacle {
 		oldX = x;
 		oldY = y;
 		moveForward(speed);
+
 	}
 	
 	/**
