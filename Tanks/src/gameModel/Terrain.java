@@ -50,15 +50,6 @@ public class Terrain extends Collidable {
 	@Override
 	public void act() {		
 	}
-
-	/**
-	 * Compares this Terrain to another based on the specific types
-	 */
-	@Override
-	public int compareTo(Actor o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 	/**
 	 * Returns the priority of this Terrain's draw. A higher priority object is drawn over
