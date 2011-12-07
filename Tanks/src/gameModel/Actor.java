@@ -201,7 +201,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * @param o The other Actor to compare with.
 	 */
 	@Override
-	public int compareTo(Actor o) {
+	public final int compareTo(Actor o) {
 		return getDrawPriority() - o.getDrawPriority();
 	}
 	
