@@ -20,6 +20,7 @@ import menuGUI.MainMenu;
  */
 
 
+@SuppressWarnings("serial")
 public class TanksFrame extends JFrame{
 
 	
@@ -38,15 +39,12 @@ public class TanksFrame extends JFrame{
 	}
 	
 	/**
-	 * Constructor for the TanksFrame. Creates a menu bar for exiting,
-	 * and sets it to go to the main menu when first created.
+	 * Constructor for the TanksFrame. Sets it to go to the main menu when first created.
 	 */
 	
 	
-	//TODO: is a menu bar really needed?
 	public TanksFrame(){
 		this.setLayout(new BorderLayout());
-		this.setUpMenuBar();
 		this.setMainMenu();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocation(200, 100);
@@ -70,20 +68,6 @@ public class TanksFrame extends JFrame{
 		
 		panels.push(currentPanel);
 		this.add(body, BorderLayout.CENTER);		
-	}
-
-
-
-	/**
-	 * Creates the menu bar for the Tank game window
-	 */
-	
-	private void setUpMenuBar() {
-		JMenuBar jmb = new JMenuBar();
-		JMenuItem exit = new JMenuItem("Exit");
-		jmb.add(exit);
-		exit.addActionListener(new ExitListener());
-		this.add(jmb, BorderLayout.NORTH);
 	}
 	
 	private class ExitListener implements ActionListener {
