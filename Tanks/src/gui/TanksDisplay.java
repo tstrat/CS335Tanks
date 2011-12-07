@@ -68,7 +68,15 @@ public class TanksDisplay extends JPanel implements Observer {
 		new StandardTank(world, 500, 400, 0, 2);
 		new HoverTank(world, 300, 600, 0, 3);
 		new Wall(world, 500, 500, 0);
-		new SpikePit(world, 500, 500, 0, 10);
+		new Wall(world, 460, 500, 0);
+		new Wall(world, 420, 500, 0);
+		new Wall(world, 380, 500, 0);
+		new Wall(world, 340, 500, 0);
+		new Wall(world, 300, 500, 0);
+		new Wall(world, 300, 460, 0);
+		new Wall(world, 300, 420, 0);
+		new Wall(world, 500, 500, 0);
+		new SpikePit(world, 250, 250, 0, 10);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		
