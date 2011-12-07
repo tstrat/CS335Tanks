@@ -7,6 +7,7 @@ package gameModel;
 	 *
 	 */
 public abstract class Terrain extends Collidable {
+	protected static int drawPriority = 1;
 	
 	/**
 	 * A constructor for a new Terrain object. Sets its location and it's rotation.

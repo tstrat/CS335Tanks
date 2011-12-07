@@ -73,6 +73,8 @@ public abstract class Obstacle extends Collidable{
 	 */
 	public void receiveDamage(int d) {
 		health -= d;
+		if(health > maxHealth)
+			health = maxHealth;
 	}
 
 	/**

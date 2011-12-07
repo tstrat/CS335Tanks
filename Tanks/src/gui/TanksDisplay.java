@@ -6,6 +6,8 @@ import gameModel.CommandReceiver;
 import gameModel.DrawObject;
 import gameModel.FireCommand;
 import gameModel.GameHandler;
+import gameModel.HealingBeacon;
+import gameModel.HealingPatch;
 import gameModel.HeavyTank;
 import gameModel.HoverTank;
 import gameModel.MoveCommand;
@@ -16,6 +18,7 @@ import gameModel.RotateGunCommand2;
 import gameModel.SoundPlayer;
 import gameModel.SpikePit;
 import gameModel.StandardTank;
+import gameModel.TNTBarrel;
 import gameModel.Wall;
 import gameModel.World;
 
@@ -68,7 +71,16 @@ public class TanksDisplay extends JPanel implements Observer {
 		new StandardTank(world, 500, 400, 0, 2);
 		new HoverTank(world, 300, 600, 0, 3);
 		new Wall(world, 500, 500, 0);
-		new SpikePit(world, 250, 350, 0, 5);
+		new Wall(world, 460, 500, 0);
+		new Wall(world, 420, 500, 0);
+		new Wall(world, 380, 500, 0);
+		new Wall(world, 340, 500, 0);
+		new Wall(world, 300, 500, 0);
+		new Wall(world, 300, 460, 0);
+		new Wall(world, 300, 420, 0);
+		new Wall(world, 500, 500, 0);
+		new TNTBarrel(world, 400, 200, 0);
+		new HealingBeacon(world, 200, 200, 0);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		

@@ -1,28 +1,30 @@
 package gameModel;
 
-public class SpikePit extends Terrain {
+public class HealingBeacon extends Obstacle {
 
-	private int damage;
+	private static int drawPriority = 13;
 
-	public SpikePit(World w, double x, double y, double rotation, int damage) {
+	private HealingPatch hP;
+	
+	public HealingBeacon(World w, double x, double y, double rotation) {
 		super(w, x, y, rotation);
-		this.damage = damage;
-		exists = true;
+		health = 1500;
+		maxHealth = 1500;
+		hP = new HealingPatch(w, x, y, rotation);
 	}
 
-	/**
-	 * The collide method dictates how terrain interacts with other objects
-	 * colliding into it.
-	 */
 	@Override
 	public void collide(Collidable c) {
-		if (c instanceof Obstacle) {
-			((Obstacle) c).receiveDamage(damage);
-		}
+		
 	}
 
+	@Override
+	public void act() {
+
+	}
+	
 	// TODO: This stuff should be moved to the relevant classes.
-	private static DrawObject draw = new DrawSingleFrameObject("spikePit.png");
+	private static DrawObject draw = new DrawSingleFrameObject("healingbeacon.png");
 
 	/**
 	 * Gets the DrawObject used to draw this Terrain. This can return null, in
@@ -34,6 +36,16 @@ public class SpikePit extends Terrain {
 	public DrawObject getDraw() {
 		return draw;
 	}
+	
+	public boolean exists() {
+		if(health <= 0) {
+			hP.breakPatch();
+			return false;
+		}
+		return true;
+		
+	}
+	
 
 	/**
 	 * Returns the priority of this Terrain's draw. A higher priority object is
