@@ -35,8 +35,8 @@ public class StupidAI extends AIController {
 	 */
 	private void resetTicks() {
 		step = 0;
-		moveTicks = (int)(TRand.random() * 100) + 50;
-		rotateTicks = moveTicks + (int)(TRand.random() * 50);
+		moveTicks = TRand.randInt(50, 150);
+		rotateTicks = moveTicks + TRand.randInt(50);
 	}
 
 	@Override
