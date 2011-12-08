@@ -6,6 +6,7 @@ import gameModel.Terrain;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
@@ -16,9 +17,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class OptionPane extends JFrame implements ActionListener{
+public class OptionPane extends JFrame implements ActionListener {
 	EditorPane ep;
 	
+	int mouseX, mouseY;
+	boolean clicked = false;
 	JPanel options = new JPanel();
 	JLabel header = new JLabel("Editor Options");
 	JLabel terrain = new JLabel("Terrain: ");
@@ -48,20 +51,29 @@ public class OptionPane extends JFrame implements ActionListener{
 		options.setSize(300,600);
 		options.setVisible(true);
 		options.setLayout(null);		
-		
+
 		createLists();
 	}
 	
 	public void placeButtons(){
 		for(int i = 1; i <= terList.size(); i++){
-			sets(terButList.get(i-1), 20, 30 + (i * 30), 100, 25);
+			sets(terButList.get(i-1), 20, 30 + (i * 30), 120, 25);
 			terButList.get(i-1).addActionListener(this);
+		}
+		
+		for(int i = 1; i <= obsList.size(); i++){
+			sets(obsButList.get(i-1), 20, 220 + (i * 30), 120, 25);
+			obsButList.get(i-1).addActionListener(this);
 		}
 	}
 	
 	public void createLists(){
 		terList.add("SpikePit");
 		obsList.add("Wall");
+		obsList.add("TreeStump");
+		obsList.add("HealingBeacon");
+		obsList.add("Indestructible");
+		obsList.add("TNTBarrel");
 		
 		for(int i = 0; i < terList.size(); i++)
 			terButList.add(new JButton(terList.get(i)));
@@ -77,9 +89,9 @@ public class OptionPane extends JFrame implements ActionListener{
 		sets(terRemaining, 225, 25, 30, 20);
 		terRemaining.setEditable(false);
 		terRemaining.setText("5");
-		sets(obstacles, 20, 350, 70, 30);
-		sets(oR, 135, 350, 90, 30);
-		sets(obsRemaining, 225, 355, 30, 20);
+		sets(obstacles, 20, 220, 70, 30);
+		sets(oR, 135, 220, 90, 30);
+		sets(obsRemaining, 225, 225, 30, 20);
 		obsRemaining.setEditable(false);
 		obsRemaining.setText("10");
 	}
@@ -98,8 +110,11 @@ public class OptionPane extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(((AbstractButton) e.getSource()).getText().equals("SpikePit")){
-			int loc1 = Integer.parseInt(JOptionPane.showInputDialog("Enter X-Coord: "));
-			int loc2 = Integer.parseInt(JOptionPane.showInputDialog("Enter Y-Coord: "));
+			ep.clickListen();			
+			
+			int loc1 = ep.mouseSX();
+			int loc2 = ep.mouseSY();
+			//int loc2 = Integer.parseInt(JOptionPane.showInputDialog("Enter Y-Coord: "));
 			
 			boolean checker = ep.draw(loc1, loc2, "spikePit.png");
 			
@@ -114,6 +129,5 @@ public class OptionPane extends JFrame implements ActionListener{
 		}
 		
 	}
-	
-	
+
 }
