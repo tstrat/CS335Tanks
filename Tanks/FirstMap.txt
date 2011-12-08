@@ -1,3 +1,15 @@
-spikePit.png 376 143
-spikePit.png 581 382
-wall2.png 193 308
+40 96
+wall2.png 434 246
+spikePit.png 434 128
+spikePit.png 286 230
+spikePit.png 255 356
+spikePit.png 134 340
+spikePit.png 402 456
+spikePit.png 194 239
+spikePit.png 128 153
+spikePit.png 318 136
+spikePit.png 602 401
+spikePit.png 479 366
+TreeStump.png 614 233
+TreeStump.png 592 327
+TreeStump.png 529 302

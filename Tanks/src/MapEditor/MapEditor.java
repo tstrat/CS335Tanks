@@ -12,9 +12,9 @@ public class MapEditor extends JFrame{
 		pack();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		new OptionPane(ep);
 	}
 	public static void main(String[] args) {
 		new MapEditor();		
-		new OptionPane(ep);
 	}
 }

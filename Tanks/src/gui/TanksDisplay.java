@@ -66,7 +66,7 @@ public class TanksDisplay extends JPanel implements Observer {
 
 		setPreferredSize(new Dimension(800, 600));
 		setBackground(new Color(245, 228, 156));
-
+		
 		world = new World();
 		new HeavyTank(world, 200, 300, 0, 1);
 		Tank tank = new StandardTank(world, 500, 400, 0, 2);
