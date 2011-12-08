@@ -64,12 +64,12 @@ public class EditorPane extends JPanel implements MouseInputListener {
 		saveName = imgName;
 	}
 	
-	public void writeToFile(String mapName){
+	public void writeToFile(String mapName, int tRemains, int oRemains){
 		try {
 			FileWriter fstream = new FileWriter(mapName);
 			BufferedWriter out = new BufferedWriter(fstream);
-			//out.write("" + drawList.size());
-			//out.newLine();
+			out.write("" + tRemains + " " + oRemains);
+			out.newLine();
 			for(int i = 0; i < drawList.size(); i++){
 				out.write(savingList.get(i) + " " + drawXList.get(i) + " " + drawYList.get(i));
 				out.newLine();
@@ -81,7 +81,7 @@ public class EditorPane extends JPanel implements MouseInputListener {
 		
 	}
 	
-	public void readFromFile(String mapName){
+	public void readFromFile(String mapName, JTextField tR, JTextField oR){
 		int space1 = 0, space2 = 0;
 		int count = 0;
 		
@@ -95,6 +95,14 @@ public class EditorPane extends JPanel implements MouseInputListener {
 			drawXList.clear();
 			drawYList.clear();
 			
+			strLine = br.readLine();
+			for(int j = 0; j < strLine.length(); j++){
+				if(strLine.charAt(j) == ' '){
+					tR.setText(strLine.substring(0, j));
+					oR.setText(strLine.substring(j+1, strLine.length()));
+				}
+			}
+				
 			while((strLine = br.readLine()) != null){
 				for(int i = 0; i < strLine.length(); i++){
 					if(strLine.charAt(i) == ' ' && count == 0){
@@ -129,7 +137,7 @@ public class EditorPane extends JPanel implements MouseInputListener {
 			drawYList.add(e.getY());
 			textF.setText("" + (Integer.parseInt(textF.getText()) - 1));
 			repaint();
-			clicked = false;
+			//clicked = false;
 		}
 	}
 
