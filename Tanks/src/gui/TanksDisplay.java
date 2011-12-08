@@ -105,8 +105,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		
 		new StupidAI(world, tank, receiver);
 		
-		player = SoundPlayer.playerFromResource("lullaby.mp3");
-		player.loop();
+		//player = SoundPlayer.playerFromResource("lullaby.mp3");
+		//player.loop();
 
 		setFocusable(true);
 		requestFocus();

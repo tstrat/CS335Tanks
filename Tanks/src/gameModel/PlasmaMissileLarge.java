@@ -4,14 +4,15 @@ public class PlasmaMissileLarge extends LargeMissile {
 
 	private int lifeSpan;
 	private boolean attached;
+	private int framesOld;
 
-	public PlasmaMissileLarge(World w, double x, double y, double rotation,
-			int d, double s) {
-		super(w, x, y, rotation, d, s);
+	public PlasmaMissileLarge(World w, double x, double y, double rotation, Tank t) {
+		super(w, x, y, rotation, t);
+		framesOld = 0;
 		maxBounces = 2;
 		lifeSpan = 300;
-		framesInactive = 17;
 		attached = false;
+		speed = 4.5;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -26,6 +27,7 @@ public class PlasmaMissileLarge extends LargeMissile {
 			if(lifeSpan < 300)
 				lifeSpan = 0;
 		}
+		framesOld++;
 		attached = false;
 
 	}
@@ -38,7 +40,7 @@ public class PlasmaMissileLarge extends LargeMissile {
 
 	private void breakApart() {
 		for(int i = 0; i < 4; i++)
-			new PlasmaBallSmall(w, x, y, rotation - 252 + i * Math.PI / 10, 150, 8);
+			new PlasmaBallSmall(w, x, y, rotation - 252 + i * Math.PI / 10, t);
 		explode();
 		
 	}
@@ -82,7 +84,7 @@ public class PlasmaMissileLarge extends LargeMissile {
 	 */
 	@Override
 	public void collide(Collidable c) {
-		if (framesOld <= framesInactive && bounces == 0)
+		if (c.equals(t))
 			return;
 		if (c instanceof Obstacle) {
 			attach(((Obstacle) c), c.getX(), c.getY());
