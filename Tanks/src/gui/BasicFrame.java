@@ -84,14 +84,15 @@ public class BasicFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == singlePlay){
 			String fName = JOptionPane.showInputDialog("Enter in Map name to load:");
-			
-			dispose();
-			JFrame tdHolder = new JFrame("Tanks");
-			tdHolder.add(new TanksDisplay(host, fName));
-			tdHolder.pack();
-			tdHolder.setResizable(false);
-			tdHolder.setVisible(true);
-			tdHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			if(fName != null && !fName.equals("")){	
+				dispose();
+				JFrame tdHolder = new JFrame("Tanks");
+				tdHolder.add(new TanksDisplay(host, fName));
+				tdHolder.pack();
+				tdHolder.setResizable(false);
+				tdHolder.setVisible(true);
+				tdHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			}
 		}
 		
 		if(e.getSource() == mapEditing){
