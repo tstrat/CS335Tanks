@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.MouseInputListener;
 
 public class EditorPane extends JPanel implements MouseInputListener {
@@ -20,8 +21,9 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	private ArrayList<Image> drawList = new ArrayList<Image>();
 	private ArrayList<Integer> drawXList = new ArrayList<Integer>();
 	private ArrayList<Integer> drawYList = new ArrayList<Integer>();
-	private int mouseX, mouseY, mouseSendX, mouseSendY;
-	private boolean clicked;
+	private boolean clicked = false, drew = false;
+	private ImageIcon iii;
+	private JTextField textF;
 	
 	public EditorPane(){
 		super(true);
@@ -29,6 +31,7 @@ public class EditorPane extends JPanel implements MouseInputListener {
 		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
 		img = ii.getImage();
 		
+		addMouseListener(this);
 		setFocusable(true);
 		requestFocus();
 	}
@@ -42,83 +45,40 @@ public class EditorPane extends JPanel implements MouseInputListener {
 		Toolkit.getDefaultToolkit().sync();
 	}
 	
-	public boolean draw(int x, int y, String imga){
-		
-		try {
-			ImageIcon iii = new ImageIcon(this.getClass().getResource(imga));
-			drawList.add(iii.getImage());
-			drawXList.add(x);
-			drawYList.add(y);
-			repaint();
-			return true;
-			
-		} catch (Exception e) {
-			System.out.println("Something went wrong");
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
-	public boolean clickListen(){
-		clicked = false;
-		addMouseListener(this);
-		
-		while(!clicked){
-			
-		}
-		
-		return clicked;
-	}
-	
-	public int mouseSX(){
-		return mouseSendX;
-	}
-	
-	public int mouseSY(){
-		return mouseSendY;
+	public void clickListen(String imgName, JTextField remains){
+		requestFocus();
+		clicked = true;
+		iii = new ImageIcon(this.getClass().getResource(imgName));
+		textF = remains;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("LOOK MAH");
-		mouseSendX = mouseX;
-		mouseSendY = mouseY;
-		clicked = true;
+		if(clicked){
+			drawList.add(iii.getImage());
+			drawXList.add(e.getX());
+			drawYList.add(e.getY());
+			repaint();
+			textF.setText("" + (Integer.parseInt(textF.getText()) - 1));
+			clicked = false;
+		}
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseDragged(MouseEvent e) {}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		mouseX = e.getX();
-		mouseY = e.getY();
-	}
+	public void mouseMoved(MouseEvent e) {}
 }

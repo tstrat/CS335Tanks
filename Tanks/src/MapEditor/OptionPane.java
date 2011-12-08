@@ -110,22 +110,12 @@ public class OptionPane extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(((AbstractButton) e.getSource()).getText().equals("SpikePit")){
-			ep.clickListen();			
+			ep.clickListen("spikePit.png", terRemaining);			
 			
-			int loc1 = ep.mouseSX();
-			int loc2 = ep.mouseSY();
-			//int loc2 = Integer.parseInt(JOptionPane.showInputDialog("Enter Y-Coord: "));
-			
-			boolean checker = ep.draw(loc1, loc2, "spikePit.png");
-			
-			int remains;
-			if(checker){
-				remains = Integer.parseInt(terRemaining.getText()) - 1;
-				terRemaining.setText(""+ (remains));
-				if(remains == 0)
-					disableTerButs();
-			}
-				
+			int	remains = Integer.parseInt(terRemaining.getText());
+
+			if(remains == 0)
+				disableTerButs();	
 		}
 		
 	}
