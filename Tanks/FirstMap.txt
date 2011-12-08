@@ -1,0 +1,3 @@
+spikePit.png 376 143
+spikePit.png 581 382
+wall2.png 193 308

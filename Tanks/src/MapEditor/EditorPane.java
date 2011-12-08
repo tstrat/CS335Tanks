@@ -9,6 +9,15 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -21,9 +30,11 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	private ArrayList<Image> drawList = new ArrayList<Image>();
 	private ArrayList<Integer> drawXList = new ArrayList<Integer>();
 	private ArrayList<Integer> drawYList = new ArrayList<Integer>();
-	private boolean clicked = false, drew = false;
+	private ArrayList<String> savingList = new ArrayList<String>();
+	private boolean clicked = false;
 	private ImageIcon iii;
 	private JTextField textF;
+	private String saveName;
 	
 	public EditorPane(){
 		super(true);
@@ -50,16 +61,74 @@ public class EditorPane extends JPanel implements MouseInputListener {
 		clicked = true;
 		iii = new ImageIcon(this.getClass().getResource(imgName));
 		textF = remains;
+		saveName = imgName;
+	}
+	
+	public void writeToFile(String mapName){
+		try {
+			FileWriter fstream = new FileWriter(mapName);
+			BufferedWriter out = new BufferedWriter(fstream);
+			//out.write("" + drawList.size());
+			//out.newLine();
+			for(int i = 0; i < drawList.size(); i++){
+				out.write(savingList.get(i) + " " + drawXList.get(i) + " " + drawYList.get(i));
+				out.newLine();
+			}
+			out.close();
+		} catch (IOException e) {
+			System.err.println("Error: " + e.getMessage());
+		}
+		
+	}
+	
+	public void readFromFile(String mapName){
+		int space1 = 0, space2 = 0;
+		int count = 0;
+		
+		try {
+			FileInputStream fstream = new FileInputStream(mapName);
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine;
+			savingList.clear();
+			drawList.clear();
+			drawXList.clear();
+			drawYList.clear();
+			
+			while((strLine = br.readLine()) != null){
+				for(int i = 0; i < strLine.length(); i++){
+					if(strLine.charAt(i) == ' ' && count == 0){
+						space1 = i;
+						count++;
+					}
+					if(strLine.charAt(i) == ' ' && count == 1)
+						space2 = i;
+				}
+				iii = new ImageIcon(this.getClass().getResource(strLine.substring(0, space1)));
+				savingList.add(strLine.substring(0, space1));
+				drawXList.add(Integer.parseInt(strLine.substring(space1+1, space2)));
+				drawYList.add(Integer.parseInt(strLine.substring(space2+1, strLine.length())));
+				drawList.add(iii.getImage());
+				count = 0;
+			}
+			in.close();
+			repaint();
+			
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+		} 	
+		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(clicked){
+			savingList.add(saveName);
 			drawList.add(iii.getImage());
 			drawXList.add(e.getX());
 			drawYList.add(e.getY());
-			repaint();
 			textF.setText("" + (Integer.parseInt(textF.getText()) - 1));
+			repaint();
 			clicked = false;
 		}
 	}
