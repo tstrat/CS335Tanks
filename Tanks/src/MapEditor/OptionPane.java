@@ -164,8 +164,8 @@ public class OptionPane extends JFrame implements ActionListener {
 		}
 		
 		if(((AbstractButton) e.getSource()).getText().equals("Save")){
-				String fName = JOptionPane.showInputDialog("Enter in Map name to save:");
-				ep.writeToFile(fName + ".txt", Integer.parseInt(terRemaining.getText()), Integer.parseInt(obsRemaining.getText()));
+			String fName = JOptionPane.showInputDialog("Enter in Map name to save:");
+			ep.writeToFile(fName + ".txt", Integer.parseInt(terRemaining.getText()), Integer.parseInt(obsRemaining.getText()));
 		}
 		
 		if(((AbstractButton) e.getSource()).getText().equals("Load")){

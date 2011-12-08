@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -7,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import MapEditor.MapEditor;
@@ -81,9 +83,11 @@ public class BasicFrame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == singlePlay){
+			String fName = JOptionPane.showInputDialog("Enter in Map name to load:");
+			
 			dispose();
 			JFrame tdHolder = new JFrame("Tanks");
-			tdHolder.add(new TanksDisplay(host));
+			tdHolder.add(new TanksDisplay(host, fName));
 			tdHolder.pack();
 			tdHolder.setResizable(false);
 			tdHolder.setVisible(true);
