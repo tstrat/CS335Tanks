@@ -1,10 +1,5 @@
 package gameModel;
-/**
- * Creates a new world which holds the actors and collidables of the current game.
- * Does not do the inner gui parts to the game but is the world in which everything
- * interacts with.
- * 
- */
+
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,10 +8,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 
+/**
+ * Creates a new world which holds the actors and collidables of the current game.
+ * Does not do the inner gui parts to the game but is the world in which everything
+ * interacts with.
+ * 
+ */
 public class World extends Observable {
 
 	private List<Actor> actors;
 	private List<Collidable> collidables;
+	private List<Tank> tanks;
 
 	/**
 	 * Constructor for a new World. A world holds a list of Actors and Collidables.
@@ -25,6 +27,7 @@ public class World extends Observable {
 	public World() {
 		actors = new ArrayList<Actor>();
 		collidables = new ArrayList<Collidable>();
+		tanks = new ArrayList<Tank>();
 		// TODO: the world should be initialized by reading from
 		// some map file, somehow
 
@@ -89,13 +92,28 @@ public class World extends Observable {
 	/**
 	 * Adds and Actor to the world, if also a Collidable
 	 * adds it to that list as well as the actor list.
+	 * And the same with the tanks list.
 	 * 
 	 * @param a - an Actor
 	 */
 	public void addActor(Actor a) {
 		actors.add(a);
-		if (a instanceof Collidable)
+		if (a instanceof Collidable) {
 			collidables.add((Collidable) a);
+			
+			if (a instanceof Tank) {
+				tanks.add((Tank) a);
+			}
+		}
+	}
+	
+	/**
+	 * Gets the list of tanks.
+	 * 
+	 * @return A List of all tanks currently in the World.
+	 */
+	public List<Tank> getTanks() {
+		return tanks;
 	}
 	
 	/**
@@ -107,6 +125,7 @@ public class World extends Observable {
 		while (i < actors.size()) {
 			if (!actors.get(i).exists()) {
 				collidables.remove(actors.get(i));
+				tanks.remove(actors.get(i));
 				actors.remove(i);
 			} else
 				i++;
