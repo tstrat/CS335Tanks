@@ -25,11 +25,11 @@ public class BounceShard extends Missile {
 	 * @param d - How much damage this BounceShard will do.
 	 * @param s - How fast this BounceShard will move.
 	 */
-	public BounceShard(World w, double x, double y, double rotation, int d,
-			double s) {
-		super(w, x, y, rotation, d, s);
+	public BounceShard(World w, double x, double y, double rotation, Tank t) {
+		super(w, x, y, rotation, t);
+		damage = 60;
+		speed = 14;
 		maxBounces = 1;
-		framesInactive = 3;
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class BounceShard extends Missile {
 	 */
 	@Override
 	public void collide(Collidable c) {
-		if (framesOld <= framesInactive && bounces == 0)
+		if (c.equals(t) && bounces == 0)
 			return;	
 		super.collide(c);
 	}

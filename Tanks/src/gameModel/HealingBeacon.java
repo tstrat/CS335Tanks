@@ -40,6 +40,7 @@ public class HealingBeacon extends Obstacle {
 	public boolean exists() {
 		if(health <= 0) {
 			hP.breakPatch();
+			Explosion.createExplosion(w, x, y, 1, 0, 0);
 			return false;
 		}
 		return true;

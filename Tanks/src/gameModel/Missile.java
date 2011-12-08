@@ -18,10 +18,6 @@ public abstract class Missile extends Collidable{
 	 */	
 	protected double speed;
 	
-	/**
-	 * How many tics old the missile is
-	 */
-	protected int framesOld;
 	
 	/**
 	 * A tracker of how many times a missile has "bounced" against different surfaces.  After two "bounces", it explodes.
@@ -33,7 +29,8 @@ public abstract class Missile extends Collidable{
 	 */
 	protected int maxBounces;
 	
-	protected int framesInactive;
+
+	protected Tank t;
 	
 		
 	/**
@@ -49,13 +46,11 @@ public abstract class Missile extends Collidable{
 	 * @param s - How fast this Rocket will move.
 	 */
 	
-	public Missile(World w, double x, double y, double rotation, int d, double s) {
+	public Missile(World w, double x, double y, double rotation, Tank t) {
 		super(w, x, y, rotation);
 		bounces = 0;
-		damage = d;
-		speed = s;
 		exists = true;
-		framesOld = 0;
+		this.t = t;
 	}
 
 	/**
@@ -65,7 +60,6 @@ public abstract class Missile extends Collidable{
 	 */	
 	@Override
 	public void act() {
-		framesOld++;
 		x += speed * Math.cos(rotation);
 		y += speed * Math.sin(rotation);
 		
@@ -103,7 +97,7 @@ public abstract class Missile extends Collidable{
 	 */
 	@Override
 	public void collide(Collidable c) {
-		if (c instanceof Obstacle) {
+		if (c instanceof Obstacle && (!c.equals(t) || bounces > 0)) {
 			((Obstacle)c).receiveDamage(damage);
 			explode();	
 		}		

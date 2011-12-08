@@ -23,9 +23,9 @@ public class RocketGun extends Gun {
 	 * the max cooldown, and adds a new Rocket at the gun's location, with its
 	 * rotation.
 	 */
-	public void fireMissile() {
+	public void fireMissile(Tank t) {
 		if (cDTimer == 0) {
-			new Rocket(w, x, y, rotation, damage, shellSpeed);
+			new Rocket(w, x, y, rotation, t);
 			cDTimer += cD;
 		}
 	}

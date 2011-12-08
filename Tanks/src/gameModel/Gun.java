@@ -54,7 +54,7 @@ public abstract class Gun extends Actor {
 	/**
 	 * The fireMissile method is how the gun fires missiles.
 	 */
-	public abstract void fireMissile();
+	public abstract void fireMissile(Tank t);
 
 	/**
 	 * Every act iteration, the cDTimer increments down, to a minimum of zero.

@@ -14,9 +14,9 @@ public class PlasmaCannon extends Gun {
 	}
 
 	@Override
-	public void fireMissile() {
+	public void fireMissile(Tank t) {
 		if (cDTimer == 0) {
-			new PlasmaMissileLarge(w, x, y, rotation, damage, shellSpeed);
+			new PlasmaMissileLarge(w, x, y, rotation, t);
 			cDTimer += cD;
 		}
 	}
