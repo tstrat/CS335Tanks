@@ -60,5 +60,13 @@ public abstract class AIController extends Actor {
 	public DrawObject getDraw() {
 		return null;
 	}
+	
+	/**
+	 * The AI only exists as long as its tank exists.
+	 */
+	@Override
+	public boolean exists() {
+		return tank.exists();
+	}
 
 }
