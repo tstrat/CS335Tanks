@@ -120,6 +120,27 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	}
 	
 	/**
+	 * rotateTowards rotates the gun towards a point, given by its coordinate x
+	 * and y.
+	 * 
+	 * @param x
+	 * 			The x coordinate of the point Gun is orienting itself towards.
+	 * @param y
+	 * 			The y coordinate of the point Gun is orienting itself towards.
+	 */
+	public void rotateTowards(double x, double y) {
+		double r = Math.atan2(y - this.y, x - this.x);
+		if(r - rotation > Math.PI)
+			rotation += 2 * Math.PI;
+		else if (r - rotation < - Math.PI)
+			rotation -= 2 * Math.PI;
+		if(r > rotation+ 0.025)
+			rotation += .05;
+		else if (r < rotation - .025)
+			rotation -= .05;	
+	}
+	
+	/**
 	 * Returns this Actor's rotation.
 	 * 
 	 * @return The current rotation, in radians.
