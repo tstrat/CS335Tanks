@@ -33,12 +33,13 @@ public class BasicFrame extends JFrame implements ActionListener {
 	
 	public BasicFrame(String host) {
 		super("Tanks basic display");
-		this.host = host;
-		add(mainP);
-		mainP.setPreferredSize(new Dimension(800, 600));
-		mainP.setLayout(null);
-		setup();
-		addMaps();
+		add(new TanksDisplay(host));
+		//this.host = host;
+		//add(mainP);
+		//mainP.setPreferredSize(new Dimension(800, 600));
+		//mainP.setLayout(null);
+		//setup();
+		//addMaps();
 		
 		pack();
 		setResizable(false);

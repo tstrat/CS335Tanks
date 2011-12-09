@@ -66,6 +66,42 @@ public class TanksDisplay extends JPanel implements Observer {
 	 * The default constructor creates a World and GameHandler and adds a Tank
 	 * to the World.
 	 */
+	public TanksDisplay(String host) {
+		super(true); // It is double buffered.
+
+		setPreferredSize(new Dimension(800, 600));
+		setBackground(new Color(245, 228, 156));
+		
+		world = new World();
+		new HeavyTank(world, 200, 300, 0, 1);
+		Tank tank = new StandardTank(world, 500, 400, 0, 2);
+		//new HoverTank(world, 300, 600, 0, 3);
+		
+		handler = new GameHandler(world);
+		world.addObserver(this);
+		
+		CommandReceiver receiver = handler;
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
+		img = ii.getImage();
+		
+		if (host != null) {
+			// Try to connect to host
+			TanksClient client = new TanksClient(handler, host);
+			receiver = new MultiplayerBroadcaster(handler, client);
+		}
+		
+		new StupidAI(world, tank, receiver);
+		
+		//player = SoundPlayer.playerFromResource("lullaby.mp3");
+		//player.loop();
+
+		setFocusable(true);
+		requestFocus();
+		addKeyListener(keyListener = new TanksKeyboardListener(receiver, 1));
+		addMouseListener(mouseListener = new TanksMouseListener(receiver, 1));
+		addMouseMotionListener(mouseListener);
+	}
+	
 	public TanksDisplay(String host, String mapName) {
 		super(true); // It is double buffered.
 
