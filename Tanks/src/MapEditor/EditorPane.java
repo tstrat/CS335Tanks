@@ -115,8 +115,11 @@ public class EditorPane extends JPanel implements MouseInputListener {
 				}
 				iii = new ImageIcon(this.getClass().getResource(strLine.substring(0, space1)));
 				savingList.add(strLine.substring(0, space1));
-				drawXList.add(Integer.parseInt(strLine.substring(space1+1, space2)));
-				drawYList.add(Integer.parseInt(strLine.substring(space2+1, strLine.length())));
+				Image im = iii.getImage();
+				int x = Integer.parseInt(strLine.substring(space1+1, space2)) - im.getWidth(null)/2;
+				int y = Integer.parseInt(strLine.substring(space2+1, strLine.length())) - im.getHeight(null)/2;
+				drawXList.add(x);
+				drawYList.add(y);
 				drawList.add(iii.getImage());
 				count = 0;
 			}

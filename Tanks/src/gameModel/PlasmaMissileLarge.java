@@ -27,6 +27,9 @@ public class PlasmaMissileLarge extends LargeMissile {
 			if(lifeSpan < 300)
 				lifeSpan = 0;
 		}
+		else {
+			lifeSpan--;
+		}
 		framesOld++;
 		attached = false;
 
@@ -107,7 +110,6 @@ public class PlasmaMissileLarge extends LargeMissile {
 			y -= 7;
 		else
 			y = cY;
-		lifeSpan--;
 		c.receiveDamage(3);
 
 
