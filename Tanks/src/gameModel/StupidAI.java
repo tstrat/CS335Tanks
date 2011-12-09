@@ -45,6 +45,9 @@ public class StupidAI extends AIController {
 		
 		// Pick a new target tank. Yeah I know it'll be me sometimes. I don't care.
 		target = w.getTanks().get(TRand.randInt(w.getTanks().size()));
+		while(target == tank) {
+			target = w.getTanks().get(TRand.randInt(w.getTanks().size()));
+		}
 	}
 
 	@Override
