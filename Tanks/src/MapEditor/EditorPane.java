@@ -69,7 +69,10 @@ public class EditorPane extends JPanel implements MouseInputListener {
 			out.write("" + tRemains + " " + oRemains);
 			out.newLine();
 			for(int i = 0; i < drawList.size(); i++){
-				out.write(savingList.get(i) + " " + drawXList.get(i) + " " + drawYList.get(i));
+				Image im = drawList.get(i);
+				int w = im.getWidth(null)/2;
+				int h = im.getHeight(null)/2;
+				out.write(savingList.get(i) + " " + (drawXList.get(i)+w) + " " + (drawYList.get(i)+h));
 				out.newLine();
 			}
 			out.close();
@@ -142,10 +145,10 @@ public class EditorPane extends JPanel implements MouseInputListener {
 			Image im = iii.getImage();
 			int w = im.getWidth(null);
 			int h = im.getHeight(null);
-			int x = w * ((e.getX() + w/2) / w);
-			x -= w/2;
-			int y = h * ((e.getY() + w/2) / h);
-			y -= h/2;
+			int x = w * (e.getX() / w);
+			//x -= w/2;
+			int y = h * (e.getY() / h);
+			//y -= h/2;
 			drawList.add(im);
 			drawXList.add(x);
 			drawYList.add(y);
