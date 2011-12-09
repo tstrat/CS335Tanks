@@ -142,8 +142,10 @@ public class EditorPane extends JPanel implements MouseInputListener {
 			Image im = iii.getImage();
 			int w = im.getWidth(null);
 			int h = im.getHeight(null);
-			int x = w * (e.getX() / w);
-			int y = h * (e.getY() / h);
+			int x = w * ((e.getX() + w/2) / w);
+			x -= w/2;
+			int y = h * ((e.getY() + w/2) / h);
+			y -= h/2;
 			drawList.add(im);
 			drawXList.add(x);
 			drawYList.add(y);
