@@ -17,7 +17,13 @@ public enum Views {
 	/**
 	 * A screen that provides the player the chance to pick the map, their tank, and their weapon
 	 */
-	LOBBY,
+	LOBBY_SINGLE,
+	
+	/**
+	 * A screen that provides the player the chance to pick the map, their tank, and their weapon
+	 */
+	LOBBY_MULTI,
+	
 	
 	/**
 	 * The actual game screen, for singleplayer

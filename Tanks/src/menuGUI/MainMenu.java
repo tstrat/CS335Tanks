@@ -84,7 +84,7 @@ public class MainMenu extends MasterPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			t.changeViews(Views.LOBBY);
+			t.changeViews(Views.LOBBY_SINGLE);
 		}
 		
 	}
