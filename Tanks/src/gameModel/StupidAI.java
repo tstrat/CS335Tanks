@@ -43,9 +43,18 @@ public class StupidAI extends AIController {
 		moveTicks = TRand.randInt(50, 150);
 		rotateTicks = moveTicks + TRand.randInt(50);
 		
-		// Pick a new target tank.
-		// If I pick myself, I just won't shoot (see below).
-		target = w.getTanks().get(TRand.randInt(w.getTanks().size()));
+		// Pick a new target tank. If I pick myself, I pick a new one,
+		// unless I'm the only one on the board.
+		int numTanks = w.getTanks().size();
+		
+		if (numTanks <= 1) {
+			target = null;
+		}
+		else {
+			do {
+				target = w.getTanks().get(TRand.randInt(numTanks));
+			} while (target == tank);
+		}
 	}
 
 	@Override
@@ -53,11 +62,12 @@ public class StupidAI extends AIController {
 		++step;
 		
 		// Rotate gun toward the target.
-		if (target != null)
+		if (target != null) {
 			receiver.receiveCommand(new RotateGunCommand(player, (int)target.getX(), (int)target.getY()));
 		
-		if (target != tank && step % 10 == 0)
-			receiver.receiveCommand(new FireCommand(player));
+			if (step % 10 == 0)
+				receiver.receiveCommand(new FireCommand(player));
+		}
 		
 		if (step < moveTicks)
 			receiver.receiveCommand(new MoveCommand(player, false));
