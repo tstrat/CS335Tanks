@@ -24,6 +24,11 @@ public class StupidAI extends AIController {
 	 */
 	private int rotateTicks;
 	
+	/**
+	 * The tank that we are shooting at.
+	 */
+	private Tank target;
+	
 	public StupidAI(World w, Tank tank, CommandReceiver receiver) {
 		super(w, tank, receiver);
 		
@@ -35,13 +40,22 @@ public class StupidAI extends AIController {
 	 */
 	private void resetTicks() {
 		step = 0;
-		moveTicks = (int)(TRand.random() * 100) + 200;
-		rotateTicks = moveTicks + (int)(TRand.random() * 50);
+		moveTicks = TRand.randInt(50, 150);
+		rotateTicks = moveTicks + TRand.randInt(50);
+		
+		// Pick a new target tank. Yeah I know it'll be me sometimes. I don't care.
+		target = w.getTanks().get(TRand.randInt(w.getTanks().size()));
 	}
 
 	@Override
 	public void act() {
 		++step;
+		
+		// Rotate gun toward the target.
+		receiver.receiveCommand(new RotateGunCommand(player, (int)target.getX(), (int)target.getY()));
+		
+		if (step % 10 == 0)
+			receiver.receiveCommand(new FireCommand(player));
 		
 		if (step < moveTicks)
 			receiver.receiveCommand(new MoveCommand(player, false));

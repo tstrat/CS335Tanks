@@ -30,11 +30,11 @@ public class ShotGun extends Gun {
 	 * its general rotation.
 	 */
 	@Override
-	public void fireMissile() {
+	public void fireMissile(Tank t) {
 		if(cDTimer == 0) {
 			for(int i = 0; i < simultRounds; i++) {
 				double rand = Math.random() * .15;
-				new BounceShard(w, x, y, rand + rotation + .04 * (i - simultRounds / 2), damage, shellSpeed);
+				new BounceShard(w, x, y, rand + rotation + .04 * (i - simultRounds / 2), t);
 			}
 			cDTimer += cD;
 		}

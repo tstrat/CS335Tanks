@@ -1,19 +1,23 @@
 package gameModel;
 
 public class PlasmaBallSmall extends Missile {
+	
+	private int framesOld;
 
-	public PlasmaBallSmall(World w, double x, double y, double rotation, int d,
-			double s) {
-		super(w, x, y, rotation, d, s);
-		maxBounces = 1;
-		framesInactive = 0;
+	public PlasmaBallSmall(World w, double x, double y, double rotation,Tank t) {
+		super(w, x, y, rotation, t);
+		damage = 150;
+		framesOld = 0;
+		speed = 8;
+		bounces = 1;
+		maxBounces = 2;
 	}
 	
 	public void act() {
 		bounce();
 		if (framesOld % 5 == 0)
 			SmallPlasmaTrail.add(w, x, y);
-		
+		framesOld++;
 		super.act();
 	}
 

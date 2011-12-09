@@ -14,26 +14,33 @@ public class TreeLeaves extends Actor {
 	@Override
 	public void act() {
 		if (onFire && burningFor < 500) {
-			if (Math.random() < .03) {
-				new FireBall(w, x - 40 + 80 * TRand.random(), y - 40 + 80
+			if (Math.random() < .6) {
+				new FireBall(w, x - 60 + 120 * TRand.random(), y - 60 + 120
 						* TRand.random(), TRand.random() * Math.PI * 2,
-						TRand.random(), 3);
+						TRand.random(), 1);
 			}
 			burningFor++;
 		}
 
 	}
+	
+	public boolean exists() {
+		return burningFor < 500;
+	}
 
 	@Override
 	public int getDrawPriority() {
 		// TODO Auto-generated method stub
-		return 0;
+		return drawPriority;
 	}
 
+	private DrawObject draw1 = new DrawSingleFrameObject("treeleaves.png");
+	private DrawObject draw2 = new DrawFadingObject("treeleaves.png", 500);
 	@Override
 	public DrawObject getDraw() {
-		// TODO Auto-generated method stub
-		return null;
+		if(!onFire)
+			return draw1;
+		return draw2;
 	}
 
 	public void setOnFire() {

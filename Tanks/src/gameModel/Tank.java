@@ -95,7 +95,7 @@ public class Tank extends Obstacle {
 	 * Makes the gun fire a missile.
 	 */
 	public void fireMissile() {
-		gun.fireMissile();
+		gun.fireMissile(this);
 	}
 	
 	/**

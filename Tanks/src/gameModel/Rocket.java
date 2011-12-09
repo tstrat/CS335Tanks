@@ -25,10 +25,10 @@ public class Rocket extends LargeMissile {
 	 * @param d - How much damage this missile will do.
 	 * @param s - How fast this Rocket will move.
 	 */
-	public Rocket(World w, double x, double y, double rotation, int d, double s) {
-		super(w, x, y, rotation, d, s);
+	public Rocket(World w, double x, double y, double rotation, Tank t) {
+		super(w, x, y, rotation, t);
 		maxBounces = 2;
-		framesInactive = 8;
+		speed = 8;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -60,7 +60,7 @@ public class Rocket extends LargeMissile {
 	 */
 	@Override
 	public void collide(Collidable c) {
-		if (framesOld <= framesInactive && bounces == 0)
+		if (c.equals(t) && bounces == 0)
 			return;	
 		if (c instanceof LargeMissile) {
 			explode();	

@@ -7,7 +7,6 @@ import gameModel.DrawObject;
 import gameModel.FireCommand;
 import gameModel.GameHandler;
 import gameModel.HealingBeacon;
-import gameModel.HealingPatch;
 import gameModel.HeavyTank;
 import gameModel.HoverTank;
 import gameModel.Indestructible;
@@ -19,7 +18,10 @@ import gameModel.RotateGunCommand2;
 import gameModel.SoundPlayer;
 import gameModel.SpikePit;
 import gameModel.StandardTank;
+import gameModel.StupidAI;
 import gameModel.TNTBarrel;
+import gameModel.TreeStump;
+import gameModel.Tank;
 import gameModel.Wall;
 import gameModel.World;
 
@@ -32,7 +34,10 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.net.URISyntaxException;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -61,27 +66,44 @@ public class TanksDisplay extends JPanel implements Observer {
 	 * The default constructor creates a World and GameHandler and adds a Tank
 	 * to the World.
 	 */
-	public TanksDisplay(String host) {
+	public TanksDisplay(String host, String mapName) {
 		super(true); // It is double buffered.
 
 		setPreferredSize(new Dimension(800, 600));
 		setBackground(new Color(245, 228, 156));
-
+		
 		world = new World();
 		new HeavyTank(world, 200, 300, 0, 1);
-		new StandardTank(world, 500, 400, 0, 2);
+		Tank tank = new StandardTank(world, 500, 400, 0, 2);
 		new HoverTank(world, 300, 600, 0, 3);
-		new Wall(world, 500, 500, 0);
-		new Wall(world, 460, 500, 0);
-		new Wall(world, 420, 500, 0);
-		new Wall(world, 380, 500, 0);
-		new Wall(world, 340, 500, 0);
-		new Wall(world, 300, 500, 0);
-		new Wall(world, 300, 460, 0);
-		new Wall(world, 300, 420, 0);
-		new Indestructible(world, 300, 380, 0);
-		new TNTBarrel(world, 400, 200, 0);
-		new HealingBeacon(world, 200, 200, 0);
+		
+		int space1 = 0, space2 = 0;
+		int count = 0;
+		
+		try {
+			FileInputStream fstream = new FileInputStream(mapName + ".txt");
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine;
+			strLine = br.readLine();		
+			while((strLine = br.readLine()) != null){
+				for(int i = 0; i < strLine.length(); i++){
+					if(strLine.charAt(i) == ' ' && count == 0){
+						space1 = i;
+						count++;
+					}
+					if(strLine.charAt(i) == ' ' && count == 1)
+						space2 = i;
+				}
+				int place1 = Integer.parseInt(strLine.substring(space1+1, space2));
+				int place2 = Integer.parseInt(strLine.substring(space2+1, strLine.length()));
+				addThingsToWorld(strLine.substring(0, space1-4), place1, place2);
+				count = 0;
+			}
+			in.close();
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+		} 
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		
@@ -95,16 +117,43 @@ public class TanksDisplay extends JPanel implements Observer {
 			receiver = new MultiplayerBroadcaster(handler, client);
 		}
 		
-		player = SoundPlayer.playerFromResource("lullaby.mp3");
-		player.loop();
+		new StupidAI(world, tank, receiver);
+		
+		//player = SoundPlayer.playerFromResource("lullaby.mp3");
+		//player.loop();
 
 		setFocusable(true);
 		requestFocus();
-		addKeyListener(keyListener = new TanksKeyboardListener(receiver, 2));
-		addMouseListener(mouseListener = new TanksMouseListener(receiver, 2));
+		addKeyListener(keyListener = new TanksKeyboardListener(receiver, 1));
+		addMouseListener(mouseListener = new TanksMouseListener(receiver, 1));
 		addMouseMotionListener(mouseListener);
 	}
 
+	public void addThingsToWorld(String toAdd, int x, int y){
+		ObsAndTer toAddS = ObsAndTer.valueOf(toAdd.toUpperCase());
+		
+		switch(toAddS){
+			case HEALINGBEACON:
+				new HealingBeacon(world, x, y, 0);
+				break;
+			case INDESTRUCTIBLE:
+				new Indestructible(world, x, y, 0);
+				break;
+			case TREESTUMP:
+				new TreeStump(world, x, y, 0);
+				break;
+			case SPIKEPIT:
+				new SpikePit(world, x, y, 0, 4);
+				break;
+			case WALL2:
+				new Wall(world, x, y, 0);
+				break;
+			case TNT:
+				new TNTBarrel(world, x, y, 0);
+				break;
+			
+		}
+	}
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -116,6 +165,16 @@ public class TanksDisplay extends JPanel implements Observer {
 			draw.draw(g, a.getX(), a.getY(), a.getRotation());
 		}
 		Toolkit.getDefaultToolkit().sync();
+	}
+	
+	public enum ObsAndTer {
+		
+		HEALINGBEACON,
+		INDESTRUCTIBLE,
+		TREESTUMP,
+		WALL2,
+		TNT,
+		SPIKEPIT
 	}
 
 	/**

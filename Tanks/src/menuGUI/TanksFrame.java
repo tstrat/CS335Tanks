@@ -1,4 +1,6 @@
 package menuGUI;
+import gui.TanksDisplay;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
@@ -111,7 +113,7 @@ public class TanksFrame extends JFrame{
 			break;
 		
 		case GAME_SINGLE:
-			currentPanel = new TanksDisplay("127.0.0.1", this); //Pass localhost or 127.0.0.1 as the host variable
+			//currentPanel = new TanksDisplay("127.0.0.1", this); //Pass localhost or 127.0.0.1 as the host variable
 			panels.push(currentPanel);
 			body.add(currentPanel, v.name());
 			CardLayout cl4 = (CardLayout) body.getLayout();
