@@ -1,5 +1,5 @@
-package menuGUI;
-import gui.TanksDisplay;
+package gui;
+import gui.MainMenu;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -10,7 +10,6 @@ import java.util.Stack;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import menuGUI.MainMenu;
 
 /**
  * Creates the window that the Tank game will be run in.
@@ -79,7 +78,7 @@ public class TanksFrame extends JFrame{
 	}
 	
 	/**
-	 * Switches views based on based enum
+	 * Switches views based on based enum, and a boolean for hosting (multiplayer only)
 	 * @param v
 	 * 			The view to switch to
 	 */
@@ -96,20 +95,22 @@ public class TanksFrame extends JFrame{
 			cl.show(body, v.name());
 			break;
 		
-		case LOBBY:
-			currentPanel = new TanksLobby(this);
+		case LOBBY_SINGLE:
+			currentPanel = new TanksLobby_SinglePlayer(this);
 			panels.push(currentPanel);
 			body.add(currentPanel, v.name());
 			CardLayout cl2 = (CardLayout) body.getLayout();
 			cl2.show(body, v.name());
 			break;
+			
 		case MULTIPLAYER_CHOICE:
-			//currentPanel = new GUI_multiplayerChoice(this);
+			currentPanel = new GUI_multiplayerChoice(this);
 			panels.push(currentPanel);
 			body.add(currentPanel, v.name());
 			CardLayout cl3 = (CardLayout) body.getLayout();
 			cl3.show(body, v.name());
 			break;
+		
 		case GAME_SINGLE:
 			//currentPanel = new TanksDisplay("127.0.0.1", this); //Pass localhost or 127.0.0.1 as the host variable
 			panels.push(currentPanel);
@@ -118,6 +119,39 @@ public class TanksFrame extends JFrame{
 			cl4.show(body, v.name());
 			break;
 		}
+	}
+	
+	/**
+	 * Switches views based on based enum, and a boolean for hosting (multiplayer only)
+	 * @param v
+	 * 			The view to switch to
+	 */
+	
+	
+	//TODO: get these set up for multiplayer
+	public void changeViews(Views v ,boolean hosting)
+	{
+		
+		//For hosting a game
+		if (hosting)
+		{
+			currentPanel = new TanksLobby_SinglePlayer(this);
+			panels.push(currentPanel);
+			body.add(currentPanel, v.name());
+			CardLayout cl2 = (CardLayout) body.getLayout();
+			cl2.show(body, v.name());
+		}
+		
+		//For joining a game
+		else
+		{
+			currentPanel = new TanksLobby_SinglePlayer(this);
+			panels.push(currentPanel);
+			body.add(currentPanel, v.name());
+			CardLayout cl2 = (CardLayout) body.getLayout();
+			cl2.show(body, v.name());
+		}
+	
 	}
 	
 	

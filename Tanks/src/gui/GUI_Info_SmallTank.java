@@ -1,4 +1,4 @@
-package menuGUI;
+package gui;
 
 public class GUI_Info_SmallTank implements GUI_Info {
 

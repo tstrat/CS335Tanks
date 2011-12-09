@@ -1,4 +1,4 @@
-package menuGUI;
+package gui;
 
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -41,8 +41,6 @@ public class MainMenu extends MasterPanel{
 	{
 		this.setLayout(new GridLayout(2,1));
 		JPanel graphicHolder = new JPanel();
-		System.out.println(graphicHolder.getHeight());
-		System.out.println(graphicHolder.getWidth());
 		this.add(graphicHolder);
 		/*
 		*TODO: figure out how large the logo needs to be and/or set
@@ -84,7 +82,7 @@ public class MainMenu extends MasterPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			t.changeViews(Views.LOBBY);
+			t.changeViews(Views.LOBBY_SINGLE);
 		}
 		
 	}
