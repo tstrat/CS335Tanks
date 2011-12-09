@@ -136,10 +136,16 @@ public class Tank extends Obstacle {
 	 */
 	@Override
 	public void collide(Collidable c) {
-		if(c instanceof Obstacle) {
-			x = oldX;
-			y = oldY;
+		if(c instanceof Tank)
+			((Tank) c).bumpback();
+		else if(c instanceof Obstacle) {
+			bumpback();
 		}
+	}
+	
+	public void bumpback() {
+		x = oldX;
+		y = oldY;
 	}
 	
 	/**
