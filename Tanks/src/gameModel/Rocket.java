@@ -63,7 +63,8 @@ public class Rocket extends LargeMissile {
 		if (c.equals(t) && bounces == 0)
 			return;	
 		if (c instanceof LargeMissile) {
-			explode();	
+			if(((LargeMissile) c).isLarge())
+				explode();	
 		}	
 		super.collide(c);
 	}

@@ -90,9 +90,11 @@ public class PlasmaMissileLarge extends LargeMissile {
 			attach(((Obstacle) c), c.getX(), c.getY());
 		}
 	}
+	
 
 	private void attach(Obstacle c, double cX, double cY) {
 		attached = true;
+		isLarge = false;
 		if (x + 7 < cX)
 			x += 7;
 		else if (x - 7 > cX)
