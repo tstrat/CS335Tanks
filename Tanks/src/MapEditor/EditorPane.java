@@ -137,17 +137,19 @@ public class EditorPane extends JPanel implements MouseInputListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		savingList.add(saveName);
-		Image im = iii.getImage();
-		int w = im.getWidth(null);
-		int h = im.getHeight(null);
-		int x = w * (e.getX() / w);
-		int y = h * (e.getY() / h);
-		drawList.add(im);
-		drawXList.add(x);
-		drawYList.add(y);
-		textF.setText("" + (Integer.parseInt(textF.getText()) - 1));
-		repaint();
+		if(iii != null) {
+			savingList.add(saveName);
+			Image im = iii.getImage();
+			int w = im.getWidth(null);
+			int h = im.getHeight(null);
+			int x = w * (e.getX() / w);
+			int y = h * (e.getY() / h);
+			drawList.add(im);
+			drawXList.add(x);
+			drawYList.add(y);
+			textF.setText("" + (Integer.parseInt(textF.getText()) - 1));
+			repaint();
+		}
 	}
 
 	@Override
