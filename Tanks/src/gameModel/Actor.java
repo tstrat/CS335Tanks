@@ -120,13 +120,13 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	}
 	
 	/**
-	 * rotateTowards rotates the gun towards a point, given by its coordinate x
+	 * rotateTowards rotates the Actor towards a point, given by its coordinate x
 	 * and y.
 	 * 
 	 * @param x
-	 * 			The x coordinate of the point Gun is orienting itself towards.
+	 * 			The x coordinate of the point Actor is orienting itself towards.
 	 * @param y
-	 * 			The y coordinate of the point Gun is orienting itself towards.
+	 * 			The y coordinate of the point Actor is orienting itself towards.
 	 */
 	public void rotateTowards(double x, double y) {
 		double r = Math.atan2(y - this.y, x - this.x);

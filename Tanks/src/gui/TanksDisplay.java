@@ -17,6 +17,7 @@ import gameModel.RotateGunCommand;
 import gameModel.RotateGunCommand2;
 import gameModel.SoundPlayer;
 import gameModel.SpikePit;
+import gameModel.SpinningAI;
 import gameModel.StandardTank;
 import gameModel.StupidAI;
 import gameModel.TNTBarrel;
@@ -74,7 +75,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		
 		world = new World();
 		new HeavyTank(world, 200, 300, 0, 1);
-		Tank tank = new HoverTank(world, 500, 400, 0, 2);
+		Tank tank = new StandardTank(world, 500, 400, 0, 2);
 		//new HoverTank(world, 300, 600, 0, 3);
 		
 		handler = new GameHandler(world);
@@ -90,7 +91,7 @@ public class TanksDisplay extends JPanel implements Observer {
 			receiver = new MultiplayerBroadcaster(handler, client);
 		}
 		
-		new StupidAI(world, tank, receiver);
+		new SpinningAI(world, tank, receiver);
 		
 		//player = SoundPlayer.playerFromResource("lullaby.mp3");
 		//player.loop();
