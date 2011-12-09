@@ -52,7 +52,8 @@ public class StupidAI extends AIController {
 		++step;
 		
 		// Rotate gun toward the target.
-		receiver.receiveCommand(new RotateGunCommand(player, (int)target.getX(), (int)target.getY()));
+		if (target != null)
+			receiver.receiveCommand(new RotateGunCommand(player, (int)target.getX(), (int)target.getY()));
 		
 		if (step % 10 == 0)
 			receiver.receiveCommand(new FireCommand(player));
