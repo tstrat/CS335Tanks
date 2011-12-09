@@ -1,7 +1,7 @@
 /**
  * 
  */
-package menuGUI;
+package gui;
 
 /**
  * Interface to standardize how Strings regarding information for different

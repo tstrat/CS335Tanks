@@ -1,5 +1,5 @@
-package menuGUI;
-import gui.TanksDisplay;
+package gui;
+import gui.MainMenu;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -10,7 +10,6 @@ import java.util.Stack;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import menuGUI.MainMenu;
 
 /**
  * Creates the window that the Tank game will be run in.

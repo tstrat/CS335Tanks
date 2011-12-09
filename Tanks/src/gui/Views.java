@@ -1,4 +1,4 @@
-package menuGUI;
+package gui;
 
 /**
  * Different things that the GUI can show to the player
