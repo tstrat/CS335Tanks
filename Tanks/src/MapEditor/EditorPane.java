@@ -31,7 +31,6 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	private ArrayList<Integer> drawXList = new ArrayList<Integer>();
 	private ArrayList<Integer> drawYList = new ArrayList<Integer>();
 	private ArrayList<String> savingList = new ArrayList<String>();
-	private boolean clicked = false;
 	private ImageIcon iii;
 	private JTextField textF;
 	private String saveName;
@@ -58,7 +57,6 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	
 	public void clickListen(String imgName, JTextField remains){
 		requestFocus();
-		clicked = true;
 		iii = new ImageIcon(this.getClass().getResource(imgName));
 		textF = remains;
 		saveName = imgName;
@@ -129,17 +127,7 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		if(clicked){
-			savingList.add(saveName);
-			drawList.add(iii.getImage());
-			drawXList.add(e.getX());
-			drawYList.add(e.getY());
-			textF.setText("" + (Integer.parseInt(textF.getText()) - 1));
-			repaint();
-			//clicked = false;
-		}
-	}
+	public void mouseClicked(MouseEvent e) {}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {}
@@ -148,7 +136,21 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {
+		if(iii != null) {
+			savingList.add(saveName);
+			Image im = iii.getImage();
+			int w = im.getWidth(null);
+			int h = im.getHeight(null);
+			int x = w * (e.getX() / w);
+			int y = h * (e.getY() / h);
+			drawList.add(im);
+			drawXList.add(x);
+			drawYList.add(y);
+			textF.setText("" + (Integer.parseInt(textF.getText()) - 1));
+			repaint();
+		}
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {}

@@ -419,20 +419,7 @@ public class TanksDisplay extends JPanel implements Observer {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			int button = e.getButton();
-
-			Command c = null;
-
-			switch (button) {
-			case MouseEvent.BUTTON1:
-				c = new FireCommand(player);
-				break;
-			case MouseEvent.BUTTON3:
-				c = new RotateGunCommand(player, e.getX(), e.getY());
-			}
-
-			if (c != null)
-				receiver.receiveCommand(c);
+			// TODO Auto-generated method stub
 			
 		}
 
@@ -450,8 +437,20 @@ public class TanksDisplay extends JPanel implements Observer {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+			int button = e.getButton();
+
+			Command c = null;
+
+			switch (button) {
+			case MouseEvent.BUTTON1:
+				c = new FireCommand(player);
+				break;
+			case MouseEvent.BUTTON3:
+				c = new RotateGunCommand(player, e.getX(), e.getY());
+			}
+
+			if (c != null)
+				receiver.receiveCommand(c);
 		}
 
 		@Override
