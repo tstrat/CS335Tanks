@@ -41,8 +41,6 @@ public class MainMenu extends MasterPanel{
 	{
 		this.setLayout(new GridLayout(2,1));
 		JPanel graphicHolder = new JPanel();
-		System.out.println(graphicHolder.getHeight());
-		System.out.println(graphicHolder.getWidth());
 		this.add(graphicHolder);
 		/*
 		*TODO: figure out how large the logo needs to be and/or set
