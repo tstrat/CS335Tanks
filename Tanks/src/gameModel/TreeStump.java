@@ -28,7 +28,7 @@ public class TreeStump extends Obstacle {
 
 	@Override
 	public void receiveDamage(int d) {
-		if (TRand.random() < .005)
+		if (TRand.random() < .035 && d > 0)
 			tL.setOnFire();
 
 	}
