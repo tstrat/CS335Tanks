@@ -42,8 +42,8 @@ public class SnareMine extends Mine {
 
 		@Override
 		public void collide(Collidable c) {
-			if(c instanceof Obstacle && !c.equals(t)) {
-				((Obstacle) c).receiveDamage(3);
+			if(c instanceof Tank && !c.equals(t)) {
+				((Tank) c).receiveDamage(3);
 				t.receiveDamage(-3);
 			}
 		}
