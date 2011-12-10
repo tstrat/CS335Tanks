@@ -27,9 +27,9 @@ public class BounceShard extends Missile {
 	 */
 	public BounceShard(World w, double x, double y, double rotation, Tank t) {
 		super(w, x, y, rotation, t);
-		damage = 60;
-		speed = 14;
-		maxBounces = 1;
+		damage = 70;
+		speed = 12;
+		maxBounces = 0;
 	}
 
 	/**
