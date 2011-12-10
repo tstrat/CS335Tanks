@@ -14,10 +14,10 @@ public class TreeLeaves extends Actor {
 	@Override
 	public void act() {
 		if (onFire && burningFor < 500) {
-			if (Math.random() < .6) {
+			if (Math.random() < .2) {
 				new FireBall(w, x - 60 + 120 * TRand.random(), y - 60 + 120
 						* TRand.random(), TRand.random() * Math.PI * 2,
-						TRand.random(), 1);
+						TRand.random(), 2);
 			}
 			burningFor++;
 		}

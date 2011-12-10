@@ -47,8 +47,8 @@ public abstract class Collidable extends Actor{
 	 * @return The current collision box.
 	 */
 	public Rectangle getCollisionBox() {
-		boundaries.setSize(getDraw().getWidth(), getDraw().getHeight());
-		boundaries.setLocation((int)(x - .5 * getDraw().getWidth()), (int)(y - .5 * getDraw().getWidth()));
+		boundaries.setSize((int)(getDraw().getWidth() * .85), (int)(getDraw().getHeight() * .85));
+		boundaries.setLocation((int)(x - .425 * getDraw().getWidth()), (int)(y - .425 * getDraw().getWidth()));
 		//System.out.println("Object " + this + " boundaries: " + boundaries.toString());
 		return boundaries;
 	}
