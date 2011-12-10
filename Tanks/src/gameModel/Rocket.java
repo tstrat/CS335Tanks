@@ -48,7 +48,7 @@ public class Rocket extends LargeMissile {
 	 */
 	public void explode() {
 		if(exists)
-			Explosion.createExplosion(w, x, y, 3, 20, 6);		
+			Explosion.createExplosion(w, x, y, 3, 20, 9);		
 		super.explode();
 	}
 	

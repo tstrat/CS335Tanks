@@ -6,7 +6,7 @@ public class PlasmaBallSmall extends Missile {
 
 	public PlasmaBallSmall(World w, double x, double y, double rotation,Tank t) {
 		super(w, x, y, rotation, t);
-		damage = 150;
+		damage = 225;
 		framesOld = 0;
 		speed = 8;
 		bounces = 1;

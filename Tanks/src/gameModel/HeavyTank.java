@@ -23,5 +23,13 @@ public class HeavyTank extends Tank {
 	public DrawObject getDraw() {
 		return draw;
 	}
+	
+	@Override
+	public void layMine() {
+		if(mineCD > 0)
+			return;
+		mineCD += mineMaxCD;
+		new SnareMine(w, x, y, rotation, this);
+	}
 
 }

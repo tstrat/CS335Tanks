@@ -10,6 +10,7 @@ import gameModel.HealingBeacon;
 import gameModel.HeavyTank;
 import gameModel.HoverTank;
 import gameModel.Indestructible;
+import gameModel.LayMineCommand;
 import gameModel.MoveCommand;
 import gameModel.MultiplayerBroadcaster;
 import gameModel.RotateCommand;
@@ -52,6 +53,7 @@ public class TanksDisplay extends JPanel implements Observer {
 
 	private World world;
 	private GameHandler handler;
+	int player;
 	
 	private TanksKeyboardListener keyListener;
 	private TanksMouseListener mouseListener;
@@ -61,7 +63,7 @@ public class TanksDisplay extends JPanel implements Observer {
 	/**
 	 * Background music.
 	 */
-	private SoundPlayer player;
+	private SoundPlayer soundPlayer;
 
 	/**
 	 * The default constructor creates a World and GameHandler and adds a Tank
@@ -72,6 +74,8 @@ public class TanksDisplay extends JPanel implements Observer {
 
 		setPreferredSize(new Dimension(800, 600));
 		setBackground(new Color(245, 228, 156));
+		
+		player = 1;
 		
 		world = new World();
 		new HeavyTank(world, 200, 300, 0, 1);
@@ -91,15 +95,15 @@ public class TanksDisplay extends JPanel implements Observer {
 			receiver = new MultiplayerBroadcaster(handler, client);
 		}
 		
-		new SpinningAI(world, tank, receiver);
+		//new SpinningAI(world, tank, receiver);
 		
-		//player = SoundPlayer.playerFromResource("lullaby.mp3");
-		//player.loop();
+		//soundPlayer = SoundPlayer.playerFromResource("lullaby.mp3");
+		//soundPlayer.loop();
 
 		setFocusable(true);
 		requestFocus();
-		addKeyListener(keyListener = new TanksKeyboardListener(receiver, 1));
-		addMouseListener(mouseListener = new TanksMouseListener(receiver, 1));
+		addKeyListener(keyListener = new TanksKeyboardListener(receiver, player));
+		addMouseListener(mouseListener = new TanksMouseListener(receiver, player));
 		addMouseMotionListener(mouseListener);
 	}
 	
@@ -109,8 +113,10 @@ public class TanksDisplay extends JPanel implements Observer {
 		setPreferredSize(new Dimension(800, 600));
 		setBackground(new Color(245, 228, 156));
 		
+		player = 1;
+		
 		world = new World();
-		new HeavyTank(world, 200, 300, 0, 1);
+		new StandardTank(world, 200, 300, 0, 1);
 		Tank tank = new StandardTank(world, 500, 400, 0, 2);
 		//new HoverTank(world, 300, 600, 0, 3);
 		
@@ -161,8 +167,8 @@ public class TanksDisplay extends JPanel implements Observer {
 
 		setFocusable(true);
 		requestFocus();
-		addKeyListener(keyListener = new TanksKeyboardListener(receiver, 1));
-		addMouseListener(mouseListener = new TanksMouseListener(receiver, 1));
+		addKeyListener(keyListener = new TanksKeyboardListener(receiver, player));
+		addMouseListener(mouseListener = new TanksMouseListener(receiver, player));
 		addMouseMotionListener(mouseListener);
 	}
 
@@ -201,6 +207,12 @@ public class TanksDisplay extends JPanel implements Observer {
 				continue;
 			draw.draw(g, a.getX(), a.getY(), a.getRotation());
 		}
+/*		for (SelectiveDrawable a : world.getSelDraw()) {
+			DrawObject draw = a.getSelectiveDraw(player);
+			if (draw == null)
+				continue;
+			draw.draw(g, a.getX(), a.getY(), a.getRotation());
+		}*/
 		Toolkit.getDefaultToolkit().sync();
 	}
 	
@@ -234,10 +246,11 @@ public class TanksDisplay extends JPanel implements Observer {
 		private static final int KEY_J = 4;
 		private static final int KEY_K = 5;
 		private static final int KEY_L = 6;
+		private static final int KEY_Q = 7;
 		
 		// This should always be equal to the last KEY_* above + 1.
 		// (this is the total number of KEY_* declarations).
-		private static final int KEY_AMOUNT = 7;
+		private static final int KEY_AMOUNT = 8;
 
 		public TanksKeyboardListener(CommandReceiver receiver, int player) {
 			this.receiver = receiver;
@@ -273,6 +286,9 @@ public class TanksDisplay extends JPanel implements Observer {
 			
 			if (keyStates[KEY_L])
 				receiver.receiveCommand(new RotateGunCommand2(player, 0.06));
+			
+			if (keyStates[KEY_Q])
+				receiver.receiveCommand(new LayMineCommand(player));
 		}
 		
 		/**
@@ -332,6 +348,10 @@ public class TanksDisplay extends JPanel implements Observer {
 			case KeyEvent.VK_SPACE:
 				keyStates[KEY_K] = true;
 				break;
+				
+			case KeyEvent.VK_Q:
+				keyStates[KEY_Q] = true;
+				break;
 			}
 		}
 
@@ -370,6 +390,10 @@ public class TanksDisplay extends JPanel implements Observer {
 				
 			case KeyEvent.VK_SPACE:
 				keyStates[KEY_K] = false;
+				break;
+
+			case KeyEvent.VK_Q:
+				keyStates[KEY_Q] = false;
 				break;
 
 			}

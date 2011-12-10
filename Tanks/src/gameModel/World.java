@@ -19,6 +19,8 @@ public class World extends Observable {
 	private List<Actor> actors;
 	private List<Collidable> collidables;
 	private List<Tank> tanks;
+	private int player;
+	//private List<SelectiveDrawable> selDraw;
 
 	/**
 	 * Constructor for a new World. A world holds a list of Actors and Collidables.
@@ -28,8 +30,15 @@ public class World extends Observable {
 		actors = new ArrayList<Actor>();
 		collidables = new ArrayList<Collidable>();
 		tanks = new ArrayList<Tank>();
-		// TODO: the world should be initialized by reading from
-		// some map file, somehow
+		player = 1;
+
+	}
+	
+	public World(int p) {
+		actors = new ArrayList<Actor>();
+		collidables = new ArrayList<Collidable>();
+		tanks = new ArrayList<Tank>();
+		player = p;
 
 	}
 
@@ -130,6 +139,10 @@ public class World extends Observable {
 			} else
 				i++;
 		}
+	}
+	
+	public int getPlayer() {
+		return player;
 	}
 
 }

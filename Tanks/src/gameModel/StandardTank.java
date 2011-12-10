@@ -12,7 +12,6 @@ package gameModel;
  *
  */
 public class StandardTank extends Tank {
-
 	/**
 	 * This is the constructor from the tank. It calls the superconstructor of
 	 * Obstacle to handle the world, location, and position of the newly
@@ -51,5 +50,14 @@ public class StandardTank extends Tank {
 	public DrawObject getDraw() {
 		return draw;
 	}
+	
+	@Override
+	public void layMine() {
+		if(mineCD > 0)
+			return;
+		mineCD += mineMaxCD;
+		new ExplosiveMine(w, x, y, rotation, this);
+	}
+	
 
 }

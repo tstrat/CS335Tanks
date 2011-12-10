@@ -32,11 +32,15 @@ public class Tank extends Obstacle {
 	 */
 	protected double oldX, oldY;
 	
+	protected int mineCD, mineMaxCD;
+	
 	public Tank(World w, double x, double y, double rotation, int player) {
 		super(w, x, y, rotation);
 		this.player = player;
 		oldX = x;
 		oldY = y;
+		mineCD = 0;
+		mineMaxCD = 500;
 	}
 
 
@@ -49,6 +53,8 @@ public class Tank extends Obstacle {
 	public void act() {
 		stayInBounds();
 		gun.syncPosition(this);
+		if(mineCD > 0)
+			mineCD--;
 	}
 	
 	/**
@@ -96,6 +102,12 @@ public class Tank extends Obstacle {
 	 */
 	public void fireMissile() {
 		gun.fireMissile(this);
+	}
+	
+	public void layMine() {
+		if(mineCD > 0)
+			return;
+		mineCD += mineMaxCD;
 	}
 	
 	/**
