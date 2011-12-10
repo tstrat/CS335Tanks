@@ -62,7 +62,6 @@ public class TanksServer {
 				playerNum++; // increments the player number
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -87,8 +86,6 @@ public class TanksServer {
 		try {
 			server.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	
@@ -133,7 +130,7 @@ public class TanksServer {
 				
 				send(RECV_PLAYERNO, teamNum);
 			} catch (IOException e) {
-				e.printStackTrace();
+				return;
 			}
 			
 			commandThread = new Thread(new CommandThread());
@@ -174,9 +171,8 @@ public class TanksServer {
 							ClientManager.this.socket.close();
 							return;
 						} catch (IOException e1) {
-							e1.printStackTrace();
+							return;
 						}
-						break;
 					}
 				}
 				
@@ -211,8 +207,6 @@ public class TanksServer {
 				
 				send(RECV_COMMAND, bytestream.toByteArray());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 		
@@ -232,7 +226,6 @@ public class TanksServer {
 				dos.write(bytes);
 				dos.flush();
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
 		
@@ -249,7 +242,6 @@ public class TanksServer {
 				dos.writeInt((type << 24) | 1);
 				dos.write(b);
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
 		
@@ -264,7 +256,6 @@ public class TanksServer {
 				os.close();
 				socket.close();
 			}catch (IOException ioe){
-				ioe.printStackTrace();
 			}
 		}
 	}

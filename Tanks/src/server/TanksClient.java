@@ -53,7 +53,7 @@ public class TanksClient {
 			dos = new DataOutputStream(os);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			return;
 		}
 		
 		receivingThread = new ReceiveThread();
@@ -88,12 +88,7 @@ public class TanksClient {
 					int size = header & 0xFFFFFF;
 					byte[] data = new byte[size];
 					int read = dis.read(data, 0, size);
-					
-					/*while (read < size) {
-						System.out.println("client " + player);
-						read += dis.read(data, read, size - read);
-					}*/
-					
+										
 					receiveBytes(type, data);
 					
 				} catch (IOException e) {
@@ -102,7 +97,7 @@ public class TanksClient {
 						return;
 					}
 					catch (IOException e1) {
-						e.printStackTrace();
+						return;
 					}
 				}
 			}
@@ -129,10 +124,8 @@ public class TanksClient {
 						cr.receiveCommand(c);
 				}
 				catch (IOException e) {
-					e.printStackTrace();
 				}
 				catch (ClassNotFoundException e) {
-					e.printStackTrace();
 				}
 			}
 		}
@@ -155,7 +148,6 @@ public class TanksClient {
 			dos.flush();
 		}
 		catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -174,8 +166,6 @@ public class TanksClient {
 			
 			send((TanksServer.RECV_COMMAND << 24) | data.length, data);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 }
