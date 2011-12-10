@@ -33,10 +33,14 @@ public class Tank extends Obstacle {
 	protected double oldX, oldY;
 	
 	protected int mineCD, mineMaxCD;
+
+	protected int speedMod;
+	protected double baseSpeed;
 	
 	public Tank(World w, double x, double y, double rotation, int player) {
 		super(w, x, y, rotation);
 		this.player = player;
+		speedMod = 0;
 		oldX = x;
 		oldY = y;
 		mineCD = 0;
@@ -51,10 +55,19 @@ public class Tank extends Obstacle {
 	 */
 	@Override
 	public void act() {
+		updateSpeed();
 		stayInBounds();
 		gun.syncPosition(this);
 		if(mineCD > 0)
 			mineCD--;
+	}
+	
+	private void updateSpeed() {
+		speed = baseSpeed * (1 + (.005 * speedMod));
+		if (speedMod > 0)
+			speedMod--;
+		else if (speedMod < 0)
+			speedMod++;
 	}
 	
 	/**
@@ -179,6 +192,10 @@ public class Tank extends Obstacle {
 	 */
 	public void rotateGunTo(int x, int y) {
 		gun.rotateTowards(x, y);
+	}
+	
+	public void modSpeed(int n) {
+		speedMod = n;
 	}
 
 }

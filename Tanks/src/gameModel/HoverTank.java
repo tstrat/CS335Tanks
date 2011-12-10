@@ -16,6 +16,7 @@ public class HoverTank extends Tank {
 		this.maxHealth = 1400;
 		this.health = 1400;
 		this.gun = new ShotGun(w, x, y, rotation);
+		baseSpeed = 4.5;
 		speed = 4.5;
 		new HealthBar(w, this);	
 	}
@@ -94,6 +95,10 @@ public class HoverTank extends Tank {
 			moveBackward(speed/1.5);
 			canStrafe = false;
 		}
+	}
+	
+	@Override
+	public void modSpeed(int n) {
 	}
 
 }

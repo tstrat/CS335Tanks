@@ -4,7 +4,6 @@ public class SnareMine extends Mine {
 
 	public SnareMine(World w, double x, double y, double rotation, Tank t) {
 		super(w, x, y, rotation, t, t.getPlayerNumber());
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

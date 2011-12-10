@@ -12,11 +12,13 @@ import gameModel.HoverTank;
 import gameModel.Indestructible;
 import gameModel.LayMineCommand;
 import gameModel.MoveCommand;
+import gameModel.MudPatch;
 import gameModel.MultiplayerBroadcaster;
 import gameModel.RotateCommand;
 import gameModel.RotateGunCommand;
 import gameModel.RotateGunCommand2;
 import gameModel.SoundPlayer;
+import gameModel.SpeedPatch;
 import gameModel.SpikePit;
 import gameModel.SpinningAI;
 import gameModel.StandardTank;
@@ -80,6 +82,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		world = new World();
 		new HeavyTank(world, 200, 300, 0, 1);
 		Tank tank = new StandardTank(world, 500, 400, 0, 2);
+		new MudPatch(world, 300, 300, 0);
+		new SpeedPatch(world, 400, 400, 0);
 		//new HoverTank(world, 300, 600, 0, 3);
 		
 		handler = new GameHandler(world);

@@ -7,6 +7,7 @@ public class HeavyTank extends Tank {
 		this.maxHealth = 3600;
 		this.health = 3600;
 		this.gun = new PlasmaCannon(w, x, y, rotation);
+		baseSpeed = 2.2;
 		speed = 2.2;
 		new HealthBar(w, this);	
 	}
