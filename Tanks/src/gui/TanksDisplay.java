@@ -80,7 +80,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		player = 1;
 		
 		world = new World();
-		new HeavyTank(world, 200, 300, 0, 1);
+		new HoverTank(world, 200, 300, 0, 1);
 		Tank tank = new StandardTank(world, 500, 400, 0, 2);
 		new MudPatch(world, 300, 300, 0);
 		new SpeedPatch(world, 400, 400, 0);

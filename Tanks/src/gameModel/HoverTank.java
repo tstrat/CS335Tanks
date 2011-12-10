@@ -19,6 +19,7 @@ public class HoverTank extends Tank {
 		baseSpeed = 4.5;
 		speed = 4.5;
 		new HealthBar(w, this);	
+		mineMaxCD = 75;
 	}
 
 	/**
@@ -99,6 +100,14 @@ public class HoverTank extends Tank {
 	
 	@Override
 	public void modSpeed(int n) {
+	}
+	
+	@Override
+	public void layMine() {
+		if(mineCD > 0)
+			return;
+		mineCD += mineMaxCD;
+		new SpiderMine(w, x, y, rotation, this);
 	}
 
 }

@@ -4,7 +4,7 @@ public abstract class Mine extends Collidable {
 
 	protected Tank t;
 	private int drawPriority = 9;
-	private int player;
+	protected int player;
 	
 	public Mine(World w, double x, double y, double rotation, Tank t, int player) {
 		super(w, x, y, rotation);
