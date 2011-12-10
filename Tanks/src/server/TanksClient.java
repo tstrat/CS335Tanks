@@ -56,7 +56,7 @@ public class TanksClient {
 			e.printStackTrace();
 		}
 		
-		receivingThread = new Thread(new ReceiveThread());
+		receivingThread = new ReceiveThread();
 		receivingThread.start();
 	}
 	
@@ -80,23 +80,30 @@ public class TanksClient {
 		
 		public void run() {
 			
-			while (true) {
+			while (client.isConnected()) {
 				try {
 					
 					int header = dis.readInt();
 					int type = header >> 24;
 					int size = header & 0xFFFFFF;
 					byte[] data = new byte[size];
-					int read = dis.read(data);
+					int read = dis.read(data, 0, size);
 					
 					while (read < size) {
-						read += is.read(data, read, size - read);
+						System.out.println("client " + player);
+						read += dis.read(data, read, size - read);
 					}
 					
 					receiveBytes(type, data);
 					
 				} catch (IOException e) {
-					e.printStackTrace();
+					try {
+						client.close();
+						return;
+					}
+					catch (IOException e1) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -139,9 +146,13 @@ public class TanksClient {
 	 * @param data The data to be sent.
 	 */
 	private void send(int header, byte[] data) {
+		if (client == null || client.isClosed())
+			return;
+		
 		try {
 			dos.writeInt(header);
 			dos.write(data);
+			dos.flush();
 		}
 		catch (IOException e) {
 			e.printStackTrace();
