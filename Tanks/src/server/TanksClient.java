@@ -89,10 +89,10 @@ public class TanksClient {
 					byte[] data = new byte[size];
 					int read = dis.read(data, 0, size);
 					
-					while (read < size) {
+					/*while (read < size) {
 						System.out.println("client " + player);
 						read += dis.read(data, read, size - read);
-					}
+					}*/
 					
 					receiveBytes(type, data);
 					

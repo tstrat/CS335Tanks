@@ -161,10 +161,10 @@ public class TanksServer {
 						byte[] data = new byte[size];
 						int read = dis.read(data, 0, size);
 						
-						while (read < size) {
+						/*while (read < size) {
 							System.out.println("server omg!!");
 							read += dis.read(data, read, size - read);
-						}
+						}*/
 						
 						receiveBytes(type, data);
 						
