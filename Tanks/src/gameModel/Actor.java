@@ -239,4 +239,20 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 		y = a.y;
 	}
 	
+	/**
+	 * Resets the Actor's x, y, rotation, and health. Unfortunately, our server has
+	 * some issues, and we don't have the time to redesign it correctly, so we're stuck
+	 * with syncing everything every second or so.
+	 * 
+	 * @param x The new x coordinate.
+	 * @param y The new y coordinate.
+	 * @param rotation The new rotation.
+	 * @param health Ignored. Override this method if you need it.
+	 */
+	public void sync(double x, double y, double rotation, int health) {
+		this.x = x;
+		this.y = y;
+		this.rotation = rotation;
+	}
+	
 }

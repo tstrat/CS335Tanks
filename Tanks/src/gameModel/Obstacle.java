@@ -107,5 +107,16 @@ public abstract class Obstacle extends Collidable{
 	public int getDrawPriority() {
 		return drawPriority;
 	}
+	
+	/**
+	 * Synchronizes health with everything else, since Actor doesn't know about health.
+	 * 
+	 * @see Actor.sync(double, double, double, int).
+	 */
+	@Override
+	public void sync(double x, double y, double rotation, int health) {
+		super.sync(x, y, rotation, health);
+		this.health = health;
+	}
 
 }
