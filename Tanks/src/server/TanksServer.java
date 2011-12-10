@@ -152,17 +152,18 @@ public class TanksServer {
 			@Override
 			public void run(){
 				
-				while (true){
+				while (socket.isConnected()){
 					try {
 						
 						int header = dis.readInt();
 						int type = header >> 24;
 						int size = header & 0xFFFFFF;
 						byte[] data = new byte[size];
-						int read = dis.read(data);
+						int read = dis.read(data, 0, size);
 						
 						while (read < size) {
-							read += is.read(data, read, size - read);
+							System.out.println("server omg!!");
+							read += dis.read(data, read, size - read);
 						}
 						
 						receiveBytes(type, data);
@@ -171,6 +172,7 @@ public class TanksServer {
 						
 						try {
 							ClientManager.this.socket.close();
+							return;
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
@@ -222,9 +224,13 @@ public class TanksServer {
 		 * @param bytes The raw bytes that make up the message to be sent.
 		 */
 		public void send(int type, byte[] bytes) {
+			if (socket.isClosed())
+				return;
+			
 			try {
 				dos.writeInt((type << 24) | bytes.length);
 				dos.write(bytes);
+				dos.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
