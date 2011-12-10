@@ -211,12 +211,7 @@ public class TanksDisplay extends JPanel implements Observer {
 				continue;
 			draw.draw(g, a.getX(), a.getY(), a.getRotation());
 		}
-/*		for (SelectiveDrawable a : world.getSelDraw()) {
-			DrawObject draw = a.getSelectiveDraw(player);
-			if (draw == null)
-				continue;
-			draw.draw(g, a.getX(), a.getY(), a.getRotation());
-		}*/
+
 		Toolkit.getDefaultToolkit().sync();
 	}
 	
