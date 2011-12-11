@@ -34,6 +34,13 @@ public class DrawFadingObject extends DrawSingleFrameObject {
 		df = .05f;
 	}
 	
+	/**
+	 * Similar to the other constructor, this constructor creates a DrawFadingObject
+	 * for a given image, however, this constructor is passed the fade percentage.
+	 * 
+	 * @param imgName  The name of the image file to load
+	 * @param frames  The rate at which the object will fade.
+	 */
 	public DrawFadingObject(String imgName, int frames) {
 		super(imgName);
 		ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f = 1);

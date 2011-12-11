@@ -34,6 +34,11 @@ public class Explosion {
 		}
 	}
 
+	/**
+	 * This class handles the sound of the explosion.  When appropriate, 
+	 * an outside class will call the ExplosionSoundEffect class' getSoundPlayer
+	 * method which will return a SoundPlayer object with the Explosion mp3 file.
+	 */
 	private static class ExplosionSoundEffect extends Actor {
 
 		public ExplosionSoundEffect(World w, double x, double y) {
@@ -55,7 +60,6 @@ public class Explosion {
 		 */
 		@Override
 		public int getDrawPriority() {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
