@@ -7,9 +7,6 @@ package gameModel;
  * anything, but are drawn over all objects, making them great for cover, until they
  * catch fire.
  * 
- * NOTE: To make forest fires happen, ideal spacing between trees for a gradual, spreading
- * fire is roughly 100 pixels in eahc direction
- * 
  * 
  * @author Messiah Frickin' Kane
  *
