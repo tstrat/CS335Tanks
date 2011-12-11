@@ -1,6 +1,7 @@
 package MapEditor;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 public class MapEditor extends JFrame{
 	static EditorPane ep = new EditorPane();
@@ -15,6 +16,11 @@ public class MapEditor extends JFrame{
 		new OptionPane(ep);
 	}
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+		}
+		
 		new MapEditor();		
 	}
 }

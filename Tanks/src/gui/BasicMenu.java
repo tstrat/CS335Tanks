@@ -16,6 +16,10 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import MapEditor.MapEditor;
 
@@ -94,6 +98,11 @@ public class BasicMenu extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		boolean hosting = false;
 		String host = null;
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+		}
 		
 		// Check for command line arguments:
 		// -host = become a host.

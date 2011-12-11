@@ -162,10 +162,12 @@ public class SpiderMine extends Mine{
 		 */
 		@Override
 		public DrawObject getDraw() {
-			if(ticks % 9 < 3)
+			if(ticks % 16 < 4)
 				return draw1;
-			else if(ticks % 9 < 6)
+			else if(ticks % 16 < 8)
 				return draw2;
+			else if (ticks % 16 < 12)
+				return draw1;
 			else
 				return draw3;
 		}
