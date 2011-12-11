@@ -37,6 +37,11 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	private String saveName;
 	private JButton tankBut;
 
+	/**
+	 * A basic Constructor for the EditorPane, this pane draws the map
+	 * and places the things people want to place for that map.
+	 * 
+	 */
 	public EditorPane() {
 		super(true);
 		setPreferredSize(new Dimension(800, 600));
@@ -48,7 +53,11 @@ public class EditorPane extends JPanel implements MouseInputListener {
 		requestFocus();
 	}
 
+	
 	@Override
+	/**
+	 * Paints the editor pane.
+	 */
 	public void paint(Graphics g) {
 		super.paint(g);
 		((Graphics2D) g).drawImage(img, 0, 0, null);
@@ -58,6 +67,12 @@ public class EditorPane extends JPanel implements MouseInputListener {
 		Toolkit.getDefaultToolkit().sync();
 	}
 
+	/**
+	 * Once called, sets it for the next click to add whichever image is sent.
+	 * 
+	 * @param imgName - The name of the image to draw
+	 * @param remains - The textfield of how many images are allowed
+	 */
 	public void clickListen(String imgName, JTextField remains) {
 		requestFocus();
 		iii = new ImageIcon(this.getClass().getResource(imgName));
@@ -65,6 +80,12 @@ public class EditorPane extends JPanel implements MouseInputListener {
 		saveName = imgName;
 	}
 
+	/**
+	 * Once called, sets it for the next click to add whichever tank is sent.
+	 * 
+	 * @param imgName - The name of the tank spawn point to draw
+	 * @param j - The tank spawn point button to disable
+	 */
 	public void clickListenTank(String imgName, JButton j) {
 		requestFocus();
 		iii = new ImageIcon(this.getClass().getResource(imgName));
@@ -73,6 +94,16 @@ public class EditorPane extends JPanel implements MouseInputListener {
 		tankBut = j;
 	}
 
+	/**
+	 * When the person saves the map, this method is called.
+	 * Given the number of remains and save name creates a .txt file
+	 * with the map and a predetermined way of saving the map.
+	 * Writes to that text file the layout of the map.
+	 * 
+	 * @param mapName - Name of Map to save
+	 * @param tRemains - number of terrain remaining
+	 * @param oRemains - number of obstacles remaining
+	 */
 	public void writeToFile(String mapName, int tRemains, int oRemains) {
 		try {
 			FileWriter fstream = new FileWriter(mapName);
@@ -94,6 +125,15 @@ public class EditorPane extends JPanel implements MouseInputListener {
 
 	}
 
+	/**
+	 * When the person loads the map, this method is called
+	 * It has a set way of reading the text files to load the
+	 * map the correct way.
+	 * 
+	 * @param mapName - Name of Map to load
+	 * @param tRemains - number of terrain remaining
+	 * @param oRemains - number of obstacles remaining
+	 */
 	public void readFromFile(String mapName, JTextField tR, JTextField oR) {
 		int space1 = 0, space2 = 0;
 		int count = 0;
@@ -161,6 +201,10 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	}
 
 	@Override
+	/**
+	 * When the mouse is Pressed, if there is an image it prints that
+	 * image to the mouse location.
+	 */
 	public void mousePressed(MouseEvent e) {
 		if (iii != null) {
 			if (textF != null) {
