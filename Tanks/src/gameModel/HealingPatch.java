@@ -55,8 +55,8 @@ public class HealingPatch extends Terrain {
 	@Override
 	public void act() {
 		if(broken && smoked < 150) {
-			if(Math.random() < .2) {
-				new DustPoof(w, x - 40 + 80*Math.random(), y - 40 + 80*Math.random());
+			if(TRand.random() < .2) {
+				new DustPoof(w, x - 40 + 80*TRand.random(), y - 40 + 80*TRand.random());
 			}
 			smoked++;
 		}

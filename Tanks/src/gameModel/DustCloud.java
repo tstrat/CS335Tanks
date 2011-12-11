@@ -21,7 +21,7 @@ public class DustCloud extends Actor {
 	 * @param y - DustCloud's y-coordinate.
 	 */
 	public DustCloud(World w, double x, double y) {
-		super(w, x, y, Math.random() * 2 * Math.PI);
+		super(w, x, y, TRand.random() * 2 * Math.PI);
 		ticsLeft = 100;
 	}
 
@@ -63,7 +63,7 @@ public class DustCloud extends Actor {
 	 * @param y Y-position in pixels.
 	 */
 	public static void add(World w, double x, double y) {
-		if (Math.random() < 0.5)
+		if (TRand.random() < 0.5)
 			new DustCloud(w, x, y);
 	}
 

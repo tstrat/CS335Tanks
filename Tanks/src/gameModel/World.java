@@ -20,28 +20,20 @@ public class World extends Observable {
 	private List<Collidable> collidables;
 	private List<Tank> tanks;
 	private int player;
-	//private List<SelectiveDrawable> selDraw;
+	private boolean needsSorting;
 
 	/**
 	 * Constructor for a new World. A world holds a list of Actors and Collidables.
-	 * This constructor initializes those to empty.
+	 * This constructor initializes those to empty. The player is set to the default
+	 * value of 1. You should set it later, once you know what player you are controlling.
 	 */
 	public World() {
 		actors = new ArrayList<Actor>();
 		collidables = new ArrayList<Collidable>();
 		tanks = new ArrayList<Tank>();
 		player = 1;
-
 	}
 	
-	public World(int p) {
-		actors = new ArrayList<Actor>();
-		collidables = new ArrayList<Collidable>();
-		tanks = new ArrayList<Tank>();
-		player = p;
-
-	}
-
 	/**
 	 * Handles all collisions in the world. If a collision is made, checks
 	 * if the two objects are properly colliding and then calls the collide method
@@ -49,11 +41,12 @@ public class World extends Observable {
 	 */
 	public void handleCollisions() {
 		for (int i = 0; i < collidables.size(); i++) {
-			for (int j = 0; j < collidables.size(); j++) {
+			for (int j = i + 1; j < collidables.size(); j++) {
 				Rectangle collis = collidables.get(i).getCollisionBox()
 						.intersection(collidables.get(j).getCollisionBox());
-				if (collis.width > 0 && collis.height > 0 && i != j){
+				if (collis.width > 0 && collis.height > 0){
 						collidables.get(i).collide(collidables.get(j));
+						collidables.get(j).collide(collidables.get(i));
 				}
 			}
 		}
@@ -94,7 +87,10 @@ public class World extends Observable {
 	 * Returns the Actors list, mainly for the GUI.
 	 */
 	public List<Actor> getActors() {
-		Collections.sort(actors);
+		if (needsSorting) {
+			Collections.sort(actors);
+			needsSorting = false;
+		}
 		return actors;
 	}
 	
@@ -107,6 +103,7 @@ public class World extends Observable {
 	 */
 	public void addActor(Actor a) {
 		actors.add(a);
+		needsSorting = true;
 		if (a instanceof Collidable) {
 			collidables.add((Collidable) a);
 			
@@ -141,8 +138,24 @@ public class World extends Observable {
 		}
 	}
 	
+	/**
+	 * Returns the player number. The default value is 1, unless you change it
+	 * via setPlayer.
+	 * 
+	 * @return The player number that this World has control of.
+	 */
 	public int getPlayer() {
 		return player;
+	}
+	
+	/**
+	 * Sets the player number. This should generally be done after receiving the player number
+	 * from the TanksClient.
+	 * 
+	 * @param player The new player number.
+	 */
+	public void setPlayer(int player) {
+		this.player = player;
 	}
 
 }

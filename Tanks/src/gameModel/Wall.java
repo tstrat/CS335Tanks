@@ -34,13 +34,13 @@ public class Wall extends Obstacle{
 		health -= dam;
 		if(h > 2000 && health <= 2000)
 			for(int i = 0; i < 4; i++)
-				new DustPoof(w, x - 20 + 40*Math.random(), y - 20 + 40*Math.random());
+				new DustPoof(w, x - 20 + 40*TRand.random(), y - 20 + 40*TRand.random());
 		if(h > 1000 && health <= 1000)
 			for(int i = 0; i < 5; i++)
-				new DustPoof(w, x - 20 + 40*Math.random(), y - 20 + 40*Math.random());
+				new DustPoof(w, x - 20 + 40*TRand.random(), y - 20 + 40*TRand.random());
 		if(health <= 0)
 			for(int i = 0; i < 8; i++)
-				new DustPoof(w, x - 20 + 40*Math.random(), y - 20 + 40*Math.random());
+				new DustPoof(w, x - 20 + 40*TRand.random(), y - 20 + 40*TRand.random());
 		
 	}
 

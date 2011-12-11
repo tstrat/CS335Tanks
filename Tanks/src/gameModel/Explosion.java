@@ -30,7 +30,7 @@ public class Explosion {
 	public static void createExplosion(World w, double x, double y, int fireCount, double radius, int damage) {
 		new ExplosionSoundEffect(w, x, y);
 		for(int i = 0; i < fireCount; i ++) {
-			new FireBall(w, x, y, 2 * Math.PI * Math.random(), Math.random() * radius/ 20,  damage);
+			new FireBall(w, x, y, 2 * Math.PI * TRand.random(), TRand.random() * radius/ 20,  damage);
 		}
 	}
 

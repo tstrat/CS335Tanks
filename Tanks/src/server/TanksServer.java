@@ -21,11 +21,14 @@ public class TanksServer {
 	
 	private boolean doneConnecting;
 	
+	private double seed;
+	
 	/**
 	 * Control constants for messages sent between client and server.
 	 */
 	public static final int RECV_PLAYERNO = 1;
 	public static final int RECV_COMMAND = 2;
+	public static final int RECV_SEED = 3;
 	
 	/**
 	 * The constructor creates an empty linkedList of clients.  Then, it starts the server.
@@ -34,6 +37,8 @@ public class TanksServer {
 		playerNum = 1;
 		doneConnecting = false;
 		clientList = new LinkedList<ClientManager>();
+		
+		seed = TRand.random();
 		
 		// Start the listener in a new thread.
 		new Thread() {
@@ -129,6 +134,7 @@ public class TanksServer {
 				dos = new DataOutputStream(os);
 				
 				send(RECV_PLAYERNO, teamNum);
+				send(RECV_SEED, seed);
 			} catch (IOException e) {
 				return;
 			}
@@ -157,12 +163,7 @@ public class TanksServer {
 						int size = header & 0xFFFFFF;
 						byte[] data = new byte[size];
 						int read = dis.read(data, 0, size);
-						
-						/*while (read < size) {
-							System.out.println("server omg!!");
-							read += dis.read(data, read, size - read);
-						}*/
-						
+												
 						receiveBytes(type, data);
 						
 					} catch (IOException e) {
@@ -242,6 +243,15 @@ public class TanksServer {
 				dos.writeInt((type << 24) | 1);
 				dos.write(b);
 			} catch (IOException e) {
+			}
+		}
+		
+		public void send(int type, double d) {
+			try {
+				dos.writeInt((type << 24) | 8);
+				dos.writeDouble(d);
+			}
+			catch (IOException e) {
 			}
 		}
 		

@@ -113,6 +113,12 @@ public class TanksClient {
 		private void receiveBytes(int type, byte[] data) {
 			if (type == TanksServer.RECV_PLAYERNO) {
 				player = data[0];
+			} else if (type == TanksServer.RECV_SEED) {
+				try {
+					TRand.seed(new DataInputStream(new ByteArrayInputStream(data)).readDouble());
+				} catch (IOException e) {
+					// fuck this shit
+				}
 			} else if (type == TanksServer.RECV_COMMAND) {
 				try {
 					Command c = (Command)new ObjectInputStream(new ByteArrayInputStream(data))
@@ -138,7 +144,7 @@ public class TanksClient {
 	 * @param header The header: (type << 24) | size.
 	 * @param data The data to be sent.
 	 */
-	private void send(int header, byte[] data) {
+	private synchronized void send(int header, byte[] data) {
 		if (client == null || client.isClosed())
 			return;
 		
@@ -157,7 +163,7 @@ public class TanksClient {
 	 * 
 	 * @param c - Command
 	 */
-	public void sendCommand(Command c){
+	public synchronized void sendCommand(Command c){
 		try {
 			ByteArrayOutputStream bytesout = new ByteArrayOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(bytesout);

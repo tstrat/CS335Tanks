@@ -23,6 +23,7 @@ import gameModel.SpikePit;
 import gameModel.SpinningAI;
 import gameModel.StandardTank;
 import gameModel.StupidAI;
+import gameModel.SyncCommand;
 import gameModel.TNTBarrel;
 import gameModel.TreeStump;
 import gameModel.Tank;
@@ -96,6 +97,21 @@ public class TanksDisplay extends JPanel implements Observer {
 		if (host != null) {
 			// Try to connect to host
 			TanksClient client = new TanksClient(handler, host);
+			
+			// Wait for a maximum of 3 seconds to get a player number.
+			long targetTime = System.currentTimeMillis() + 3000L;
+			while (client.getPlayerNumber() == 0 && System.currentTimeMillis() < targetTime) {
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					break;
+				}
+			}
+			player = client.getPlayerNumber();
+			
+			// Start a sync timer that will synchronize my player every second or so.
+			new SyncTimer(client).start();
+			
 			receiver = new MultiplayerBroadcaster(handler, client);
 		}
 		
@@ -111,6 +127,51 @@ public class TanksDisplay extends JPanel implements Observer {
 		addMouseMotionListener(mouseListener);
 	}
 	
+	/**
+	 * It syncs things I guess.
+	 * 
+	 * @author Parker Snell
+	 */
+	private class SyncTimer extends Thread {
+		
+		private TanksClient client;
+		private Tank tank;
+		
+		/**
+		 * Creates a SyncTimer to occasionally sync everyone else with my player.
+		 * 
+		 * @param client A TanksClient to send the synchronization info to.
+		 */
+		public SyncTimer(TanksClient client) {
+			this.client = client;
+			
+			for (Tank t : world.getTanks()) {
+				if (t.getPlayerNumber() == player)
+					tank = t;
+			}
+		}
+		
+		@Override
+		public void run() {
+			
+			while (true) {
+				try {
+					Thread.sleep(1000);
+					if (tank == null)
+						return;
+					
+					client.sendCommand(new SyncCommand(tank));
+				}
+				catch (InterruptedException e) {
+					// Uh...
+				}
+			}
+			
+		}
+		
+	}
+	
+	// TODO: Move map loading code to World.
 	public TanksDisplay(String host, String mapName) {
 		super(true); // It is double buffered.
 
@@ -211,12 +272,6 @@ public class TanksDisplay extends JPanel implements Observer {
 				continue;
 			draw.draw(g, a.getX(), a.getY(), a.getRotation());
 		}
-/*		for (SelectiveDrawable a : world.getSelDraw()) {
-			DrawObject draw = a.getSelectiveDraw(player);
-			if (draw == null)
-				continue;
-			draw.draw(g, a.getX(), a.getY(), a.getRotation());
-		}*/
 		Toolkit.getDefaultToolkit().sync();
 	}
 	
