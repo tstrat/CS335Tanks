@@ -156,7 +156,7 @@ public class TanksDisplay extends JPanel implements Observer {
 			
 			while (true) {
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(100);
 					if (tank == null)
 						return;
 					
