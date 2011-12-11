@@ -6,6 +6,11 @@ import javax.swing.UIManager;
 public class MapEditor extends JFrame{
 	static EditorPane ep = new EditorPane();
 	
+	/**
+	 * A constructor for a Map Editor
+	 * 
+	 * Creates your basic Map Editor
+	 */
 	public MapEditor(){
 		super("Map Editor");
 		add(ep);
@@ -15,6 +20,7 @@ public class MapEditor extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		new OptionPane(ep);
 	}
+	
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
