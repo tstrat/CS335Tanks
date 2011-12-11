@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.MouseInputListener;
@@ -34,6 +35,7 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	private ImageIcon iii;
 	private JTextField textF;
 	private String saveName;
+	private JButton tankBut;
 
 	public EditorPane() {
 		super(true);
@@ -61,6 +63,14 @@ public class EditorPane extends JPanel implements MouseInputListener {
 		iii = new ImageIcon(this.getClass().getResource(imgName));
 		textF = remains;
 		saveName = imgName;
+	}
+
+	public void clickListenTank(String imgName, JButton j) {
+		requestFocus();
+		iii = new ImageIcon(this.getClass().getResource(imgName));
+		textF = null;
+		saveName = imgName;
+		tankBut = j;
 	}
 
 	public void writeToFile(String mapName, int tRemains, int oRemains) {
@@ -153,8 +163,24 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (iii != null) {
-			if (Integer.parseInt(textF.getText()) > 0) {
-				textF.setText("" + (Integer.parseInt(textF.getText()) - 1));
+			if (textF != null) {
+				if (Integer.parseInt(textF.getText()) > 0) {
+					textF.setText("" + (Integer.parseInt(textF.getText()) - 1));
+					savingList.add(saveName);
+					Image im = iii.getImage();
+					int w = im.getWidth(null);
+					int h = im.getHeight(null);
+					int x = w * (e.getX() / w);
+					// x -= w/2;
+					int y = h * (e.getY() / h);
+					// y -= h/2;
+					drawList.add(im);
+					drawXList.add(x);
+					drawYList.add(y);
+					repaint();
+				}
+			} else if(textF == null){
+				tankBut.setEnabled(false);
 				savingList.add(saveName);
 				Image im = iii.getImage();
 				int w = im.getWidth(null);
@@ -168,6 +194,8 @@ public class EditorPane extends JPanel implements MouseInputListener {
 				drawYList.add(y);
 				repaint();
 			}
+			
+			
 		}
 	}
 

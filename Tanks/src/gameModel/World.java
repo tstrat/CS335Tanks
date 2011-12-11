@@ -25,6 +25,9 @@ public class World extends Observable {
 	private List<Tank> tanks;
 	private int player;
 	private boolean needsSorting;
+	private String singleplayertank;
+	private int aiNumber;
+	private CommandReceiver receive;
 
 	/**
 	 * Constructor for a new World. A world holds a list of Actors and Collidables.
@@ -179,9 +182,12 @@ public class World extends Observable {
 		this.player = player;
 	}
 	
-	public void loadFile(String mapName) {		
+	public void loadFileSP(String mapName, String tankName, int AINum, CommandReceiver receive) {		
 		int space1 = 0, space2 = 0;
 		int count = 0;
+		singleplayertank = tankName;
+		aiNumber = AINum;
+		this.receive = receive;
 		
 		try {
 			FileInputStream fstream = new FileInputStream(mapName + ".txt");
@@ -200,7 +206,12 @@ public class World extends Observable {
 				}
 				int place1 = Integer.parseInt(strLine.substring(space1+1, space2));
 				int place2 = Integer.parseInt(strLine.substring(space2+1, strLine.length()));
-				addThingsToWorld(strLine.substring(0, space1-4), place1, place2);
+				String addThis = new String((strLine.substring(0, space1-4)));
+				if(addThis.equals("P1") || addThis.equals("P2") || addThis.equals("P3") || addThis.equals("P4")){
+					addTanksToWorldSP(addThis, place1, place2);
+				} else{
+					addThingsToWorldSP(addThis, place1, place2);
+				}
 				count = 0;
 			}
 			in.close();
@@ -216,10 +227,46 @@ public class World extends Observable {
 		TREESTUMP,
 		WALL2,
 		TNT,
-		SPIKEPIT
+		SPIKEPIT,
+		P1,
+		P2,
+		P3,
+		P4,
+		SPEEDPATCH,
+		MUD
 	}
 	
-	private void addThingsToWorld(String toAdd, int x, int y){
+	private void addTanksToWorldSP(String tankType, int posx, int posy){
+		if(tankType.equals("P1")){
+			if(singleplayertank.equals("Standard Tank")){
+				new StandardTank(this, posx, posy, 0, 1);
+			}
+			if(singleplayertank.equals("Heavy Tank")){
+				new HeavyTank(this, posx, posy, 0, 1);
+			}
+			if(singleplayertank.equals("Hover Tank")){
+				new HoverTank(this, posx, posy, 0, 1);
+			}	
+		}
+		if(tankType.equals("P2") && aiNumber > 0){
+			Tank tank = new StandardTank(this, posx, posy, 0, 2);
+			new StupidAI(this, tank, receive);
+			aiNumber--;
+		}
+		if(tankType.equals("P3") && aiNumber > 0){
+			Tank tank = new StandardTank(this, posx, posy, 0, 3);
+			new StupidAI(this, tank, receive);
+			aiNumber--;
+		}
+		if(tankType.equals("P4") && aiNumber > 0){
+			Tank tank = new StandardTank(this, posx, posy, 0, 4);
+			new StupidAI(this, tank, receive);
+			aiNumber--;
+		}
+		
+	}
+	
+	private void addThingsToWorldSP(String toAdd, int x, int y){
 		ObsAndTer toAddS = ObsAndTer.valueOf(toAdd.toUpperCase());
 		
 		switch(toAddS){
@@ -240,6 +287,12 @@ public class World extends Observable {
 				break;
 			case TNT:
 				new TNTBarrel(this, x, y, 0);
+				break;
+			case MUD:
+				new MudPatch(this, x, y, 0);
+				break;
+			case SPEEDPATCH:
+				new SpeedPatch(this, x, y, 0);
 				break;
 			
 		}

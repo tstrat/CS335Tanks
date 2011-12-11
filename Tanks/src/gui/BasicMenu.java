@@ -33,7 +33,7 @@ public class BasicMenu extends JFrame implements ActionListener {
 	private JButton mapEditing = new JButton("Map Editor");
 	private JButton exitG = new JButton ("Exit Game");
 	private JPanel mainP = new JPanel();
-	private JList mapList, tankList;
+	private JList mapList, tankList, aiList;
 	private JButton ready = new JButton("Begin!");
 	private JFrame mapFrame = new JFrame("Map and Tank Chooser");
 	
@@ -68,6 +68,13 @@ public class BasicMenu extends JFrame implements ActionListener {
 		theTanks.add("Hover Tank");
 		tankList = new JList(theTanks.toArray());
 		tankList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+		
+		ArrayList<String> theAi = new ArrayList<String>();
+		theAi.add("1 AI");
+		theAi.add("2 AI");
+		theAi.add("3 AI");
+		aiList = new JList(theAi.toArray());
+		aiList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
 	}
 	
 	public void addMaps(){
@@ -80,6 +87,8 @@ public class BasicMenu extends JFrame implements ActionListener {
 				theMaps.add(file.getName().substring(0, file.getName().length() - 4));
 			}
 		}
+		if(theMaps.contains("null"))
+			theMaps.remove("null");
 		
 		temp.delete();
 		
@@ -136,16 +145,20 @@ public class BasicMenu extends JFrame implements ActionListener {
 			mapPanel.add(ready);
 			JScrollPane scrollPane = new JScrollPane(mapList);
 			JScrollPane scrollPane2 = new JScrollPane(tankList);
+			JScrollPane scrollPane3 = new JScrollPane(aiList);
 			scrollPane.setSize(150, 200);
 			scrollPane.setLocation(0,0);
 			mapPanel.add(scrollPane);
 			scrollPane2.setSize(150, 200);
 			scrollPane2.setLocation(150,0);
 			mapPanel.add(scrollPane2);
+			scrollPane3.setSize(150, 200);
+			scrollPane3.setLocation(300,0);
+			mapPanel.add(scrollPane3);
 			ready.setSize(150, 200);
-			ready.setLocation(300, 0);
+			ready.setLocation(450, 0);
 			mapPanel.setLayout(null);
-			mapPanel.setPreferredSize(new Dimension(450, 200));
+			mapPanel.setPreferredSize(new Dimension(600, 200));
 			mapPanel.setVisible(true);
 			mapFrame.pack();
 			mapFrame.setVisible(true);
@@ -155,12 +168,14 @@ public class BasicMenu extends JFrame implements ActionListener {
 		if(e.getSource() == ready){
 			String fName = (String) mapList.getSelectedValue();
 			String tName = (String) tankList.getSelectedValue();
+			String ai = (String) aiList.getSelectedValue();
+			int aiNums = Integer.parseInt(ai.substring(0,1));
 			
 			if(fName != null && !fName.equals("") && tName != null && !tName.equals("")){	
 				dispose();
 				mapFrame.dispose();
 				JFrame tdHolder = new JFrame("Tanks");
-				tdHolder.add(new TanksDisplay(host, fName));
+				tdHolder.add(new TanksDisplay(host, fName, tName, aiNums));
 				tdHolder.pack();
 				tdHolder.setResizable(false);
 				tdHolder.setVisible(true);

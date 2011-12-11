@@ -175,7 +175,7 @@ public class TanksDisplay extends JPanel implements Observer {
 	}
 	
 	// TODO: Move map loading code to World.
-	public TanksDisplay(String host, String mapName) {
+	public TanksDisplay(String host, String mapName, String tankName, int AInum) {
 		super(true); // It is double buffered.
 
 		setPreferredSize(new Dimension(800, 600));
@@ -183,12 +183,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		
 		player = 1;
 		
-		world = new World();
-		new HoverTank(world, 150, 300, 0, 1);
-		Tank tank = new StandardTank(world, 650, 300, 0, 2);
-		//new HoverTank(world, 300, 600, 0, 3);
-		
-		world.loadFile(mapName);
+		world = new World();		
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		
@@ -201,8 +196,7 @@ public class TanksDisplay extends JPanel implements Observer {
 			TanksClient client = new TanksClient(handler, host);
 			receiver = new MultiplayerBroadcaster(handler, client);
 		}
-		
-		new StupidAI(world, tank, receiver);
+		world.loadFileSP(mapName, tankName, AInum, receiver);
 		
 		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
 		soundPlayer.loop();

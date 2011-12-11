@@ -27,14 +27,17 @@ public class OptionPane extends JFrame implements ActionListener {
 	JLabel header = new JLabel("Editor Options");
 	JLabel terrain = new JLabel("Terrain: ");
 	JLabel obstacles = new JLabel("Obstacles: ");
+	JLabel tanks = new JLabel("Tanks: ");
 	JLabel tR = new JLabel("Terrian Left: ");
 	JLabel oR = new JLabel("Obstacles Left: ");
 	JTextField terRemaining = new JTextField(4);
 	JTextField obsRemaining = new JTextField(4);
 	ArrayList<String> terList = new ArrayList<String>();
 	ArrayList<String> obsList = new ArrayList<String>();
+	ArrayList<String> tanksList = new ArrayList<String>();
 	ArrayList<JButton> terButList = new ArrayList<JButton>();
 	ArrayList<JButton> obsButList = new ArrayList<JButton>();
+	ArrayList<JButton> tanksButList = new ArrayList<JButton>();
 	JButton save = new JButton("Save");
 	JButton load = new JButton("Load");
 	
@@ -70,6 +73,11 @@ public class OptionPane extends JFrame implements ActionListener {
 			sets(obsButList.get(i-1), 20, 160 + (i * 30), 120, 25);
 			obsButList.get(i-1).addActionListener(this);
 		}
+		
+		for(int i = 1; i <= tanksList.size(); i++){
+			sets(tanksButList.get(i-1), 20, 325 + (i * 30), 120, 25);
+			tanksButList.get(i-1).addActionListener(this);
+		}
 	}
 	
 	public void createLists(){
@@ -81,12 +89,19 @@ public class OptionPane extends JFrame implements ActionListener {
 		obsList.add("HealingBeacon");
 		obsList.add("Indestructible");
 		obsList.add("TNTBarrel");
+		tanksList.add("Player 1 Tank");
+		tanksList.add("Player 2 Tank");
+		tanksList.add("Player 3 Tank");
+		tanksList.add("Player 4 Tank");
 		
 		for(int i = 0; i < terList.size(); i++)
 			terButList.add(new JButton(terList.get(i)));
 		
 		for(int j = 0; j < obsList.size(); j++)
 			obsButList.add(new JButton(obsList.get(j)));
+		
+		for(int j = 0; j < tanksList.size(); j++)
+			tanksButList.add(new JButton(tanksList.get(j)));
 	}
 	
 	public void placeOptions(){
@@ -101,6 +116,7 @@ public class OptionPane extends JFrame implements ActionListener {
 		sets(obsRemaining, 225, 165, 30, 20);
 		obsRemaining.setEditable(false);
 		obsRemaining.setText("100");
+		sets(tanks, 20, 330, 70, 30);
 		sets(save, 50, 520, 80, 25);
 		sets(load, 150, 520, 80, 25);
 	}
@@ -119,6 +135,22 @@ public class OptionPane extends JFrame implements ActionListener {
 		
 		if(((AbstractButton) e.getSource()).getText().equals("MudPatch")){
 			ep.clickListen("mud.png", terRemaining);				
+		}
+		
+		if(((AbstractButton) e.getSource()).getText().equals("Player 1 Tank")){
+			ep.clickListenTank("P1.png", tanksButList.get(0));				
+		}
+		
+		if(((AbstractButton) e.getSource()).getText().equals("Player 2 Tank")){
+			ep.clickListenTank("P2.png", tanksButList.get(1));			
+		}
+		
+		if(((AbstractButton) e.getSource()).getText().equals("Player 3 Tank")){
+			ep.clickListenTank("P3.png", tanksButList.get(2));			
+		}
+		
+		if(((AbstractButton) e.getSource()).getText().equals("Player 4 Tank")){
+			ep.clickListenTank("P4.png", tanksButList.get(3));				
 		}
 		
 		if(((AbstractButton) e.getSource()).getText().equals("SpeedPatch")){
@@ -151,6 +183,8 @@ public class OptionPane extends JFrame implements ActionListener {
 		}
 		
 		if(((AbstractButton) e.getSource()).getText().equals("Load")){
+			for(JButton j: tanksButList)
+				j.setEnabled(true);
 			String fName = JOptionPane.showInputDialog("Enter in Map name to load:");
 			ep.readFromFile(fName + ".txt", terRemaining, obsRemaining);
 		}
