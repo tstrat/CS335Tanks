@@ -62,7 +62,7 @@ public class BasicMenu extends JFrame implements ActionListener {
 		ArrayList<String> theMaps = new ArrayList<String>();
 		for(File file: folder.listFiles()){
 			if(file.getName().endsWith(".txt")){
-				theMaps.add(file.getName());
+				theMaps.add(file.getName().substring(0, file.getName().length() - 4));
 			}
 		}
 		
