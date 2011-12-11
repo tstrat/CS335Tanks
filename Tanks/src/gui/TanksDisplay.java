@@ -531,7 +531,8 @@ public class TanksDisplay extends JPanel implements Observer {
 				c = new FireCommand(player);
 				break;
 			case MouseEvent.BUTTON3:
-				c = new RotateGunCommand(player, e.getX(), e.getY());
+				c = new LayMineCommand(player);
+				break;
 			}
 
 			if (c != null)
