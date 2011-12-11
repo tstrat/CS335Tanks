@@ -29,6 +29,11 @@ public class StupidAI extends AIController {
 	 */
 	private Tank target;
 	
+	/**
+	 * Constructs a new StupidAI and sets it to a defaukt state.
+	 * 
+	 * @see AIController.AIController(World, Tank, CommandReceiver)
+	 */
 	public StupidAI(World w, Tank tank, CommandReceiver receiver) {
 		super(w, tank, receiver);
 		

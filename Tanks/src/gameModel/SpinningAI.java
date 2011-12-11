@@ -10,7 +10,7 @@ public class SpinningAI extends AIController {
 	/**
 	 * Constructs a Spinning AI
 	 * 
-	 * @see AIController
+	 * @see AIController.AIController(World, Tank, CommandReceiver)
 	 */
 	public SpinningAI(World w, Tank tank, CommandReceiver receiver) {
 		super(w, tank, receiver);
