@@ -4,6 +4,7 @@ package gameModel;
  * Creates a graphical dust cloud that follows missiles after they have been shot by a tank.
  *
  */
+
 public class DustPoof extends DustCloud {
 
 	/**
@@ -14,6 +15,7 @@ public class DustPoof extends DustCloud {
 	 * @param x - The DustPuff's x-coordinate.
 	 * @param y - DustPuff's y-coordinate.
 	 */
+	
 	public DustPoof(World w, double x, double y) {
 		super(w, x, y);
 	}
@@ -26,6 +28,7 @@ public class DustPoof extends DustCloud {
 	 * 
 	 * @return A DrawObject representing this DustPuff, or null.
 	 */
+	
 	@Override
 	public DrawObject getDraw() {
 		return draw;
@@ -38,6 +41,7 @@ public class DustPoof extends DustCloud {
 	 * @param x X-position in pixels.
 	 * @param y Y-position in pixels.
 	 */
+	
 	public static void add(World w, double x, double y) {
 		if (TRand.random() < .5)
 			new DustPuff(w, x, y);

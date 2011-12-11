@@ -8,6 +8,7 @@ import java.awt.Graphics;
  * 
  * @author Parker Snell
  */
+
 public interface DrawObject {
 
 	/**
@@ -18,6 +19,7 @@ public interface DrawObject {
 	 * @param y The y-position of the object.
 	 * @param rotation The rotation of the object.
 	 */
+	
 	void draw(Graphics g, double x, double y, double rotation);
 
 	/**
@@ -25,6 +27,7 @@ public interface DrawObject {
 	 * 
 	 * @return The height.
 	 */
+	
 	int getHeight();
 
 	/**
@@ -32,6 +35,7 @@ public interface DrawObject {
 	 * 
 	 * @return The width.
 	 */
+	
 	int getWidth();
 	
 }

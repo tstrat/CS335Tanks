@@ -11,16 +11,19 @@ import java.io.Serializable;
  * 
  * @author Parker Snell
  */
+
 public abstract class Command implements Serializable {
 
 	/**
 	 * Mmm yeah i love me them serialVersionUIDs.
 	 */
+	
 	private static final long serialVersionUID = -2082861940128673525L;
 	
 	/**
 	 * The player that should respond to this Command.
 	 */
+	
 	private int myPlayer;
 	
 	/**
@@ -28,6 +31,7 @@ public abstract class Command implements Serializable {
 	 * 
 	 * @param Player The player that should respond to this command.
 	 */
+	
 	public Command(int Player) {
 		myPlayer = Player;
 	}
@@ -37,6 +41,7 @@ public abstract class Command implements Serializable {
 	 * 
 	 * @return I already wrote this like 5 times.
 	 */
+	
 	public int getPlayer() {
 		return myPlayer;
 	}
@@ -46,6 +51,7 @@ public abstract class Command implements Serializable {
 	 * 
 	 * @param a The Actor to take the effects of this Command.
 	 */
+	
 	public abstract void applyTo(Actor a);
 
 }

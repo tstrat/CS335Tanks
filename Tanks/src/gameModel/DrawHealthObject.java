@@ -8,18 +8,29 @@ import java.awt.Graphics;
  * 
  * @author Seungwoo Sun
  */
+
 public class DrawHealthObject implements DrawObject{
 	
 	/**
 	 * The current health value.
 	 */
+	
 	private int health;
 	
 	/**
 	 * The maximum health value. This can change, but is always
 	 * greater than or equal to the current value.
 	 */
+	
 	private int max;
+	
+	/**
+	 * This constructor creates the DrawHealth Object, setting its
+	 * current health and maximum health.
+	 * 
+	 * @param health -Objects current health
+	 * @param max  The objects allowed max health
+	 */
 	
 	public DrawHealthObject(int health, int max) {
 		this.health = health;
@@ -32,6 +43,7 @@ public class DrawHealthObject implements DrawObject{
 	 * 
 	 * @see DrawObject.draw(Graphics, double, double, double)
 	 */
+	
 	@Override
 	public void draw(Graphics g, double x1, double y1, double rotation) {
 		int x = (int) x1;
@@ -52,6 +64,7 @@ public class DrawHealthObject implements DrawObject{
 	 * @param health The current health value.
 	 * @param max The maximum health value.
 	 */
+	
 	public void updateHealth(int health, int max) {
 		this.health = health;
 		this.max = max;
@@ -62,6 +75,7 @@ public class DrawHealthObject implements DrawObject{
 	 * 
 	 * @return Don't worry about it.
 	 */
+	
 	@Override
 	public int getHeight() {
 		return 0;
@@ -72,6 +86,7 @@ public class DrawHealthObject implements DrawObject{
 	 * 
 	 * @return Don't worry about it.
 	 */
+	
 	@Override
 	public int getWidth() {
 		return 0;

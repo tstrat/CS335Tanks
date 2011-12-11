@@ -10,10 +10,13 @@ import java.awt.Graphics2D;
  * 
  * @author Seungwoo Sun
  */
+
 public class DrawFadingObject extends DrawSingleFrameObject {
+	
 	/**
 	 * The current fade percentage (between 0 and 1).
 	 */
+	
 	private float f;
 	
 	private float df;
@@ -21,6 +24,7 @@ public class DrawFadingObject extends DrawSingleFrameObject {
 	/**
 	 * The Composite representing a semi-transparent image.
 	 */
+	
 	private AlphaComposite ac;
 	
 	/**
@@ -28,6 +32,7 @@ public class DrawFadingObject extends DrawSingleFrameObject {
 	 * 
 	 * @param imgName The name of the image file to load.
 	 */
+	
 	public DrawFadingObject(String imgName) {
 		super(imgName);
 		ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f = 1);
@@ -41,6 +46,7 @@ public class DrawFadingObject extends DrawSingleFrameObject {
 	 * @param imgName  The name of the image file to load
 	 * @param frames  The rate at which the object will fade.
 	 */
+	
 	public DrawFadingObject(String imgName, int frames) {
 		super(imgName);
 		ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f = 1);
@@ -52,6 +58,7 @@ public class DrawFadingObject extends DrawSingleFrameObject {
 	 * 
 	 * @see DrawObject.draw(Graphics, double, double, double)
 	 */
+	
 	@Override
 	public void draw(Graphics g, double x, double y, double rotation){
 		at.translate(x, y);
@@ -69,6 +76,7 @@ public class DrawFadingObject extends DrawSingleFrameObject {
 	/**
 	 * Fades the object out. If the fade value is already zero, this method does nothing.
 	 */
+	
 	public void fade() {
 		if (f == 0.0f)
 			return;

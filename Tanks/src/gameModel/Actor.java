@@ -5,26 +5,31 @@ package gameModel;
  * 
  * @author Parker Snell, Seungwoo Sun
  */
+
 public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	
 	/**
 	 * When set to false, this Actor will essentially be garbage collected by the World.
 	 */
+	
 	protected boolean exists;
 	
 	/**
 	 * Coordinates of the Actor within a World, in pixels..
 	 */
+	
 	protected double x, y;
 	
 	/**
 	 * Rotation of the Actor, in radians.
 	 */
+	
 	protected double rotation;
 	
 	/**
 	 * The World that this Actor belongs to.
 	 */
+	
 	protected World w;
 	
 	/**
@@ -37,6 +42,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * @param y Y-position in pixels.
 	 * @param rotation Rotation in radians.
 	 */
+	
 	public Actor(World w, double x, double y, double rotation) {
 		this.w = w;
 		this.x = x;
@@ -53,6 +59,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	/**
 	 * Called every "turn", to do some implementation-defined action.
 	 */
+	
 	public abstract void act();
 	
 	/**
@@ -60,6 +67,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @param delta The amount in pixels to move forward.
 	 */
+	
 	protected final void moveForward(double delta) {
 		x += delta * Math.cos(rotation);
 		y += delta * Math.sin(rotation);
@@ -70,6 +78,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @see Actor.moveBackward
 	 */
+	
 	public void moveForward() {
 		moveForward(1);
 	}
@@ -79,6 +88,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @param delta The amount in pixels to move backward.
 	 */
+	
 	protected final void moveBackward(double delta) {
 		moveForward(-delta);
 	}
@@ -88,6 +98,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @see Actor.moveForward
 	 */
+	
 	public void moveBackward() {
 		moveBackward(1);
 	}
@@ -97,6 +108,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @return The current x-position.
 	 */
+	
 	public double getX() {
 		return x;
 	}
@@ -106,6 +118,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @return The current y-position.
 	 */
+	
 	public double getY() {
 		return y;
 	}
@@ -115,6 +128,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @param d The amount to rotate to the right, in radians.
 	 */
+	
 	public void rotate(double d) {
 		this.rotation += d;
 	}
@@ -128,6 +142,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * @param y
 	 * 			The y coordinate of the point Actor is orienting itself towards.
 	 */
+	
 	public void rotateTowards(double x, double y) {
 		double r = Math.atan2(y - this.y, x - this.x);
 		if(r - rotation > Math.PI)
@@ -145,6 +160,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @return The current rotation, in radians.
 	 */
+	
 	public double getRotation() {
 		return rotation;
 	}
@@ -155,6 +171,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @return The draw priority of this Actor.
 	 */
+	
 	public abstract int getDrawPriority();
 	
 	/**
@@ -163,6 +180,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @return A DrawObject representing this Actor, or null.
 	 */
+	
 	public abstract DrawObject getDraw();
 	
 	/**
@@ -172,6 +190,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @return A SoundPlayer representing this object's sound effect, or null.
 	 */
+	
 	public SoundPlayer getSoundPlayer() {
 		return null;
 	}
@@ -184,6 +203,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @return A player number, or 0 if the object doesn't represent a player.
 	 */
+	
 	public int getPlayerNumber() {
 		return 0;
 	}
@@ -194,6 +214,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @param c The Command to process.
 	 */
+	
 	@Override
 	public void receiveCommand(Command c) {
 		c.applyTo(this);
@@ -205,6 +226,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @return True if the Actor exists, false otherwise.
 	 */
+	
 	public boolean exists() {
 		return exists;
 	}
@@ -213,6 +235,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * Changes the exists value to false, after which the object will be
 	 * garbage collected by its World.
 	 */
+	
 	public void destroy() {
 		exists = false;
 	}
@@ -223,6 +246,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @param o The other Actor to compare with.
 	 */
+	
 	@Override
 	public final int compareTo(Actor o) {
 		return getDrawPriority() - o.getDrawPriority();
@@ -234,6 +258,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * 
 	 * @param a The other Actor to synchronize with.
 	 */
+	
 	public void syncPosition(Actor a) {
 		x = a.x;
 		y = a.y;
@@ -249,6 +274,7 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	 * @param rotation The new rotation.
 	 * @param health Ignored. Override this method if you need it.
 	 */
+	
 	public void sync(double x, double y, double rotation, int health) {
 		this.x = x;
 		this.y = y;

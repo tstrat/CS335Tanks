@@ -7,6 +7,7 @@ package gameModel;
  * 
  * @author Parker Snell
  */
+
 public interface CommandReceiver {
 
 	/**
@@ -14,6 +15,7 @@ public interface CommandReceiver {
 	 * 
 	 * @param c The Command to receive.
 	 */
+	
 	public void receiveCommand(Command c);
 	
 }

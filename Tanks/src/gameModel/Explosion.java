@@ -7,6 +7,7 @@ package gameModel;
  *		createExplosion method.
  *
  */
+
 public class Explosion {
 
 	/**
@@ -27,6 +28,7 @@ public class Explosion {
 	 * @param damage
 	 * 			The damage per tick of each FireBall object.
 	 */
+	
 	public static void createExplosion(World w, double x, double y, int fireCount, double radius, int damage) {
 		new ExplosionSoundEffect(w, x, y);
 		for(int i = 0; i < fireCount; i ++) {
@@ -39,6 +41,7 @@ public class Explosion {
 	 * an outside class will call the ExplosionSoundEffect class' getSoundPlayer
 	 * method which will return a SoundPlayer object with the Explosion mp3 file.
 	 */
+	
 	private static class ExplosionSoundEffect extends Actor {
 
 		public ExplosionSoundEffect(World w, double x, double y) {
@@ -48,6 +51,7 @@ public class Explosion {
 		/**
 		 * Removes this object right after it is created.
 		 */
+		
 		@Override
 		public void act() {
 			exists = false;
@@ -58,6 +62,7 @@ public class Explosion {
 		 * 
 		 * @return Don't worry about it.
 		 */
+		
 		@Override
 		public int getDrawPriority() {
 			return 0;
@@ -68,6 +73,7 @@ public class Explosion {
 		 * 
 		 * @return Null.
 		 */
+		
 		@Override
 		public DrawObject getDraw() {
 			return null;
@@ -78,6 +84,7 @@ public class Explosion {
 		 * 
 		 * @return A SoundPlayer loaded with an explosion sound.
 		 */
+		
 		@Override
 		public SoundPlayer getSoundPlayer() {
 			return SoundPlayer.playerFromResource("explode.mp3");

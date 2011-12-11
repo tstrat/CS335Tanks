@@ -17,6 +17,7 @@ public class ExplosiveMine extends Mine {
 	 * 
 	 * @param t  The tank belonging to the player that laid the mine.
 	 */
+	
 	public ExplosiveMine(World w, double x, double y, double rotation, Tank t) {
 		super(w, x, y, rotation, t);
 	}
@@ -27,6 +28,7 @@ public class ExplosiveMine extends Mine {
 	 * the mine is used and its existance is set to false and is removed from
 	 * the world.
 	 */
+	
 	@Override
 	public void activateMine() {
 		new MineExplosion(w, x, y, rotation);
@@ -39,6 +41,7 @@ public class ExplosiveMine extends Mine {
 	 * activation of the mine.  The explosion causes all Tanks who are
 	 * in its collision range to receive damage.
 	 */
+	
 	private class MineExplosion extends Collidable{
 
 		private boolean notActivated;
@@ -54,6 +57,7 @@ public class ExplosiveMine extends Mine {
 		 * @param y The initial y-position.
 		 * @param rotation The initial rotation
 		 */
+		
 		public MineExplosion(World w, double x, double y, double rotation) {
 			super(w, x, y, rotation);
 			notActivated = true;
@@ -65,6 +69,7 @@ public class ExplosiveMine extends Mine {
 		 * Mine caused the explosion, then the obstacle (opponent's tank or otherwise) recieves
 		 * damage.
 		 */
+		
 		@Override
 		public void collide(Collidable c) {
 			if(c instanceof Obstacle && !c.equals(t) && notActivated) {
@@ -76,6 +81,7 @@ public class ExplosiveMine extends Mine {
 		/**
 		 * The act method increments the tick count.
 		 */
+		
 		@Override
 		public void act() {
 			ticks++;			
@@ -85,6 +91,7 @@ public class ExplosiveMine extends Mine {
 		 * When the tick count reaches 150, the explosion object will no longer exist on the world.
 		 * It then will be removed.
 		 */
+		
 		public boolean exists() {
 			return ticks < 150;
 		}
@@ -92,6 +99,7 @@ public class ExplosiveMine extends Mine {
 		/**
 		 * Sets the drawPriority to 25.
 		 */
+		
 		@Override
 		public int getDrawPriority() {
 			return 25;
@@ -103,6 +111,7 @@ public class ExplosiveMine extends Mine {
 		/**
 		 * returns the DrawObject with the image of the mine explosion and a fade count of 80.
 		 */
+		
 		@Override
 		public DrawObject getDraw() {
 			return draw;

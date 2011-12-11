@@ -8,12 +8,14 @@ import java.awt.Rectangle;
  * 
  * @author Seungwoo Sun
  */
+
 public abstract class Collidable extends Actor{
 
 	/**
 	 * The box in which, if other Collidables enter this space,
 	 * they are considered to be colliding with this object.
 	 */
+	
 	protected Rectangle boundaries;
 	
 	/**
@@ -26,10 +28,10 @@ public abstract class Collidable extends Actor{
 	 * @param y The initial y-position.
 	 * @param rotation The initial rotation.
 	 */
+	
 	public Collidable(World w, double x, double y, double rotation) {
 		super(w, x, y, rotation);
 		boundaries = new Rectangle();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -37,6 +39,7 @@ public abstract class Collidable extends Actor{
 	 * 
 	 * @param c The object to collide with.
 	 */
+	
 	public abstract void collide(Collidable c);
 	
 	/**
@@ -46,10 +49,10 @@ public abstract class Collidable extends Actor{
 	 * 
 	 * @return The current collision box.
 	 */
+	
 	public Rectangle getCollisionBox() {
 		boundaries.setSize((int)(getDraw().getWidth() * .85), (int)(getDraw().getHeight() * .85));
 		boundaries.setLocation((int)(x - .425 * getDraw().getWidth()), (int)(y - .425 * getDraw().getWidth()));
-		//System.out.println("Object " + this + " boundaries: " + boundaries.toString());
 		return boundaries;
 	}
 }

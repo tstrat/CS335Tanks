@@ -7,26 +7,31 @@ package gameModel;
  * 
  * @author Parker Snell
  */
+
 public abstract class AIController extends Actor {
 
 	/**
 	 * The player that we generate commands for.
 	 */
+	
 	protected int player;
 	
 	/**
 	 * The Tank that we are controlling.
 	 */
+	
 	protected Tank tank;
 	
 	/**
 	 * The World to query for other obstacles, etc.
 	 */
+	
 	protected World world;
 	
 	/**
 	 * How all the magic happens.
 	 */
+	
 	protected CommandReceiver receiver;
 	
 	/**
@@ -36,6 +41,7 @@ public abstract class AIController extends Actor {
 	 * @param tank The Tank that should be controlled.
 	 * @param receiver The CommandReceiver to send all the commands to.
 	 */
+	
 	public AIController(World w, Tank tank, CommandReceiver receiver) {
 		super(w, 0, 0, 0);
 		
@@ -48,6 +54,7 @@ public abstract class AIController extends Actor {
 	/**
 	 * This doesn't matter because it is never drawn.
 	 */
+	
 	@Override
 	public int getDrawPriority() {
 		return 0;
@@ -56,6 +63,7 @@ public abstract class AIController extends Actor {
 	/**
 	 * This also doesn't matter because again, the AIController is never drawn.
 	 */
+	
 	@Override
 	public DrawObject getDraw() {
 		return null;
@@ -64,6 +72,7 @@ public abstract class AIController extends Actor {
 	/**
 	 * The AI only exists as long as its tank exists.
 	 */
+	
 	@Override
 	public boolean exists() {
 		return tank.exists();

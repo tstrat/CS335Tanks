@@ -1,8 +1,10 @@
 package gameModel;
+
 /**
  * Creates a new FireCommand controlling if a player has fired. 
  *
  */
+
 public class FireCommand extends Command {
 
 	/**
@@ -15,6 +17,7 @@ public class FireCommand extends Command {
 	 * 
 	 * @param Player - player number
 	 */
+	
 	public FireCommand(int Player) {
 		super(Player);
 	}
@@ -24,6 +27,7 @@ public class FireCommand extends Command {
 	 * 
 	 * @param a An Actor which must be of type Tank or a subclass.
 	 */
+	
 	@Override
 	public void applyTo(Actor a) {
 		if (!(a instanceof Tank))

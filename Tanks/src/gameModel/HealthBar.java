@@ -54,7 +54,6 @@ public class HealthBar extends Actor {
 	 */
 	@Override
 	public int getDrawPriority() {
-		// TODO Auto-generated method stub
 		return drawPriority;
 	}
 

@@ -20,6 +20,7 @@ public class DustCloud extends Actor {
 	 * @param x - The DustCloud's x-coordinate.
 	 * @param y - DustCloud's y-coordinate.
 	 */
+	
 	public DustCloud(World w, double x, double y) {
 		super(w, x, y, TRand.random() * 2 * Math.PI);
 		ticsLeft = 100;
@@ -27,7 +28,8 @@ public class DustCloud extends Actor {
 
 	/**
 	 * Updates the DustCloud's life span based on ticks.
-	 */	
+	 */
+	
 	@Override
 	public void act() {
 		ticsLeft--;
@@ -41,6 +43,7 @@ public class DustCloud extends Actor {
 	 * 
 	 * @return A DrawObject representing this DustCloud, or null.
 	 */
+	
 	@Override
 	public DrawObject getDraw() {
 		return draw;
@@ -50,6 +53,7 @@ public class DustCloud extends Actor {
 	 * Checks if the DustCloud has ran out of ticks, if so
 	 * DustCloud should cease to exist.
 	 */
+	
 	@Override
 	public boolean exists() {
 		return ticsLeft > 0;
@@ -62,6 +66,7 @@ public class DustCloud extends Actor {
 	 * @param x X-position in pixels.
 	 * @param y Y-position in pixels.
 	 */
+	
 	public static void add(World w, double x, double y) {
 		if (TRand.random() < 0.5)
 			new DustCloud(w, x, y);
@@ -71,6 +76,7 @@ public class DustCloud extends Actor {
 	 * Returns the priority of this clouds draw. A higher priority object is drawn over
 	 * a lower priority object in the main GUI.
 	 */
+	
 	@Override
 	public int getDrawPriority() {
 		// TODO Auto-generated method stub

@@ -6,11 +6,13 @@ package gameModel;
  * 		as it bounces it gains energy, dealing more damage and moving faster.
  *
  */
+
 public class BounceShard extends Missile {
 	/**
 	 * The priority this Actor has when drawn over other Actors. a higher priority
 	 * means it is drawn over the lower priority Actors.
 	 */
+	
 	private static int drawPriority = 11;
 
 	/**
@@ -25,6 +27,7 @@ public class BounceShard extends Missile {
 	 * @param d - How much damage this BounceShard will do.
 	 * @param s - How fast this BounceShard will move.
 	 */
+	
 	public BounceShard(World w, double x, double y, double rotation, Tank t) {
 		super(w, x, y, rotation, t);
 		damage = 70;
@@ -36,6 +39,7 @@ public class BounceShard extends Missile {
 	 * The BounceShard bounces when appropriate, moves as any missile would, and creates an dust trail every
 	 * act iteration.
 	 */
+	
 	public void act() {
 		this.bounce();
 		super.act();
@@ -47,6 +51,7 @@ public class BounceShard extends Missile {
 	 * off that wall.  If it has already bounced 2 times, it explodes.
 	 * BounceHelp defines how BounceShards boucne specifically.
 	 */	
+	
 	public void bounce() {
 		if(x < 0) {
 			rotation = Math.PI - rotation;
@@ -70,22 +75,23 @@ public class BounceShard extends Missile {
 	 * boucneHelp is called when the BounceShard boucnes off the wall. It increments the
 	 * bounce count, speeds up the bullet, and increases its damage.
 	 */
+	
 	private void bounceHelp() {
 		bounces++;
 		speed +=0;
 		damage += 0;
 	}
 	
-	
-	
 	/**
 	 * The DrawObject that defines how the GUI draws the BounceShard.
 	 */
+	
 	private static DrawObject draw = new DrawSingleFrameObject("shotbullet.png");
 	
 	/**
 	 * Returns the DrawObject of the missile, which controls how the BounceShard is drawn.
 	 */
+	
 	@Override
 	public DrawObject getDraw() {
 		return draw;
@@ -95,6 +101,7 @@ public class BounceShard extends Missile {
 	 * Returns the priority of this gun's draw. A higher priority object is drawn over
 	 * a lower priority object in the main GUI.
 	 */
+	
 	@Override
 	public int getDrawPriority() {
 		return drawPriority;
@@ -106,6 +113,7 @@ public class BounceShard extends Missile {
 	 * that fired it). If it hasn't, it will damage any obstacle it collides with, and explode if
 	 * it came in contact with either an obstacle or a missile.
 	 */
+	
 	@Override
 	public void collide(Collidable c) {
 		if (c.equals(t) && bounces == 0)

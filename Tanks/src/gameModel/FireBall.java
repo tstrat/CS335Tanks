@@ -23,6 +23,7 @@ public class FireBall extends Collidable {
 	 * @param speed - How fast the fireball moves
 	 * @param damage - How much damage the fireball deals
 	 */
+	
 	public FireBall(World w, double x, double y, double rotation, double speed, int damage) {
 		super(w, x, y, rotation);
 		lifeTime = 20;
@@ -34,6 +35,7 @@ public class FireBall extends Collidable {
 	 * The collide method dictates how it interacts with objects it is colliding with. It
 	 * will damage any obstacle it collides with.
 	 */
+	
 	@Override
 	public void collide(Collidable c) {
 		if(c instanceof Obstacle) {
@@ -47,6 +49,7 @@ public class FireBall extends Collidable {
 	 * Also decreases it's lifetime if it has yet to collide with
 	 * anything.
 	 */	
+	
 	@Override
 	public void act() {
 		lifeTime--;
@@ -58,6 +61,7 @@ public class FireBall extends Collidable {
 	 * Checks if the FireBalls lifeTime has reached zero.
 	 * If so FireBall should cease to exist.
 	 */
+	
 	@Override
 	public boolean exists() {
 		return lifeTime > 0;
@@ -71,6 +75,7 @@ public class FireBall extends Collidable {
 	 * 
 	 * @return A DrawObject representing this FireBall, or null.
 	 */
+	
 	@Override
 	public DrawObject getDraw() {
 		return draw;
@@ -80,6 +85,7 @@ public class FireBall extends Collidable {
 	 * Returns the priority of this fireball's draw. A higher priority object is drawn over
 	 * a lower priority object in the main GUI.
 	 */
+	
 	@Override
 	public int getDrawPriority() {
 		// TODO Auto-generated method stub

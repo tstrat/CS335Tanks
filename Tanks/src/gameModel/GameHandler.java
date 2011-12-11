@@ -12,6 +12,7 @@ import javax.swing.Timer;
  * but not HOW to do things. That is up for the implementer
  * of World to decide.
  */
+
 public class GameHandler implements CommandReceiver, ActionListener {
 	
 	private World w;
@@ -64,6 +65,7 @@ public class GameHandler implements CommandReceiver, ActionListener {
 	 * 
 	 * @param c The Command to send to this GameHandler.
 	 */
+	
 	@Override
 	public void receiveCommand(Command c) {
 		commands.add(c);
@@ -90,6 +92,7 @@ public class GameHandler implements CommandReceiver, ActionListener {
 	 * 
 	 * @return True if the game is paused, false otherwise.
 	 */
+	
 	public boolean isPaused() {
 		return !timer.isRunning();
 	}

@@ -12,16 +12,19 @@ import javax.swing.ImageIcon;
  * 
  * @author Parker Snell, Seungwoo Sun
  */
+
 public class DrawSingleFrameObject implements DrawObject {
 	
 	/**
 	 * The Image to draw.
 	 */
+	
 	protected Image img;
 	
 	/**
 	 * The AffineTransform, representing the rotation of this object.
 	 */
+	
 	protected AffineTransform at;
 	
 	/**
@@ -30,6 +33,7 @@ public class DrawSingleFrameObject implements DrawObject {
 	 * 
 	 * @param imgName A filename, for a valid image.
 	 */
+	
 	public DrawSingleFrameObject(String imgName) {
 		ImageIcon ii = new ImageIcon(this.getClass().getResource(imgName));
 		img = ii.getImage();
@@ -41,6 +45,7 @@ public class DrawSingleFrameObject implements DrawObject {
 	 * 
 	 * @see DrawObject.draw(Graphics, double, double, double)
 	 */
+	
 	@Override
 	public void draw(Graphics g, double x, double y, double rotation) {
 		at.translate(x, y);
@@ -55,6 +60,7 @@ public class DrawSingleFrameObject implements DrawObject {
 	 * 
 	 * @return The width of the image.
 	 */
+	
 	@Override
 	public int getWidth() {
 		return img.getWidth(null);
@@ -65,6 +71,7 @@ public class DrawSingleFrameObject implements DrawObject {
 	 * 
 	 * @return The height of the image.
 	 */
+	
 	@Override
 	public int getHeight() {
 		return img.getHeight(null);
