@@ -1,6 +1,10 @@
 package gameModel;
 
 import java.awt.Rectangle;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -173,6 +177,72 @@ public class World extends Observable {
 	 */
 	public void setPlayer(int player) {
 		this.player = player;
+	}
+	
+	public void loadFile(String mapName) {		
+		int space1 = 0, space2 = 0;
+		int count = 0;
+		
+		try {
+			FileInputStream fstream = new FileInputStream(mapName + ".txt");
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine;
+			strLine = br.readLine();		
+			while((strLine = br.readLine()) != null){
+				for(int i = 0; i < strLine.length(); i++){
+					if(strLine.charAt(i) == ' ' && count == 0){
+						space1 = i;
+						count++;
+					}
+					if(strLine.charAt(i) == ' ' && count == 1)
+						space2 = i;
+				}
+				int place1 = Integer.parseInt(strLine.substring(space1+1, space2));
+				int place2 = Integer.parseInt(strLine.substring(space2+1, strLine.length()));
+				addThingsToWorld(strLine.substring(0, space1-4), place1, place2);
+				count = 0;
+			}
+			in.close();
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+		} 
+	}
+	
+	public enum ObsAndTer {
+		
+		HEALINGBEACON,
+		INDESTRUCTIBLE,
+		TREESTUMP,
+		WALL2,
+		TNT,
+		SPIKEPIT
+	}
+	
+	private void addThingsToWorld(String toAdd, int x, int y){
+		ObsAndTer toAddS = ObsAndTer.valueOf(toAdd.toUpperCase());
+		
+		switch(toAddS){
+			case HEALINGBEACON:
+				new HealingBeacon(this, x, y, 0);
+				break;
+			case INDESTRUCTIBLE:
+				new Indestructible(this, x, y, 0);
+				break;
+			case TREESTUMP:
+				new TreeStump(this, x, y, 0);
+				break;
+			case SPIKEPIT:
+				new SpikePit(this, x, y, 0, 4);
+				break;
+			case WALL2:
+				new Wall(this, x, y, 0);
+				break;
+			case TNT:
+				new TNTBarrel(this, x, y, 0);
+				break;
+			
+		}
 	}
 
 }

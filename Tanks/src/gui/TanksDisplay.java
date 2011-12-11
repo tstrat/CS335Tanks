@@ -184,37 +184,11 @@ public class TanksDisplay extends JPanel implements Observer {
 		player = 1;
 		
 		world = new World();
-		new StandardTank(world, 200, 300, 0, 1);
-		Tank tank = new StandardTank(world, 500, 400, 0, 2);
+		new HoverTank(world, 150, 300, 0, 1);
+		Tank tank = new StandardTank(world, 650, 300, 0, 2);
 		//new HoverTank(world, 300, 600, 0, 3);
 		
-		int space1 = 0, space2 = 0;
-		int count = 0;
-		
-		try {
-			FileInputStream fstream = new FileInputStream(mapName + ".txt");
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-			strLine = br.readLine();		
-			while((strLine = br.readLine()) != null){
-				for(int i = 0; i < strLine.length(); i++){
-					if(strLine.charAt(i) == ' ' && count == 0){
-						space1 = i;
-						count++;
-					}
-					if(strLine.charAt(i) == ' ' && count == 1)
-						space2 = i;
-				}
-				int place1 = Integer.parseInt(strLine.substring(space1+1, space2));
-				int place2 = Integer.parseInt(strLine.substring(space2+1, strLine.length()));
-				addThingsToWorld(strLine.substring(0, space1-4), place1, place2);
-				count = 0;
-			}
-			in.close();
-		} catch (Exception e) {
-			System.err.println("Error: " + e.getMessage());
-		} 
+		world.loadFile(mapName);
 		handler = new GameHandler(world);
 		world.addObserver(this);
 		
@@ -240,31 +214,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		addMouseMotionListener(mouseListener);
 	}
 
-	public void addThingsToWorld(String toAdd, int x, int y){
-		ObsAndTer toAddS = ObsAndTer.valueOf(toAdd.toUpperCase());
-		
-		switch(toAddS){
-			case HEALINGBEACON:
-				new HealingBeacon(world, x, y, 0);
-				break;
-			case INDESTRUCTIBLE:
-				new Indestructible(world, x, y, 0);
-				break;
-			case TREESTUMP:
-				new TreeStump(world, x, y, 0);
-				break;
-			case SPIKEPIT:
-				new SpikePit(world, x, y, 0, 4);
-				break;
-			case WALL2:
-				new Wall(world, x, y, 0);
-				break;
-			case TNT:
-				new TNTBarrel(world, x, y, 0);
-				break;
-			
-		}
-	}
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -285,16 +235,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		Toolkit.getDefaultToolkit().sync();
 	}
 	
-	public enum ObsAndTer {
-		
-		HEALINGBEACON,
-		INDESTRUCTIBLE,
-		TREESTUMP,
-		WALL2,
-		TNT,
-		SPIKEPIT
-	}
-
+	
 	/**
 	 * This class handles keyboard commands for the TanksDisplay. Basic commands
 	 * are W/A/S/D.
