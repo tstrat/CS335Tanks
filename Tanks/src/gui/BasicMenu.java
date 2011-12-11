@@ -5,6 +5,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
@@ -26,7 +29,6 @@ public class BasicMenu extends JFrame implements ActionListener {
 	private JButton mapEditing = new JButton("Map Editor");
 	private JButton exitG = new JButton ("Exit Game");
 	private JPanel mainP = new JPanel();
-	private String[] maps = new String[20];
 	private JList mapList;
 	private JButton ready = new JButton("Begin!");
 	private JFrame mapFrame = new JFrame("Map Chooser");
@@ -54,11 +56,19 @@ public class BasicMenu extends JFrame implements ActionListener {
 	}
 	
 	public void addMaps(){
-		maps[0] = "FirstMap";
-		maps[1] = "SecondMap";
-		maps[2] = "Forest";
+		File temp = new File("temp.tmp");
+				
+		File folder = new File(temp.getAbsolutePath().substring(0, temp.getAbsolutePath().length() - 8));
+		ArrayList<String> theMaps = new ArrayList<String>();
+		for(File file: folder.listFiles()){
+			if(file.getName().endsWith(".txt")){
+				theMaps.add(file.getName());
+			}
+		}
 		
-		mapList = new JList(maps);
+		temp.delete();
+		
+		mapList = new JList(theMaps.toArray());
 		mapList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
 	}
 	
