@@ -29,9 +29,9 @@ public class BasicMenu extends JFrame implements ActionListener {
 	private JButton mapEditing = new JButton("Map Editor");
 	private JButton exitG = new JButton ("Exit Game");
 	private JPanel mainP = new JPanel();
-	private JList mapList;
+	private JList mapList, tankList;
 	private JButton ready = new JButton("Begin!");
-	private JFrame mapFrame = new JFrame("Map Chooser");
+	private JFrame mapFrame = new JFrame("Map and Tank Chooser");
 	
 	public BasicMenu(String host) {
 		super("Tanks basic display");
@@ -41,10 +41,12 @@ public class BasicMenu extends JFrame implements ActionListener {
 		mainP.setLayout(null);
 		setup();
 		addMaps();
+		addTanks();
 		
 		pack();
 		setResizable(false);
 		setVisible(true);
+		setLocation(400, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
@@ -53,6 +55,15 @@ public class BasicMenu extends JFrame implements ActionListener {
 		sets(multiPlay, 405, 300, 405, 155);
 		sets(mapEditing, 0, 455, 405, 155);
 		sets(exitG, 405, 455, 405, 155);
+	}
+	
+	public void addTanks(){
+		ArrayList<String> theTanks = new ArrayList<String>();
+		theTanks.add("Standard Tank");
+		theTanks.add("Heavy Tank");
+		theTanks.add("Hover Tank");
+		tankList = new JList(theTanks.toArray());
+		tankList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
 	}
 	
 	public void addMaps(){
@@ -114,24 +125,29 @@ public class BasicMenu extends JFrame implements ActionListener {
 			ready.addActionListener(this);
 			mapFrame.add(mapPanel);
 			mapPanel.add(ready);
-			ready.setSize(150, 200);
-			ready.setLocation(150, 0);
-			mapPanel.setLayout(null);
-			mapPanel.setPreferredSize(new Dimension(300, 200));
-			mapPanel.setVisible(true);
-			mapFrame.pack();
-			mapFrame.setVisible(true);
 			JScrollPane scrollPane = new JScrollPane(mapList);
+			JScrollPane scrollPane2 = new JScrollPane(tankList);
 			scrollPane.setSize(150, 200);
 			scrollPane.setLocation(0,0);
 			mapPanel.add(scrollPane);
-			
+			scrollPane2.setSize(150, 200);
+			scrollPane2.setLocation(150,0);
+			mapPanel.add(scrollPane2);
+			ready.setSize(150, 200);
+			ready.setLocation(300, 0);
+			mapPanel.setLayout(null);
+			mapPanel.setPreferredSize(new Dimension(450, 200));
+			mapPanel.setVisible(true);
+			mapFrame.pack();
+			mapFrame.setVisible(true);
+			mapFrame.setLocation(400, 200);
 		}
 		
 		if(e.getSource() == ready){
 			String fName = (String) mapList.getSelectedValue();
+			String tName = (String) tankList.getSelectedValue();
 			
-			if(fName != null && !fName.equals("")){	
+			if(fName != null && !fName.equals("") && tName != null && !tName.equals("")){	
 				dispose();
 				mapFrame.dispose();
 				JFrame tdHolder = new JFrame("Tanks");
@@ -141,6 +157,7 @@ public class BasicMenu extends JFrame implements ActionListener {
 				tdHolder.setVisible(true);
 				tdHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
+			
 		}
 		
 		if(e.getSource() == mapEditing){
