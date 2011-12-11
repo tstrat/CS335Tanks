@@ -4,7 +4,7 @@ public class SpiderMine extends Mine{
 	private Tank tar;
 	
 	public SpiderMine(World w, double x, double y, double rotation, Tank t) {
-		super(w, x, y, rotation, t, t.getPlayerNumber());
+		super(w, x, y, rotation, t);
 		// TODO Auto-generated constructor stub
 	}
 	private static DrawObject draw = new DrawSingleFrameObject("InvisibleBig.png");

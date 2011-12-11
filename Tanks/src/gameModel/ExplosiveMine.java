@@ -3,7 +3,7 @@ package gameModel;
 public class ExplosiveMine extends Mine {
 
 	public ExplosiveMine(World w, double x, double y, double rotation, Tank t) {
-		super(w, x, y, rotation, t, t.getPlayerNumber());
+		super(w, x, y, rotation, t);
 	}
 
 	@Override
