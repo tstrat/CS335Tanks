@@ -51,6 +51,7 @@ import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 import server.TanksClient;
+import server.TanksServer;
 
 public class TanksDisplay extends JPanel implements Observer {
 
@@ -174,7 +175,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		
 	}
 	
-	// TODO: Move map loading code to World.
+	// Constructor for SinglePlayer Tanks game
 	public TanksDisplay(String host, String mapName, String tankName, int AInum) {
 		super(true); // It is double buffered.
 
@@ -197,6 +198,78 @@ public class TanksDisplay extends JPanel implements Observer {
 			receiver = new MultiplayerBroadcaster(handler, client);
 		}
 		world.loadFileSP(mapName, tankName, AInum, receiver);
+		
+		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
+		soundPlayer.loop();
+
+		setFocusable(true);
+		requestFocus();
+		addKeyListener(keyListener = new TanksKeyboardListener(receiver, player));
+		addMouseListener(mouseListener = new TanksMouseListener(receiver, player));
+		addMouseMotionListener(mouseListener);
+	}
+	
+	public TanksDisplay(String host, String mapName, String tankName, int AInum, int multiplayer, TanksServer server) {
+		super(true); // It is double buffered.
+
+		setPreferredSize(new Dimension(800, 600));
+		setBackground(new Color(245, 228, 156));
+		
+		player = 1;
+		
+		world = new World();		
+		handler = new GameHandler(world);
+		world.addObserver(this);
+		
+		CommandReceiver receiver = handler;
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
+		img = ii.getImage();
+		
+		if (host != null) {
+			// Try to connect to host
+			TanksClient client = new TanksClient(handler, host);
+			receiver = new MultiplayerBroadcaster(handler, client);
+			player = client.getPlayerNumber();
+		}
+		int numClients = server.getClients();
+		while(numClients < 2){
+			numClients = server.getClients();
+		}		
+		world.loadFileMP(mapName, tankName, AInum, receiver, player);
+		
+		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
+		soundPlayer.loop();
+
+		setFocusable(true);
+		requestFocus();
+		addKeyListener(keyListener = new TanksKeyboardListener(receiver, player));
+		addMouseListener(mouseListener = new TanksMouseListener(receiver, player));
+		addMouseMotionListener(mouseListener);
+	}
+	
+	public TanksDisplay(String host, String mapName, String tankName, int AInum, int multiplayer) {
+		super(true); // It is double buffered.
+
+		setPreferredSize(new Dimension(800, 600));
+		setBackground(new Color(245, 228, 156));
+		
+		player = 1;
+		
+		world = new World();		
+		handler = new GameHandler(world);
+		world.addObserver(this);
+		
+		CommandReceiver receiver = handler;
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
+		img = ii.getImage();
+		
+		if (host != null) {
+			// Try to connect to host
+			TanksClient client = new TanksClient(handler, host);
+			receiver = new MultiplayerBroadcaster(handler, client);
+			player = client.getPlayerNumber();
+		}
+		world.loadFileMP(mapName, tankName, AInum, receiver, player);
 		
 		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
 		soundPlayer.loop();

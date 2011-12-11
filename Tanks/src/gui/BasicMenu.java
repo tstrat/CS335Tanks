@@ -33,13 +33,14 @@ public class BasicMenu extends JFrame implements ActionListener {
 	private JButton mapEditing = new JButton("Map Editor");
 	private JButton exitG = new JButton ("Exit Game");
 	private JPanel mainP = new JPanel();
-	private JList mapList, tankList, aiList;
+	private JList mapList, tankList, aiList, aiMPlist;
 	private JButton ready = new JButton("Begin!");
+	private JButton readyM = new JButton("Begin!");
 	private JFrame mapFrame = new JFrame("Map and Tank Chooser");
+	private TanksServer server;
 	
-	public BasicMenu(String host) {
+	public BasicMenu() {
 		super("Tanks basic display");
-		this.host = host;
 		add(mainP);
 		mainP.setPreferredSize(new Dimension(800, 600));
 		mainP.setLayout(null);
@@ -55,10 +56,12 @@ public class BasicMenu extends JFrame implements ActionListener {
 	}
 	
 	public void setup(){
-		sets(singlePlay, 0, 300, 405, 155);
-		sets(multiPlay, 405, 300, 405, 155);
-		sets(mapEditing, 0, 455, 405, 155);
-		sets(exitG, 405, 455, 405, 155);
+		sets(singlePlay, 0, 0, 810, 155);
+		sets(multiPlay, 0, 155, 810, 155);
+		sets(mapEditing, 0, 310, 810, 155);
+		sets(exitG, 0, 465, 810, 155);
+		ready.addActionListener(this);
+		readyM.addActionListener(this);
 	}
 	
 	public void addTanks(){
@@ -75,6 +78,13 @@ public class BasicMenu extends JFrame implements ActionListener {
 		theAi.add("3 AI");
 		aiList = new JList(theAi.toArray());
 		aiList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+		
+		ArrayList<String> theAiMp = new ArrayList<String>();
+		theAiMp.add("0 AI");
+		theAiMp.add("1 AI");
+		theAiMp.add("2 AI");
+		aiMPlist = new JList(theAiMp.toArray());
+		aiMPlist.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
 	}
 	
 	public void addMaps(){
@@ -104,43 +114,21 @@ public class BasicMenu extends JFrame implements ActionListener {
 		o.setSize(h, w);
 	}
 	
-	public static void main(String[] args) {
-		boolean hosting = false;
-		String host = null;
-		
+	public static void main(String[] args) {		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 		}
 		
-		// Check for command line arguments:
-		// -host = become a host.
-		// -join <host> = join a game, hosted by <host>.
-		for (int i = 0; i < args.length; ++i) {
-			if (args[i].equals("-host")) {
-				hosting = true;
-				host = "localhost";
-			}
-			else if (args[i].equals("-join")) {
-				++i;
-				if (args.length > i)
-					host = args[i];
-			}
-		}
-		
-		TanksServer server;
-		if (hosting) {
-			server = new TanksServer();
-		}
-		
-		BasicMenu frame = new BasicMenu(host);
+		BasicMenu frame = new BasicMenu();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == singlePlay){			
+		if(e.getSource() == singlePlay){	
+			mapFrame = new JFrame("Maps and Tank Chooser");
+			
 			JPanel mapPanel = new JPanel();
-			ready.addActionListener(this);
 			mapFrame.add(mapPanel);
 			mapPanel.add(ready);
 			JScrollPane scrollPane = new JScrollPane(mapList);
@@ -182,6 +170,99 @@ public class BasicMenu extends JFrame implements ActionListener {
 				tdHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
 			
+		}
+		
+		if(e.getSource() == readyM){			
+			String fName = (String) mapList.getSelectedValue();
+			String tName = (String) tankList.getSelectedValue();
+			String ai = (String) aiMPlist.getSelectedValue();
+			int aiNums = Integer.parseInt(ai.substring(0,1));
+			
+			if(fName != null && !fName.equals("") && tName != null && !tName.equals("")){	
+				dispose();
+				mapFrame.dispose();
+				JFrame tdHolder = new JFrame("Tanks");
+				if(server != null)
+					tdHolder.add(new TanksDisplay(host, fName, tName, aiNums, 1, server));
+				else
+					tdHolder.add(new TanksDisplay(host, fName, tName, aiNums, 1));
+				tdHolder.pack();
+				tdHolder.setResizable(false);
+				tdHolder.setVisible(true);
+				tdHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			}
+			
+		}
+		
+		if(e.getSource() == multiPlay){
+			JFrame hostjoin = new JFrame("Host or Join");
+			String joinIp;
+
+			Object[] options = {"Host", "Join"};
+			int n = JOptionPane.showOptionDialog(hostjoin, "Would you like to Host or Join a game?", "Host/Join", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			if(n == 0){
+				host = "localhost";
+				server = new TanksServer();
+				
+				mapFrame = new JFrame("Maps and Tank Chooser");
+				
+				JPanel mapPanel = new JPanel();
+				mapFrame.add(mapPanel);
+				mapPanel.add(readyM);
+				JScrollPane scrollPane = new JScrollPane(mapList);
+				JScrollPane scrollPane2 = new JScrollPane(tankList);
+				JScrollPane scrollPane3 = new JScrollPane(aiMPlist);
+				scrollPane.setSize(150, 200);
+				scrollPane.setLocation(0,0);
+				mapPanel.add(scrollPane);
+				scrollPane2.setSize(150, 200);
+				scrollPane2.setLocation(150,0);
+				mapPanel.add(scrollPane2);
+				scrollPane3.setSize(150, 200);
+				scrollPane3.setLocation(300,0);
+				mapPanel.add(scrollPane3);
+				readyM.setSize(150, 200);
+				readyM.setLocation(450, 0);
+				mapPanel.setLayout(null);
+				mapPanel.setPreferredSize(new Dimension(600, 200));
+				mapPanel.setVisible(true);
+				mapFrame.pack();
+				mapFrame.setVisible(true);
+				mapFrame.setLocation(400, 200);
+			}
+			
+			if(n == 1){
+				joinIp = JOptionPane.showInputDialog("Enter IP address to connect to.");
+				host = joinIp;
+				
+				mapFrame = new JFrame("Maps and Tank Chooser");
+				
+				JPanel mapPanel = new JPanel();
+				mapFrame.add(mapPanel);
+				mapPanel.add(readyM);
+				JScrollPane scrollPane = new JScrollPane(mapList);
+				JScrollPane scrollPane2 = new JScrollPane(tankList);
+				JScrollPane scrollPane3 = new JScrollPane(aiMPlist);
+				scrollPane.setSize(150, 200);
+				scrollPane.setLocation(0,0);
+				mapPanel.add(scrollPane);
+				scrollPane2.setSize(150, 200);
+				scrollPane2.setLocation(150,0);
+				mapPanel.add(scrollPane2);
+				scrollPane3.setSize(150, 200);
+				scrollPane3.setLocation(300,0);
+				mapPanel.add(scrollPane3);
+				readyM.setSize(150, 200);
+				readyM.setLocation(450, 0);
+				mapPanel.setLayout(null);
+				mapPanel.setPreferredSize(new Dimension(600, 200));
+				mapPanel.setVisible(true);
+				mapFrame.pack();
+				mapFrame.setVisible(true);
+				mapFrame.setLocation(400, 200);
+			}
+			
+
 		}
 		
 		if(e.getSource() == mapEditing){

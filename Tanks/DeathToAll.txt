@@ -149,3 +149,7 @@ spikePit.png 210 330
 spikePit.png 330 330
 spikePit.png 390 330
 spikePit.png 450 330
+P4.png 408 504
+P3.png 72 504
+P2.png 72 264
+P1.png 696 72

@@ -13,3 +13,7 @@ spikePit.png 479 366
 TreeStump.png 614 233
 TreeStump.png 592 327
 TreeStump.png 529 302
+P1.png 168 456
+P2.png 216 72
+P3.png 504 72
+P4.png 600 504

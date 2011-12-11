@@ -220,6 +220,44 @@ public class World extends Observable {
 		} 
 	}
 	
+	public void loadFileMP(String mapName, String tankName, int AINum, CommandReceiver receive, int playerNum) {		
+		int space1 = 0, space2 = 0;
+		int count = 0;
+		singleplayertank = tankName;
+		aiNumber = AINum;
+		this.receive = receive;
+		
+		try {
+			FileInputStream fstream = new FileInputStream(mapName + ".txt");
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine;
+			strLine = br.readLine();		
+			while((strLine = br.readLine()) != null){
+				for(int i = 0; i < strLine.length(); i++){
+					if(strLine.charAt(i) == ' ' && count == 0){
+						space1 = i;
+						count++;
+					}
+					if(strLine.charAt(i) == ' ' && count == 1)
+						space2 = i;
+				}
+				int place1 = Integer.parseInt(strLine.substring(space1+1, space2));
+				int place2 = Integer.parseInt(strLine.substring(space2+1, strLine.length()));
+				String addThis = new String((strLine.substring(0, space1-4)));
+				if(addThis.equals("P1") || addThis.equals("P2") || addThis.equals("P3") || addThis.equals("P4")){
+					addTanksToWorldMP(addThis, place1, place2, playerNum);
+				} else{
+					addThingsToWorldSP(addThis, place1, place2);
+				}
+				count = 0;
+			}
+			in.close();
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+		} 
+	}
+	
 	public enum ObsAndTer {
 		
 		HEALINGBEACON,
@@ -253,6 +291,44 @@ public class World extends Observable {
 			new StupidAI(this, tank, receive);
 			aiNumber--;
 		}
+		if(tankType.equals("P3") && aiNumber > 0){
+			Tank tank = new StandardTank(this, posx, posy, 0, 3);
+			new StupidAI(this, tank, receive);
+			aiNumber--;
+		}
+		if(tankType.equals("P4") && aiNumber > 0){
+			Tank tank = new StandardTank(this, posx, posy, 0, 4);
+			new StupidAI(this, tank, receive);
+			aiNumber--;
+		}
+		
+	}
+	
+	private void addTanksToWorldMP(String tankType, int posx, int posy, int pn){
+		if(tankType.equals("P1")){
+			if(singleplayertank.equals("Standard Tank")){
+				new StandardTank(this, posx, posy, 0, 1);
+			}
+			if(singleplayertank.equals("Heavy Tank")){
+				new HeavyTank(this, posx, posy, 0, 1);
+			}
+			if(singleplayertank.equals("Hover Tank")){
+				new HoverTank(this, posx, posy, 0, 1);
+			}	
+		}
+		
+		if(tankType.equals("P2")){
+			if(singleplayertank.equals("Standard Tank")){
+				new StandardTank(this, posx, posy, 0, 2);
+			}
+			if(singleplayertank.equals("Heavy Tank")){
+				new HeavyTank(this, posx, posy, 0, 2);
+			}
+			if(singleplayertank.equals("Hover Tank")){
+				new HoverTank(this, posx, posy, 0, 2);
+			}	
+		}
+		
 		if(tankType.equals("P3") && aiNumber > 0){
 			Tank tank = new StandardTank(this, posx, posy, 0, 3);
 			new StupidAI(this, tank, receive);

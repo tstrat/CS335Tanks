@@ -94,6 +94,10 @@ public class TanksServer {
 		}
 	}
 	
+	public int getClients(){
+		return clientList.size();
+	}
+	
 	
 	/**
 	 *	The client manager class copies the socket from the client, then creates ObjectOutput/Input
