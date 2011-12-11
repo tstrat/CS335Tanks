@@ -63,6 +63,8 @@ public class TanksDisplay extends JPanel implements Observer {
 	
 	private Image img;
 	
+	private Image gameOverImg;
+	
 	/**
 	 * Background music.
 	 */
@@ -267,11 +269,17 @@ public class TanksDisplay extends JPanel implements Observer {
 	public void paint(Graphics g) {
 		super.paint(g);
 		((Graphics2D)g).drawImage(img, 0, 0, null);
-		for (Actor a : world.getActors()) {
-			DrawObject draw = a.getDraw();
-			if (draw == null)
-				continue;
-			draw.draw(g, a.getX(), a.getY(), a.getRotation());
+		
+		if (gameOverImg != null) {
+			g.drawImage(gameOverImg, 0, 0, null);
+		}
+		else {
+			for (Actor a : world.getActors()) {
+				DrawObject draw = a.getDraw();
+				if (draw == null)
+					continue;
+				draw.draw(g, a.getX(), a.getY(), a.getRotation());
+			}
 		}
 
 		Toolkit.getDefaultToolkit().sync();
@@ -549,6 +557,18 @@ public class TanksDisplay extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		if (arg != null) {
+			// It's an Integer, indicating the number of the player that won.
+			
+			if ((Integer)arg == player)
+				gameOverImg = new ImageIcon(World.class.getResource("youwin.png")).getImage();
+			else
+				gameOverImg = new ImageIcon(World.class.getResource("youlose.png")).getImage();
+			
+			repaint();
+			return;
+		}
+		
 		if (keyListener != null)
 			keyListener.step();
 		

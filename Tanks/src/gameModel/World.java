@@ -148,6 +148,7 @@ public class World extends Observable {
 	 */
 	public int getWinner() {
 		if(tanks.size() == 1) {
+			setChanged();
 			notifyObservers(tanks.get(0).getPlayerNumber());
 			return tanks.get(0).getPlayerNumber();
 		}
