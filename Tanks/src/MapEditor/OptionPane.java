@@ -67,13 +67,15 @@ public class OptionPane extends JFrame implements ActionListener {
 		}
 		
 		for(int i = 1; i <= obsList.size(); i++){
-			sets(obsButList.get(i-1), 20, 220 + (i * 30), 120, 25);
+			sets(obsButList.get(i-1), 20, 160 + (i * 30), 120, 25);
 			obsButList.get(i-1).addActionListener(this);
 		}
 	}
 	
 	public void createLists(){
 		terList.add("SpikePit");
+		terList.add("MudPatch");
+		terList.add("SpeedPatch");
 		obsList.add("Wall");
 		obsList.add("TreeStump");
 		obsList.add("HealingBeacon");
@@ -94,9 +96,9 @@ public class OptionPane extends JFrame implements ActionListener {
 		sets(terRemaining, 225, 25, 30, 20);
 		terRemaining.setEditable(false);
 		terRemaining.setText("50");
-		sets(obstacles, 20, 220, 70, 30);
-		sets(oR, 135, 220, 90, 30);
-		sets(obsRemaining, 225, 225, 30, 20);
+		sets(obstacles, 20, 160, 70, 30);
+		sets(oR, 135, 160, 90, 30);
+		sets(obsRemaining, 225, 165, 30, 20);
 		obsRemaining.setEditable(false);
 		obsRemaining.setText("100");
 		sets(save, 50, 520, 80, 25);
@@ -113,6 +115,14 @@ public class OptionPane extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(((AbstractButton) e.getSource()).getText().equals("SpikePit")){
 			ep.clickListen("spikePit.png", terRemaining);				
+		}
+		
+		if(((AbstractButton) e.getSource()).getText().equals("MudPatch")){
+			ep.clickListen("mud.png", terRemaining);				
+		}
+		
+		if(((AbstractButton) e.getSource()).getText().equals("SpeedPatch")){
+			ep.clickListen("speedPatch.png", terRemaining);				
 		}
 		
 		if(((AbstractButton) e.getSource()).getText().equals("TreeStump")){
