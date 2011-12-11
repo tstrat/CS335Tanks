@@ -1,7 +1,20 @@
 package gameModel;
 
+/**
+ * 
+ * 		The Wall class defiens a high health obstacle shaped like a square, making it ideal
+ * 		for creating wals out of objects of this class.
+ *
+ */
 public class Wall extends Obstacle{
 
+	/**
+	 * 
+	 * Creates an Obstacle with 3000 health.
+	 * 
+	 * @see Obstacle.Obstacle(World, double, double, double)
+	 * 
+	 */
 	public Wall(World w, double x, double y, double rotation) {
 		super(w, x, y, rotation);
 		this.health = 3000;
@@ -14,10 +27,10 @@ public class Wall extends Obstacle{
 	private static DrawObject draw3 = new DrawSingleFrameObject("wallDamaged2.png");
 	
 	/**
-	 * Gets the DrawObject used to draw this Wall. This can return null, in
-	 * which case nothing should be drawn.
+	 * Gets the DrawObject used to draw this Wall. This will return a different DrawObject
+	 * based on the Wall's remaining health.
 	 * 
-	 * @return A DrawObject representing this Wall, or null.
+	 * @return A DrawObject representing this Wall
 	 */
 	@Override
 	public DrawObject getDraw() {
@@ -28,10 +41,17 @@ public class Wall extends Obstacle{
 		return draw3;
 	}
 	
+	/**
+	 * The receiveDamage method imply subracts the damage from the wall's health. If negative
+	 * damage has resulted in greater than its maxHealth, it is set back to the maxHealth. Whenever
+	 * the health dips below certain Thresholds, the wall releaces some DustPoofs.
+	 */
 	@Override
 	public void receiveDamage(int dam) {
 		int h = health;
 		health -= dam;
+		if(health > maxHealth)
+			health = maxHealth;
 		if(h > 2000 && health <= 2000)
 			for(int i = 0; i < 4; i++)
 				new DustPoof(w, x - 20 + 40*TRand.random(), y - 20 + 40*TRand.random());
@@ -44,11 +64,17 @@ public class Wall extends Obstacle{
 		
 	}
 
+	/**
+	 * Empty collide method
+	 */
 	@Override
 	public void collide(Collidable c) {
 		// Does nuffing
 	}
 
+	/**
+	 * Empty act method
+	 */
 	@Override
 	public void act() {
 		// Doesn't really act either.		
