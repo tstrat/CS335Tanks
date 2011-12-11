@@ -6,11 +6,14 @@ package gameModel;
  * 		and leaves a trail of DustClouds as it moves.
  *
  */
+
 public class Rocket extends LargeMissile {
+	
 	/**
 	 * The priority this Actor has when drawn over other Actors. a higher priority
 	 * means it is drawn over the lower priority Actors.
 	 */
+	
 	private static int drawPriority = 11;
 	
 	/**
@@ -25,6 +28,7 @@ public class Rocket extends LargeMissile {
 	 * @param d - How much damage this missile will do.
 	 * @param s - How fast this Rocket will move.
 	 */
+	
 	public Rocket(World w, double x, double y, double rotation, Tank t) {
 		super(w, x, y, rotation, t);
 		maxBounces = 2;
@@ -36,6 +40,7 @@ public class Rocket extends LargeMissile {
 	 * The Rocket bounces when appropriate, moves as any missile would, and creates an exhaust trail every
 	 * act iteration.
 	 */
+	
 	public void act() {
 		bounce();
 		super.act();
@@ -46,6 +51,7 @@ public class Rocket extends LargeMissile {
 	 * explode creates a new explosion object at the Rocket's location and sets its existence
 	 * to false.
 	 */
+	
 	public void explode() {
 		if(exists)
 			Explosion.createExplosion(w, x, y, 3, 20, 9);		
@@ -58,6 +64,7 @@ public class Rocket extends LargeMissile {
 	 * that fired it). If it hasn't, it will damage any obstacle it collides with, and explode if
 	 * it came in contact with either an obstacle or a missile.
 	 */
+	
 	@Override
 	public void collide(Collidable c) {
 		if (c.equals(t) && bounces == 0)
@@ -72,11 +79,13 @@ public class Rocket extends LargeMissile {
 	/**
 	 * The DrawObject that defines how the GUI draws the Missile.
 	 */
+	
 	private static DrawObject draw = new DrawSingleFrameObject("missile.png");
 	
 	/**
 	 * Returns the DrawObject of the Rocket, which controls how the Rocket is drawn.
 	 */
+	
 	@Override
 	public DrawObject getDraw() {
 		return draw;
@@ -86,6 +95,7 @@ public class Rocket extends LargeMissile {
 	 * Returns the priority of this gun's draw. A higher priority object is drawn over
 	 * a lower priority object in the main GUI.
 	 */
+	
 	@Override
 	public int getDrawPriority() {
 		return drawPriority;
