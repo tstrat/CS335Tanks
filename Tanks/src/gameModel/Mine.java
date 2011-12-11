@@ -1,14 +1,28 @@
 package gameModel;
-
+/**
+ * 
+ * @author Messiah Kane
+ *
+ *		The Mine class defines the mines that are droppable by Tanks. Mines are
+ *		collidables that activate upon collision with enemy tanks, and are only visible
+ *		to the tank that dropped them prior to activation.
+ *
+ */
 public abstract class Mine extends Collidable {
-
+	/**
+	 * the tank that dropped the mine
+	 */
 	protected Tank t;
 	private int drawPriority = 9;
-	private int player;
+	/**
+	 * the player that controls the tank that dropped the mine
+	 */
+	protected int player;
 	
-	public Mine(World w, double x, double y, double rotation, Tank t, int player) {
+
+	public Mine(World w, double x, double y, double rotation, Tank t) {
 		super(w, x, y, rotation);
-		this.player = player;
+		this.player = t.getPlayerNumber();
 		this.t = t;
 	}
 

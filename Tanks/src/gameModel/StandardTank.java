@@ -36,6 +36,7 @@ public class StandardTank extends Tank {
 		this.gun = new RocketGun(w, x, y, rotation);
 		baseSpeed = 3;
 		speed = 3;
+		speedMod = 0;
 		new HealthBar(w, this);		
 	}
 

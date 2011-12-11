@@ -138,6 +138,17 @@ public class World extends Observable {
 		}
 	}
 	
+	/** 
+	 * @return Player number of winner, or 0 if no one has won yet
+	 */
+	public int getWinner() {
+		if(tanks.size() == 1) {
+			notifyObservers(tanks.get(0).getPlayerNumber());
+			return tanks.get(0).getPlayerNumber();
+		}
+		return 0;
+	}
+	
 	/**
 	 * Returns the player number. The default value is 1, unless you change it
 	 * via setPlayer.
