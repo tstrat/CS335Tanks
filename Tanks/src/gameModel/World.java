@@ -141,6 +141,18 @@ public class World extends Observable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return Player number of winner, or 0 if no one has won yet
+	 */
+	public int getWinner() {
+		if(tanks.size() == 1) {
+			notifyObservers(tanks.get(0).getPlayerNumber());
+			return tanks.get(0).getPlayerNumber();
+		}
+		return 0;
+	}
+	
 	public int getPlayer() {
 		return player;
 	}

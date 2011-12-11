@@ -19,7 +19,9 @@ public class GameHandler implements CommandReceiver, ActionListener {
 	private Timer timer;
 	
 	/**
-	 * Constructs a new GameHandler. (What does timer do here?) 
+	 * Constructs a new GameHandler. You must construct this after you have added the tanks,
+	 * otherwise as soon as the first tank is added, it will think that player has won.
+	 * 
 	 * @param w - the game world
 	 * 
 	 */
@@ -48,7 +50,9 @@ public class GameHandler implements CommandReceiver, ActionListener {
 		commands.clear();
 		
 		// Lastly, tells world to make its actors act.
-		w.makeActorsAct();		
+		w.makeActorsAct();
+		if(w.getWinner() != 0)
+			timer.stop();
 	}
 
 	/**
