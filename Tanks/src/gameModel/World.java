@@ -78,6 +78,7 @@ public class World extends Observable {
 			for (int j = 0; j < commands.size(); ++j) {
 				Command c = commands.get(j);
 				// TODO: Why does this happen?
+				// It happens when StandardTank leaves a mine I think.
 				if (c == null)
 					continue;
 				

@@ -108,6 +108,7 @@ public class TanksDisplay extends JPanel implements Observer {
 				}
 			}
 			player = client.getPlayerNumber();
+			world.setPlayer(player);
 			
 			// Start a sync timer that will synchronize my player every second or so.
 			new SyncTimer(client).start();
