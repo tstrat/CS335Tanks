@@ -77,9 +77,10 @@ public class World extends Observable {
 			Actor a = actors.get(i);
 			for (int j = 0; j < commands.size(); ++j) {
 				Command c = commands.get(j);
-				//TODO: remove this.
-				if (a == null) System.out.println("a is null!");
-				else if (c == null) System.out.println("c is null!");
+				// TODO: Why does this happen?
+				if (c == null)
+					continue;
+				
 				if (a.getPlayerNumber() == c.getPlayer())
 					a.receiveCommand(c);
 			}
