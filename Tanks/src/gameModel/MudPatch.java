@@ -34,7 +34,7 @@ public class MudPatch extends Terrain {
 	@Override
 	public void collide(Collidable c) {
 		if(c instanceof Tank)
-			((Tank) c).modSpeed(-100);
+			((Tank) c).modSpeed(-125);
 	}
 	
 	/**
