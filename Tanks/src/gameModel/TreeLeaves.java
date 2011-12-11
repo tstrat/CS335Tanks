@@ -70,7 +70,11 @@ public class TreeLeaves extends Actor {
 			return draw1;
 		return draw2;
 	}
-
+	
+	/**
+	 * This method is called when a tree is supposed to ignite.  It allows other methods to draw
+	 * the correct image of the burning tree.
+	 */
 	public void setOnFire() {
 		onFire= true;
 		

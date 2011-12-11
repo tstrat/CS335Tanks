@@ -20,7 +20,6 @@ public class TreeStump extends Obstacle {
 		tL = new TreeLeaves(w, x, y);
 		health = 10;
 		maxHealth = 10;
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -32,7 +31,6 @@ public class TreeStump extends Obstacle {
 	public void receiveDamage(int d) {
 		if (TRand.random() < .035 && d > 0)
 			tL.setOnFire();
-
 	}
 
 	/**
