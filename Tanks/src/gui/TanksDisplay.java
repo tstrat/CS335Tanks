@@ -120,8 +120,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		
 		//new SpinningAI(world, tank, receiver);
 		
-		//soundPlayer = SoundPlayer.playerFromResource("lullaby.mp3");
-		//soundPlayer.loop();
+		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
+		soundPlayer.loop();
 
 		setFocusable(true);
 		requestFocus();
@@ -230,8 +230,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		
 		new StupidAI(world, tank, receiver);
 		
-		//player = SoundPlayer.playerFromResource("lullaby.mp3");
-		//player.loop();
+		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
+		soundPlayer.loop();
 
 		setFocusable(true);
 		requestFocus();
