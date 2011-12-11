@@ -54,6 +54,7 @@ public abstract class Obstacle extends Collidable{
 	/**
 	 * Returns the remaining health of the Obstacle.
 	 */
+	
 	public int getHealth() {
 		return health;
 	}
@@ -61,6 +62,7 @@ public abstract class Obstacle extends Collidable{
 	/**
 	 * Returns the max health of the Obstacle.
 	 */
+	
 	public int getMaxHealth() {
 		return maxHealth;
 	}
@@ -71,6 +73,7 @@ public abstract class Obstacle extends Collidable{
 	 * @param d
 	 * 			The amount to decrease the Obstacle's health by.
 	 */
+	
 	public void receiveDamage(int d) {
 		health -= d;
 		if(health > maxHealth)
@@ -80,11 +83,13 @@ public abstract class Obstacle extends Collidable{
 	/**
 	 * The DrawObject that defines how the GUI draws the Obstacle.
 	 */
+	
 	private static DrawObject draw = new DrawSingleFrameObject("tankStan.png");
 	
 	/**
 	 * Returns the DrawObject of the Obstacle, which controls how the HealthBar is drawn.
 	 */
+	
 	@Override
 	public DrawObject getDraw() {
 		return draw;
@@ -94,6 +99,7 @@ public abstract class Obstacle extends Collidable{
 	 * This returns whether the Obstacle is still in existence. This is determined by whether
 	 * its health is greater than zero or not.
 	 */
+	
 	@Override
 	public boolean exists() {
 		return (health > 0);
@@ -103,6 +109,7 @@ public abstract class Obstacle extends Collidable{
 	 * Returns the priority of this Obstacle draw. A higher priority object is drawn over
 	 * a lower priority object in the main GUI.
 	 */
+	
 	@Override
 	public int getDrawPriority() {
 		return drawPriority;
@@ -113,6 +120,7 @@ public abstract class Obstacle extends Collidable{
 	 * 
 	 * @see Actor.sync(double, double, double, int).
 	 */
+	
 	@Override
 	public void sync(double x, double y, double rotation, int health) {
 		super.sync(x, y, rotation, health);

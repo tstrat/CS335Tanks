@@ -2,31 +2,37 @@ package gameModel;
 
 /**
  * 
- * 		The Missile class defines the collidables fired by the Gun classes. They collide with obstacles
- * 		and damage them.
+ * 		The Missile class defines the collidables fired by the Gun classes. 
+ * 		They collide with obstacles and damage them.
  *
  */
+
 public abstract class Missile extends Collidable{
 	
 	/**
 	 * How much damage a missile does.
 	 */	
+	
 	protected int damage;
 	
 	/**
 	 * How fast a missile moves.
 	 */	
+	
 	protected double speed;
 	
 	
 	/**
-	 * A tracker of how many times a missile has "bounced" against different surfaces.  After two "bounces", it explodes.
+	 * A tracker of how many times a missile has "bounced" against different surfaces.
+	 * After two "bounces", it explodes.
 	 */	
+	
 	protected int bounces;
 	
 	/**
 	 * How many times a missile can bounce before it explodes
 	 */
+	
 	protected int maxBounces;
 	
 
@@ -41,7 +47,7 @@ public abstract class Missile extends Collidable{
 	 * @param w - The current game world.
 	 * @param x - The missile's x-coordinate.
 	 * @param y - The missile's y-coordinate.
-	 * @param rotation - the current tank turret rotation. Affects the direction the missile will travel in.
+	 * @param rotation - the current tank turret rotation. Affects the direction the missile will travel.
 	 * @param d - How much damage this Rocket will do.
 	 * @param s - How fast this Rocket will move.
 	 */
@@ -57,7 +63,8 @@ public abstract class Missile extends Collidable{
 	 * Updates the missile's position based on its speed.
 	 * Also, calls DustCloud to make sure the missile has
 	 * a cloud graphic following it. 
-	 */	
+	 */
+	
 	@Override
 	public void act() {
 		x += speed * Math.cos(rotation);
@@ -69,6 +76,7 @@ public abstract class Missile extends Collidable{
 	 * If the missile has reached the edge of the map, makes it bounce
 	 * off that wall.  If it has already bounced 2 times, it explodes.
 	 */	
+	
 	public void bounce() {
 		if(x < 0) {
 			rotation = Math.PI - rotation;
@@ -95,6 +103,7 @@ public abstract class Missile extends Collidable{
 	 * that fired it). If it hasn't, it will damage any obstacle it collides with, and explode if
 	 * it came in contact with either an obstacle or a missile.
 	 */
+	
 	@Override
 	public void collide(Collidable c) {
 		if (c instanceof Obstacle && (!c.equals(t) || bounces > 0)) {
@@ -107,6 +116,7 @@ public abstract class Missile extends Collidable{
 	 * explode creates a new explosion object at the missile's location and sets its existence
 	 * to false.
 	 */
+	
 	public void explode() {
 		exists = false;
 	}

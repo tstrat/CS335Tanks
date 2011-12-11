@@ -8,15 +8,20 @@ package gameModel;
  *		to the tank that dropped them prior to activation.
  *
  */
+
 public abstract class Mine extends Collidable {
+	
 	/**
 	 * the tank that dropped the mine
 	 */
+	
 	protected Tank t;
 	private int drawPriority = 9;
+	
 	/**
 	 * the player that controls the tank that dropped the mine
 	 */
+	
 	protected int player;
 	
 
@@ -33,17 +38,17 @@ public abstract class Mine extends Collidable {
 	 * 
 	 * @param t  The Tank that laid the mine.
 	 */
+	
 	public Mine(World w, double x, double y, double rotation, Tank t) {
 		super(w, x, y, rotation);
 		this.player = t.getPlayerNumber();
 		this.t = t;
 	}
 
-
-
 	/**
 	 * Ignore the act method for Mine class. (It does nothing)
 	 */
+	
 	@Override
 	public void act() {}
 
@@ -52,6 +57,7 @@ public abstract class Mine extends Collidable {
 	 * 
 	 * @see gameModel.Actor#getDrawPriority()
 	 */
+	
 	@Override
 	public int getDrawPriority() {
 		return drawPriority;
@@ -65,6 +71,7 @@ public abstract class Mine extends Collidable {
 	 * has the privilege of seeing it on the world, however all other players can not
 	 * see the mine.
 	 */
+	
 	@Override
 	public DrawObject getDraw() {
 		// TODO Auto-generated method stub
@@ -77,6 +84,7 @@ public abstract class Mine extends Collidable {
 	 * Checks if the tank is the same player who laid the mine or not.  If a different player
 	 * moves over this mine, the mine is activated
 	 */
+	
 	@Override
 	public void collide(Collidable c) {
 		if(c instanceof Tank && !c.equals(t)) {
@@ -88,6 +96,7 @@ public abstract class Mine extends Collidable {
 	 * This method will cause the mines effect to trigger, and create an explosion,
 	 * dammaging whatever collided with it.
 	 */
+	
 	public abstract void activateMine();
 
 }

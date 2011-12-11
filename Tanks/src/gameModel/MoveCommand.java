@@ -1,13 +1,16 @@
 package gameModel;
+
 /**
  * Creates a Command for moving the tank with keyboard controls
  *
  */
+
 public class MoveCommand extends Command {
 
 	/**
 	 * Sometimes when I'm bored I count from this number to 0.
 	 */
+	
 	private static final long serialVersionUID = -4006440351943291177L;
 	
 	private boolean isBackward;
@@ -18,6 +21,7 @@ public class MoveCommand extends Command {
 	 * @param player Player number
 	 * @param isBackward True if the Actor should move backward, false otherwise.
 	 */
+	
 	public MoveCommand(int player, boolean isBackward) {
 		super(player);
 		
@@ -29,6 +33,7 @@ public class MoveCommand extends Command {
 	 * 
 	 * @param a The Actor that should move.
 	 */
+	
 	@Override
 	public void applyTo(Actor a) {
 		if (isBackward)
