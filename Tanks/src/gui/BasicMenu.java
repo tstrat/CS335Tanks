@@ -1,5 +1,7 @@
 package gui;
 
+import gameModel.World;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -10,8 +12,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -48,6 +52,18 @@ public class BasicMenu extends JFrame implements ActionListener {
 		addMaps();
 		addTanks();
 		
+		pack();
+		setResizable(false);
+		setVisible(true);
+		setLocation(400, 200);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public BasicMenu(int i){
+		super("Splash Screen Dawg");
+		JPanel blah = new JPanel();
+		blah.add(new JLabel(new ImageIcon(this.getClass().getResource("splash.png"))));
+		add(blah);
 		pack();
 		setResizable(false);
 		setVisible(true);
@@ -120,7 +136,15 @@ public class BasicMenu extends JFrame implements ActionListener {
 		} catch (Exception e) {
 		}
 		
-		BasicMenu frame = new BasicMenu();
+		BasicMenu frame = new BasicMenu(1);
+		
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		frame.dispose();
+		frame = new BasicMenu();
 	}
 
 	@Override
