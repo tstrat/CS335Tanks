@@ -34,58 +34,60 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	private ImageIcon iii;
 	private JTextField textF;
 	private String saveName;
-	
-	public EditorPane(){
+
+	public EditorPane() {
 		super(true);
 		setPreferredSize(new Dimension(800, 600));
 		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
 		img = ii.getImage();
-		
+
 		addMouseListener(this);
 		setFocusable(true);
 		requestFocus();
 	}
-	
+
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		((Graphics2D)g).drawImage(img, 0, 0, null);
-		for(int i = 0; i < drawList.size(); i++)
-			((Graphics2D)g).drawImage(drawList.get(i), drawXList.get(i), drawYList.get(i), null);
+		((Graphics2D) g).drawImage(img, 0, 0, null);
+		for (int i = 0; i < drawList.size(); i++)
+			((Graphics2D) g).drawImage(drawList.get(i), drawXList.get(i),
+					drawYList.get(i), null);
 		Toolkit.getDefaultToolkit().sync();
 	}
-	
-	public void clickListen(String imgName, JTextField remains){
+
+	public void clickListen(String imgName, JTextField remains) {
 		requestFocus();
 		iii = new ImageIcon(this.getClass().getResource(imgName));
 		textF = remains;
 		saveName = imgName;
 	}
-	
-	public void writeToFile(String mapName, int tRemains, int oRemains){
+
+	public void writeToFile(String mapName, int tRemains, int oRemains) {
 		try {
 			FileWriter fstream = new FileWriter(mapName);
 			BufferedWriter out = new BufferedWriter(fstream);
 			out.write("" + tRemains + " " + oRemains);
 			out.newLine();
-			for(int i = 0; i < drawList.size(); i++){
+			for (int i = 0; i < drawList.size(); i++) {
 				Image im = drawList.get(i);
-				int w = im.getWidth(null)/2;
-				int h = im.getHeight(null)/2;
-				out.write(savingList.get(i) + " " + (drawXList.get(i)+w) + " " + (drawYList.get(i)+h));
+				int w = im.getWidth(null) / 2;
+				int h = im.getHeight(null) / 2;
+				out.write(savingList.get(i) + " " + (drawXList.get(i) + w)
+						+ " " + (drawYList.get(i) + h));
 				out.newLine();
 			}
 			out.close();
 		} catch (IOException e) {
 			System.err.println("Error: " + e.getMessage());
 		}
-		
+
 	}
-	
-	public void readFromFile(String mapName, JTextField tR, JTextField oR){
+
+	public void readFromFile(String mapName, JTextField tR, JTextField oR) {
 		int space1 = 0, space2 = 0;
 		int count = 0;
-		
+
 		try {
 			FileInputStream fstream = new FileInputStream(mapName);
 			DataInputStream in = new DataInputStream(fstream);
@@ -95,29 +97,33 @@ public class EditorPane extends JPanel implements MouseInputListener {
 			drawList.clear();
 			drawXList.clear();
 			drawYList.clear();
-			
+
 			strLine = br.readLine();
-			for(int j = 0; j < strLine.length(); j++){
-				if(strLine.charAt(j) == ' '){
+			for (int j = 0; j < strLine.length(); j++) {
+				if (strLine.charAt(j) == ' ') {
 					tR.setText(strLine.substring(0, j));
-					oR.setText(strLine.substring(j+1, strLine.length()));
+					oR.setText(strLine.substring(j + 1, strLine.length()));
 				}
 			}
-				
-			while((strLine = br.readLine()) != null){
-				for(int i = 0; i < strLine.length(); i++){
-					if(strLine.charAt(i) == ' ' && count == 0){
+
+			while ((strLine = br.readLine()) != null) {
+				for (int i = 0; i < strLine.length(); i++) {
+					if (strLine.charAt(i) == ' ' && count == 0) {
 						space1 = i;
 						count++;
 					}
-					if(strLine.charAt(i) == ' ' && count == 1)
+					if (strLine.charAt(i) == ' ' && count == 1)
 						space2 = i;
 				}
-				iii = new ImageIcon(this.getClass().getResource(strLine.substring(0, space1)));
+				iii = new ImageIcon(this.getClass().getResource(
+						strLine.substring(0, space1)));
 				savingList.add(strLine.substring(0, space1));
 				Image im = iii.getImage();
-				int x = Integer.parseInt(strLine.substring(space1+1, space2)) - im.getWidth(null)/2;
-				int y = Integer.parseInt(strLine.substring(space2+1, strLine.length())) - im.getHeight(null)/2;
+				int x = Integer.parseInt(strLine.substring(space1 + 1, space2))
+						- im.getWidth(null) / 2;
+				int y = Integer.parseInt(strLine.substring(space2 + 1,
+						strLine.length()))
+						- im.getHeight(null) / 2;
 				drawXList.add(x);
 				drawYList.add(y);
 				drawList.add(iii.getImage());
@@ -125,47 +131,55 @@ public class EditorPane extends JPanel implements MouseInputListener {
 			}
 			in.close();
 			repaint();
-			
+
 		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
-		} 	
-		
+		}
+
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {
+	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {
+	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(iii != null) {
-			savingList.add(saveName);
-			Image im = iii.getImage();
-			int w = im.getWidth(null);
-			int h = im.getHeight(null);
-			int x = w * (e.getX() / w);
-			//x -= w/2;
-			int y = h * (e.getY() / h);
-			//y -= h/2;
-			drawList.add(im);
-			drawXList.add(x);
-			drawYList.add(y);
-			textF.setText("" + (Integer.parseInt(textF.getText()) - 1));
-			repaint();
+		if (iii != null) {
+			if (Integer.parseInt(textF.getText()) > 0) {
+				textF.setText("" + (Integer.parseInt(textF.getText()) - 1));
+				savingList.add(saveName);
+				Image im = iii.getImage();
+				int w = im.getWidth(null);
+				int h = im.getHeight(null);
+				int x = w * (e.getX() / w);
+				// x -= w/2;
+				int y = h * (e.getY() / h);
+				// y -= h/2;
+				drawList.add(im);
+				drawXList.add(x);
+				drawYList.add(y);
+				repaint();
+			}
 		}
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {
+	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {}
+	public void mouseDragged(MouseEvent e) {
+	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {}
+	public void mouseMoved(MouseEvent e) {
+	}
 }

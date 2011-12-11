@@ -109,58 +109,30 @@ public class OptionPane extends JFrame implements ActionListener {
 		o.setLocation(x, y);
 		o.setSize(h, w);
 	}
-	
-	public void disableTerButs(){
-		for(int i = 0; i < terList.size(); i++)
-			terButList.get(i).setEnabled(false);
-	}
-	
-	public void disableObsButs(){
-		for(int i = 0; i < obsList.size(); i++)
-			obsButList.get(i).setEnabled(false);
-	}
 
 	public void actionPerformed(ActionEvent e) {
 		if(((AbstractButton) e.getSource()).getText().equals("SpikePit")){
-			ep.clickListen("spikePit.png", terRemaining);			
-			int	remains = Integer.parseInt(terRemaining.getText());
-			if(remains == 1)
-				disableTerButs();	
+			ep.clickListen("spikePit.png", terRemaining);				
 		}
 		
 		if(((AbstractButton) e.getSource()).getText().equals("TreeStump")){
 			ep.clickListen("TreeStump.png", obsRemaining);			
-			int	remains = Integer.parseInt(obsRemaining.getText());
-			if(remains == 1)
-				disableObsButs();	
 		}
 		
 		if(((AbstractButton) e.getSource()).getText().equals("HealingBeacon")){
-			ep.clickListen("HealingBeacon.png", obsRemaining);			
-			int	remains = Integer.parseInt(obsRemaining.getText());
-			if(remains == 1)
-				disableObsButs();	
+			ep.clickListen("HealingBeacon.png", obsRemaining);				
 		}
 		
 		if(((AbstractButton) e.getSource()).getText().equals("Wall")){
-			ep.clickListen("wall2.png", obsRemaining);			
-			int	remains = Integer.parseInt(obsRemaining.getText());
-			if(remains == 1)
-				disableObsButs();	
+			ep.clickListen("wall2.png", obsRemaining);	
 		}
 		
 		if(((AbstractButton) e.getSource()).getText().equals("Indestructible")){
-			ep.clickListen("Indestructible.png", obsRemaining);			
-			int	remains = Integer.parseInt(obsRemaining.getText());
-			if(remains == 1)
-				disableObsButs();	
+			ep.clickListen("Indestructible.png", obsRemaining);	
 		}
 		
 		if(((AbstractButton) e.getSource()).getText().equals("TNTBarrel")){
-			ep.clickListen("TNT.png", obsRemaining);			
-			int	remains = Integer.parseInt(obsRemaining.getText());
-			if(remains == 1)
-				disableObsButs();	
+			ep.clickListen("TNT.png", obsRemaining);	
 		}
 		
 		if(((AbstractButton) e.getSource()).getText().equals("Save")){
