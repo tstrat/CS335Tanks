@@ -89,7 +89,7 @@ public class SpiderMine extends Mine{
 		/**
 		 * the lifetime of a Spider
 		 */
-		private int ticks = 300;
+		private int ticks = 200;
 
 		/**
 		 * The Spider is created at the given location and has its target set to a certain tank
@@ -112,13 +112,13 @@ public class SpiderMine extends Mine{
 		public void act() {
 			ticks--;
 			if(target.getX() > Spider.this.x)
-				Spider.this.x += .8;
+				Spider.this.x += 1.2;
 			else if(target.getX() < Spider.this.x)
-				Spider.this.x -= .8;
+				Spider.this.x -= 1.2;
 			if(target.getY() > Spider.this.y)
-				Spider.this.y += .8;
+				Spider.this.y += 1.2;
 			else if(target.getY() < Spider.this.y)
-				Spider.this.y -= .8;
+				Spider.this.y -= 1.2;
 			if(ticks < 0)
 				explode();
 		}

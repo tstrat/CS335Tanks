@@ -20,35 +20,49 @@ public class TreeStump extends Obstacle {
 		tL = new TreeLeaves(w, x, y);
 		health = 10;
 		maxHealth = 10;
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * The TreeStimp does not take damage in its receiveDamage method,
+	 * meaning it cannot be harmed. However, upon taking damage, there
+	 * is a chance its leaves will catch fire.
+	 */
 	@Override
 	public void receiveDamage(int d) {
 		if (TRand.random() < .035 && d > 0)
 			tL.setOnFire();
-
 	}
 
+	/**
+	 * Empty collide method.
+	 */
 	@Override
 	public void collide(Collidable c) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void act() {
-		
 
 	}
 	
+	/**
+	 * Empty act method.
+	 */
+	@Override
+	public void act() {
+
+	}
+	
+	/**
+	 * Returns the drawPriority. A higher drawPriority will cause this actor to be
+	 * drawn on top of other actors.
+	 */
 	@Override
 	public int getDrawPriority() {
-		// TODO Auto-generated method stub
 		return drawPriority ;
 	}
 
 	private static DrawObject draw = new DrawSingleFrameObject("treeStump.png");
+	
+	/**
+	 * Returns a DrawObject that can draw a TreeStump.
+	 */
 	@Override
 	public DrawObject getDraw() {
 		return draw;

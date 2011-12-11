@@ -182,6 +182,15 @@ public class World extends Observable {
 		this.player = player;
 	}
 	
+	/**
+	 * This method loads the properly selected map for the singleplayer option.  It sets out the 
+	 * tanks in their proper locations.
+	 * 
+	 * @param mapName  - the file name for the Map
+	 * @param tankName - The tanks Name
+	 * @param AINum    - The amount of AI tanks that are to be placed on the map
+	 * @param receive  - A command receiver for use in updating a players gui.
+	 */
 	public void loadFileSP(String mapName, String tankName, int AINum, CommandReceiver receive) {		
 		int space1 = 0, space2 = 0;
 		int count = 0;
@@ -220,6 +229,15 @@ public class World extends Observable {
 		} 
 	}
 	
+	/**
+	 * This method loads the properly selected map for the Multiplayer option.  It sets out the 
+	 * tanks in their proper locations.
+	 * 
+	 * @param mapName  - the file name for the Map
+	 * @param tankName - The tanks Name
+	 * @param AINum    - The amount of AI tanks that are to be placed on the map
+	 * @param receive  - A command receiver for use in updating a players gui.
+	 */
 	public void loadFileMP(String mapName, String tankName, int AINum, CommandReceiver receive, int playerNum) {		
 		int space1 = 0, space2 = 0;
 		int count = 0;
@@ -258,6 +276,9 @@ public class World extends Observable {
 		} 
 	}
 	
+	/**
+	 * The list of enums for Obstacles and Terrains for the map editor to use.
+	 */
 	public enum ObsAndTer {
 		
 		HEALINGBEACON,
@@ -273,6 +294,15 @@ public class World extends Observable {
 		SPEEDPATCH,
 		MUD
 	}
+	
+	/**
+	 * Adds the players tank to the world in singlePlayer.  Makes sure it is the correct type of tank.
+	 * Then it adds the AI to the map.
+	 * 
+	 * @param tankType - The type of tank that the player selected.
+	 * @param posx     - X position of the tank
+	 * @param posy     - Y position of the tank
+	 */
 	
 	private void addTanksToWorldSP(String tankType, int posx, int posy){
 		if(tankType.equals("P1")){
@@ -304,6 +334,14 @@ public class World extends Observable {
 		
 	}
 	
+	/**
+	 * Adds the players and their tanks to the world in Multiplayer. It makes sure the
+	 * player has the correct type of tank. Then, it adds the AI based on the AI number to the map.
+	 * 
+	 * @param tankType - The type of tank that the player selected.
+	 * @param posx     - X position of the tank
+	 * @param posy     - Y position of the tank
+	 */
 	private void addTanksToWorldMP(String tankType, int posx, int posy, int pn){
 		if(tankType.equals("P1")){
 			if(singleplayertank.equals("Standard Tank")){
@@ -342,6 +380,14 @@ public class World extends Observable {
 		
 	}
 	
+	/**
+	 * This method places different obstacles and terrain on the map based on the loaded
+	 * file for the game.
+	 * 
+	 * @param toAdd - Name of the obstacle or terrain to add
+	 * @param x     - X coordinate of where to place toAdd
+	 * @param y     - Y coordinate of where to place toAdd
+	 */
 	private void addThingsToWorldSP(String toAdd, int x, int y){
 		ObsAndTer toAddS = ObsAndTer.valueOf(toAdd.toUpperCase());
 		

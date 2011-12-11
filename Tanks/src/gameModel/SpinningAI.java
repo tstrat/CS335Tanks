@@ -6,11 +6,21 @@ package gameModel;
  * @author Parker Snell
  */
 public class SpinningAI extends AIController {
-
+	
+	/**
+	 * Constructs a Spinning AI
+	 * 
+	 * @see AIController.AIController(World, Tank, CommandReceiver)
+	 */
 	public SpinningAI(World w, Tank tank, CommandReceiver receiver) {
 		super(w, tank, receiver);
 	}
 
+	/**
+	 * In this AI's act method, it attempts to move towards the center of the map.
+	 * When it does, it stops and rotates its gun and shoots aimlessly, and will
+	 * likely kill itself before harming you very much.
+	 */
 	@Override
 	public void act() {
 		double tankx, tanky;
