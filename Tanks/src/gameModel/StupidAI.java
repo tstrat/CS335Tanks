@@ -57,6 +57,10 @@ public class StupidAI extends AIController {
 		}
 	}
 
+	/**
+	 * The AI moves the Tank around the map with no knowledge of the obstacles. It always aims its gun
+	 * towards an enemy tank, and fires constantly.
+	 */
 	@Override
 	public void act() {
 		++step;
