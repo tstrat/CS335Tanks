@@ -2,15 +2,15 @@ package gameModel;
 
 /**
  * Creates a Command for rotating the gun on a tank with mouse controls
- * 
- *
  */
+
 public class RotateGunCommand2 extends Command {
 
 	/**
 	 * If you change this I will hunt you down and kill you.
 	 * Slowly. And with a shovel. It won't be fun. Well, not for you.
 	 */
+	
 	private static final long serialVersionUID = -741260137836136482L;
 	
 	private double rotation;
@@ -33,6 +33,7 @@ public class RotateGunCommand2 extends Command {
 	 * 
 	 * @return RotateGunCommand2's rotation
 	 */
+	
 	public double getRotation() {
 		return rotation;
 	}
@@ -42,6 +43,7 @@ public class RotateGunCommand2 extends Command {
 	 * 
 	 * @param a The Actor (a Tank) whose gun should be rotated.
 	 */
+	
 	@Override
 	public void applyTo(Actor a) {
 		if (!(a instanceof Tank))

@@ -17,16 +17,19 @@ import javazoom.jl.player.advanced.PlaybackListener;
  * 
  * @author Parker Snell
  */
+
 public class SoundPlayer {
 
 	/**
 	 * The JLayer player which actually plays the MP3.
 	 */
+	
 	private AdvancedPlayer player;
 	
 	/**
 	 * The MP3 file handle.
 	 */
+	
 	private File file;
 	
 	/**
@@ -34,6 +37,7 @@ public class SoundPlayer {
 	 * 
 	 * @param mp3 The name of an MP3 file.
 	 */
+	
 	public SoundPlayer(String mp3) {
 		file = new File(mp3);
 	}
@@ -43,6 +47,7 @@ public class SoundPlayer {
 	 * 
 	 * @param uri The URI representing the file path.
 	 */
+	
 	public SoundPlayer(URI uri) {
 		file = new File(uri.getPath());
 	}
@@ -53,6 +58,7 @@ public class SoundPlayer {
 	 * @param filename The name of the resource file.
 	 * @return A SoundPlayer object for the resource, or null if one couldn't be created.
 	 */
+	
 	public static SoundPlayer playerFromResource(String filename) {
 		try {
 			return new SoundPlayer(SoundPlayer.class.getResource(filename).toURI());
@@ -64,6 +70,7 @@ public class SoundPlayer {
 	/**
 	 * Plays the sound in a separate thread.
 	 */
+	
 	public void play() {
 		new Thread() {
 			@Override
@@ -85,6 +92,7 @@ public class SoundPlayer {
 	/**
 	 * Loops the sound after it is done playing.
 	 */
+	
 	public void loop() {
 		new Thread() {
 			@Override
@@ -94,10 +102,8 @@ public class SoundPlayer {
 					player.setPlayBackListener(new TanksPlaybackListener());
 					player.play();
 				} catch (JavaLayerException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -107,6 +113,7 @@ public class SoundPlayer {
 	/**
 	 * Stops playing the sound.
 	 */
+	
 	public void stop() {
 		if (player == null)
 			return;
@@ -119,6 +126,7 @@ public class SoundPlayer {
 	/**
 	 * Used for looping playback - makes the player start again once it finishes. 
 	 */
+	
 	private class TanksPlaybackListener extends PlaybackListener {
 		
 		@Override

@@ -1,14 +1,27 @@
 package gameModel;
 
+/**
+ * 
+ * This is the trail objects that follow a small plasma ball
+ *
+ */
+
 public class SmallPlasmaTrail extends Actor {
 
 	private int ticsLeft;
 	private static int drawPriority = 12;
-
+	
+	/**
+	 * Sets the tic count to 100, so that the trail dies behind the ball.
+	 * 
+	 * @param w - World
+	 * @param x - X coordinate of ball
+	 * @param y - Y coordinate of ball
+	 */
+	
 	public SmallPlasmaTrail(World w, double x, double y) {
 		super(w, x, y, 0);
 		ticsLeft = 100;
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -19,10 +32,14 @@ public class SmallPlasmaTrail extends Actor {
 	 * @param x The x-position of the trail.
 	 * @param y The y-position of the trail.
 	 */
+	
 	public static void add(World w, double x, double y) {
 		new SmallPlasmaTrail(w, x, y);
 	}
 	
+	/**
+	 * Decrements the tic count.
+	 */
 	
 	@Override
 	public void act() {
@@ -33,6 +50,7 @@ public class SmallPlasmaTrail extends Actor {
 	 * Checks if the DustCloud has ran out of ticks, if so
 	 * DustCloud should cease to exist.
 	 */
+	
 	@Override
 	public boolean exists() {
 		return ticsLeft > 0;
