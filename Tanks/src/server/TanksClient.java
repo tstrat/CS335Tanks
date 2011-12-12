@@ -129,6 +129,9 @@ public class TanksClient implements CommandReceiver {
 					byte[] data = new byte[size];
 					int read = dis.read(data, 0, size);
 					
+					while (read < size) {
+						read += dis.read(data, read, size - read);
+					}
 					if (read < size)
 						System.out.println("this should never happen." + read + "  ---  " + size);
 					
