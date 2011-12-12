@@ -32,7 +32,7 @@ import MapEditor.MapEditor;
 
 import server.TanksServer;
 
-public class BasicMenu extends JFrame implements ActionListener {
+public class BasicMenu extends JFrame {
 	
 	private String host;
 	private JButton singlePlay = new JButton("SinglePlayer");
@@ -62,31 +62,22 @@ public class BasicMenu extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	/**
-	 * ...
-	 * 
-	 * @param i It uh, is an int, so that means a Splash screen. Is it 1? -345, 92923? Nope.
-	 * 			Doesn't matter. Don't worry about it.
-	 */
-	public BasicMenu(int i){
-		super("Splash Screen Dawg");
-		JPanel blah = new JPanel();
-		blah.add(new JLabel(new ImageIcon(this.getClass().getResource("splash.png"))));
-		add(blah);
-		pack();
-		setResizable(false);
-		setVisible(true);
-		setLocation(400, 200);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+
 	
 	public void setup(){
 		sets(singlePlay, 0, 0, 810, 155);
 		sets(multiPlay, 0, 155, 810, 155);
 		sets(mapEditing, 0, 310, 810, 155);
 		sets(exitG, 0, 465, 810, 155);
-		ready.addActionListener(this);
-		readyM.addActionListener(this);
+		
+		singlePlay.addActionListener(new SinglePlayActionListener());
+		multiPlay.addActionListener(new MultiPlayActionListener());
+		mapEditing.addActionListener(new MapEditActionListener());
+		exitG.addActionListener(new ExitActionListener());
+		
+		
+		ready.addActionListener(new ReadyActionListener());
+		readyM.addActionListener(new ReadyMActionListener());
 	}
 	
 	public void addTanks(){
@@ -137,60 +128,16 @@ public class BasicMenu extends JFrame implements ActionListener {
 	
 	public void sets(Component o, int x, int y, int h, int w){
 		mainP.add(o);
-		((JButton)o).addActionListener(this);
 		o.setVisible(true);
 		o.setLocation(x, y);
 		o.setSize(h, w);
 	}
 	
-	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-		}
-		
-		BasicMenu frame = new BasicMenu(1);
-		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		frame.dispose();
-		frame = new BasicMenu();
-	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == singlePlay){	
-			mapFrame = new JFrame("Maps and Tank Chooser");
-			
-			JPanel mapPanel = new JPanel();
-			mapFrame.add(mapPanel);
-			mapPanel.add(ready);
-			JScrollPane scrollPane = new JScrollPane(mapList);
-			JScrollPane scrollPane2 = new JScrollPane(tankList);
-			JScrollPane scrollPane3 = new JScrollPane(aiList);
-			scrollPane.setSize(150, 200);
-			scrollPane.setLocation(0,0);
-			mapPanel.add(scrollPane);
-			scrollPane2.setSize(150, 200);
-			scrollPane2.setLocation(150,0);
-			mapPanel.add(scrollPane2);
-			scrollPane3.setSize(150, 200);
-			scrollPane3.setLocation(300,0);
-			mapPanel.add(scrollPane3);
-			ready.setSize(150, 200);
-			ready.setLocation(450, 0);
-			mapPanel.setLayout(null);
-			mapPanel.setPreferredSize(new Dimension(600, 200));
-			mapPanel.setVisible(true);
-			mapFrame.pack();
-			mapFrame.setVisible(true);
-			mapFrame.setLocation(400, 200);
-		}
-		
-		if(e.getSource() == ready){
+	private class ReadyActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
 			String fName = (String) mapList.getSelectedValue();
 			String tName = (String) tankList.getSelectedValue();
 			String ai = (String) aiList.getSelectedValue();
@@ -220,7 +167,12 @@ public class BasicMenu extends JFrame implements ActionListener {
 			
 		}
 		
-		if(e.getSource() == readyM){			
+	}
+	
+	private class ReadyMActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
 			String fName = (String) mapList.getSelectedValue();
 			String tName = (String) tankList.getSelectedValue();
 			String ai = (String) aiMPlist.getSelectedValue();
@@ -250,7 +202,46 @@ public class BasicMenu extends JFrame implements ActionListener {
 			
 		}
 		
-		if(e.getSource() == multiPlay){
+	}
+	
+	private class SinglePlayActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+mapFrame = new JFrame("Maps and Tank Chooser");
+			
+			JPanel mapPanel = new JPanel();
+			mapFrame.add(mapPanel);
+			mapPanel.add(ready);
+			JScrollPane scrollPane = new JScrollPane(mapList);
+			JScrollPane scrollPane2 = new JScrollPane(tankList);
+			JScrollPane scrollPane3 = new JScrollPane(aiList);
+			scrollPane.setSize(150, 200);
+			scrollPane.setLocation(0,0);
+			mapPanel.add(scrollPane);
+			scrollPane2.setSize(150, 200);
+			scrollPane2.setLocation(150,0);
+			mapPanel.add(scrollPane2);
+			scrollPane3.setSize(150, 200);
+			scrollPane3.setLocation(300,0);
+			mapPanel.add(scrollPane3);
+			ready.setSize(150, 200);
+			ready.setLocation(450, 0);
+			mapPanel.setLayout(null);
+			mapPanel.setPreferredSize(new Dimension(600, 200));
+			mapPanel.setVisible(true);
+			mapFrame.pack();
+			mapFrame.setVisible(true);
+			mapFrame.setLocation(400, 200);
+			
+		}
+		
+	}
+	
+	private class MultiPlayActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
 			JFrame hostjoin = new JFrame("Host or Join");
 			String joinIp;
 
@@ -318,18 +309,38 @@ public class BasicMenu extends JFrame implements ActionListener {
 				mapFrame.setLocation(400, 200);
 			}
 			
-
 		}
 		
-		if(e.getSource() == mapEditing){
+	}
+	
+	private class MapEditActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
 			dispose();
 			new MapEditor();
 		}
 		
-		if(e.getSource() == exitG){
+	}
+	
+	private class ExitActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
 		}
 		
 	}
+	
+	
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+		}
+		
+		new SplashScreen();
+	}
+	
 	
 }
