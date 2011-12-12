@@ -1,8 +1,21 @@
 package server;
-import gameModel.*;
+import gameModel.TRand;
+import gameModel.WorldCreator.AIPair;
+import gameModel.WorldCreator.TankPair;
 
-import java.io.*;
-import java.net.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,6 +36,11 @@ public class TanksServer {
 	
 	private double seed;
 	
+	private List<TankPair> tanksList;
+	private List<AIPair> aiList;
+	
+	private byte[] mapData;
+	
 	/**
 	 * Control constants for messages sent between client and server.
 	 */
@@ -41,6 +59,9 @@ public class TanksServer {
 		playerNum = 1;
 		doneConnecting = false;
 		clientList = new LinkedList<ClientManager>();
+		
+		tanksList = new ArrayList<TankPair>();
+		aiList = new ArrayList<AIPair>();
 		
 		seed = TRand.random();
 		
@@ -78,7 +99,7 @@ public class TanksServer {
 	 * Calling this method sets the doneConnecting boolean to true which terminates the while loop in
 	 * start() which controls adding more players to the clientList.
 	 */
-	public void doneConnecting(){
+	private void doneConnecting(){
 		doneConnecting = true;
 	}
 	
@@ -98,8 +119,46 @@ public class TanksServer {
 		}
 	}
 	
+	/**
+	 * @return the number of clients that are currently connected.
+	 */
 	public int getClients(){
 		return clientList.size();
+	}
+	
+	/**
+	 * Called when a client sends the ready command. Stops accepting connections,
+	 * and sends all info out to everyone currently connected.
+	 */
+	private void ready() {
+		doneConnecting();
+		
+		int numClients = getClients();
+		
+		// The number of AIs to add, assuming it is >= 0.
+		int ai = 4 - numClients;
+		if (aiList.size() < ai)
+			ai = aiList.size();
+		
+		for (ClientManager manager : clientList) {
+			manager.send(RECV_MAP, mapData);
+			
+			for (TankPair tp : tanksList)
+				manager.send(RECV_TANK, tp);
+			
+			for (int i = 0; i < ai; ++i) {
+				AIPair aipair = aiList.get(i);
+				
+				// Assign the AI a player number higher than any client.
+				aipair.player = numClients + i + 1;
+				
+				manager.send(RECV_AI, aipair);
+			}
+		}
+		
+		for (ClientManager manager : clientList) {
+			manager.becomeReady();
+		}
 	}
 	
 	
@@ -151,8 +210,16 @@ public class TanksServer {
 			commandThread.start();
 		}
 		
-		
-		
+		/**
+		 * Lets the client know that we are ready to start the game.
+		 */
+		public void becomeReady() {
+			try {
+				dos.writeInt(RECV_READY << 24);
+			} catch (IOException e) {
+			}
+		}
+
 		/**
 		 * The CommandTread is a thread that waits for input from a client, then, upon getting the command
 		 * data, sends the command to the other clients in the clientList.
@@ -196,6 +263,39 @@ public class TanksServer {
 			 * @param bytes The array of bytes that make up the data.
 			 */
 			private void receiveBytes(int type, byte[] bytes) {
+				switch (type) {
+				case RECV_TANK:
+					try {
+						TankPair tankPair =
+								(TankPair)new ObjectInputStream(
+										new ByteArrayInputStream(bytes)).readObject();
+						// Set this tank's player number to the client's number.
+						tankPair.player = "P" + team;
+						tanksList.add(tankPair);
+					} catch (ClassNotFoundException e1) {
+					} catch (IOException e1) {
+					}
+					break;
+					
+				case RECV_AI:
+					try {
+						aiList.add(
+								(AIPair)new ObjectInputStream(
+										new ByteArrayInputStream(bytes)).readObject());
+					} catch (ClassNotFoundException e1) {
+					} catch (IOException e1) {
+					}
+					break;
+					
+				case RECV_MAP:
+					mapData = bytes;
+					break;
+					
+				case RECV_READY:
+					ready();
+					break;
+				}
+				
 				for (ClientManager manager : clientList)
 					manager.send(type, bytes);
 			}
@@ -203,18 +303,19 @@ public class TanksServer {
 		}
 		
 		/**
-		 * Sends a command from the server to the client.  This method is called in the CommandThread
-		 * after the thread receives input from one client.
+		 * Sends a serializable object to the client.
 		 * 
-		 * @param c - Command that is sent to a client.
+		 * @param type The type of command to use (RECV_*).
+		 * @param o Object that is sent to a client.
 		 */
-		public void send(Command c){
+		public void send(int type, Serializable o) {
 			try {
 				ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
 				ObjectOutputStream objectstream = new ObjectOutputStream(bytestream);
-				objectstream.writeObject(c);
+				objectstream.writeObject(o);
 				
-				send(RECV_COMMAND, bytestream.toByteArray());
+				byte[] bytes = bytestream.toByteArray();
+				send((type << 24) | bytes.length, bytes);
 			} catch (IOException e) {
 			}
 		}

@@ -81,6 +81,17 @@ public class TanksClient {
 	public boolean isReady() {
 		return ready;
 	}
+	
+	/**
+	 * Notifies the server that we are done waiting for players to join.
+	 * This should only be called by the host.
+	 */
+	public void becomeReady() {
+		try {
+			dos.writeInt(TanksServer.RECV_READY << 24);
+		} catch (IOException e) {
+		}
+	}
 		
 	/**
 	 * Gets the WorldCreator.
@@ -256,7 +267,39 @@ public class TanksClient {
 		}
 	}
 
+	/**
+	 * Adds all the tanks and AIs from a WorldCreator.
+	 * 
+	 * @param creator The WorldCreator to take tanks and AIs from.
+	 */
 	public void addFrom(WorldCreator creator) {
-		//...
+		// First send tanks.
+		for (TankPair pair : creator.getTankPairs()) {
+			try {
+				ByteArrayOutputStream bytesout = new ByteArrayOutputStream();
+				ObjectOutputStream out = new ObjectOutputStream(bytesout);
+				out.writeObject(pair);
+				byte[] data = bytesout.toByteArray();
+				
+				send((TanksServer.RECV_TANK << 24) | data.length, data);
+			}
+			catch (IOException e) {
+			}
+		}
+		
+		// Then AIs.
+		for (AIPair pair : creator.getAIPairs()) {
+			try {
+				ByteArrayOutputStream bytesout = new ByteArrayOutputStream();
+				ObjectOutputStream out = new ObjectOutputStream(bytesout);
+				out.writeObject(pair);
+				byte[] data = bytesout.toByteArray();
+				
+				send((TanksServer.RECV_AI << 24) | data.length, data);
+			}
+			catch (IOException e) {
+			}
+		}
 	}
+	
 }
