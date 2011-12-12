@@ -264,7 +264,7 @@ public class TanksServer {
 			 * @param type The type of data received.
 			 * @param bytes The array of bytes that make up the data.
 			 */
-			private void receiveBytes(int type, byte[] bytes) {
+			private synchronized void receiveBytes(int type, byte[] bytes) {
 				switch (type) {
 				case RECV_TANK:
 					try {
@@ -312,7 +312,7 @@ public class TanksServer {
 		 * @param type The type of command to use (RECV_*).
 		 * @param o Object that is sent to a client.
 		 */
-		public void send(int type, Serializable o) {
+		public synchronized void send(int type, Serializable o) {
 			try {
 				ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
 				ObjectOutputStream objectstream = new ObjectOutputStream(bytestream);
@@ -332,7 +332,7 @@ public class TanksServer {
 		 * @param type The type of command you are sending.
 		 * @param bytes The raw bytes that make up the message to be sent.
 		 */
-		public void send(int type, byte[] bytes) {
+		public synchronized void send(int type, byte[] bytes) {
 			if (socket.isClosed())
 				return;
 			
@@ -352,7 +352,7 @@ public class TanksServer {
 		 * @param type The type of command you are sending.
 		 * @param b A byte to be sent to the client.
 		 */
-		public void send(int type, int b) {
+		public synchronized void send(int type, int b) {
 			try {
 				dos.writeInt((type << 24) | 1);
 				dos.write(b);
@@ -360,7 +360,7 @@ public class TanksServer {
 			}
 		}
 		
-		public void send(int type, double d) {
+		public synchronized void send(int type, double d) {
 			try {
 				dos.writeInt((type << 24) | 8);
 				dos.writeDouble(d);
