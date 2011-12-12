@@ -29,9 +29,9 @@ public class MapSelectionFrame extends JFrame {
 	
 	public MapSelectionFrame(boolean isHosting) {
 		super("Maps and Tank Chooser");
-		setFrame();
 		if(isHosting)
 			host = "localhost";
+		setFrame();
 	}
 	
 
@@ -46,7 +46,11 @@ public class MapSelectionFrame extends JFrame {
 		mapPanel.add(ready);
 		JScrollPane scrollPane = new JScrollPane(mapList);
 		JScrollPane scrollPane2 = new JScrollPane(tankList);
-		JScrollPane scrollPane3 = new JScrollPane(aiList);
+		JScrollPane scrollPane3;
+		if (host == null)
+			scrollPane3 = new JScrollPane(aiList);
+		else
+			scrollPane3 = new JScrollPane(aiMPlist);
 		scrollPane.setSize(150, 200);
 		scrollPane.setLocation(0,0);
 		mapPanel.add(scrollPane);

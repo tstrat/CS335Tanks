@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * which handles data received from the server.
  *
  */
-public class TanksClient {
+public class TanksClient implements CommandReceiver {
 	
 	private Socket client;
 	private OutputStream os;
@@ -128,6 +128,10 @@ public class TanksClient {
 					int size = header & 0xFFFFFF;
 					byte[] data = new byte[size];
 					int read = dis.read(data, 0, size);
+					
+					while (read < size) {
+						read += dis.read(data, read, size - read);
+					}
 										
 					receiveBytes(type, data);
 					
@@ -150,7 +154,7 @@ public class TanksClient {
 		 * @param type The type of data received.
 		 * @param data The content of the data received.
 		 */
-		private void receiveBytes(int type, byte[] data) {
+		private synchronized void receiveBytes(int type, byte[] data) {
 			switch (type) {
 			case TanksServer.RECV_PLAYERNO:
 				player = data[0];
@@ -178,7 +182,6 @@ public class TanksClient {
 			case TanksServer.RECV_TANK:
 				if (worldCreator == null)
 					break;
-				
 				// Add a tank to the WorldCreator.
 				// It will then be added to the World after we get a RECV_READY message.
 				try {
@@ -266,6 +269,15 @@ public class TanksClient {
 		} catch (IOException e) {
 		}
 	}
+	
+	/**
+	 * Just calls sendCommand. I don't want to refactor code that already
+	 * uses sendCommand...
+	 */
+	@Override
+	public void receiveCommand(Command c) {
+		sendCommand(c);
+	}
 
 	/**
 	 * Adds all the tanks and AIs from a WorldCreator.
@@ -274,6 +286,9 @@ public class TanksClient {
 	 */
 	public void addFrom(WorldCreator creator) {
 		// First send tanks.
+		if (creator.getTankPairs() == null)
+			return;
+		
 		for (TankPair pair : creator.getTankPairs()) {
 			try {
 				ByteArrayOutputStream bytesout = new ByteArrayOutputStream();
@@ -288,6 +303,9 @@ public class TanksClient {
 		}
 		
 		// Then AIs.
+		if (creator.getAIPairs() == null)
+			return;
+		
 		for (AIPair pair : creator.getAIPairs()) {
 			try {
 				ByteArrayOutputStream bytesout = new ByteArrayOutputStream();

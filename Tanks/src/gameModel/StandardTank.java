@@ -37,7 +37,7 @@ public class StandardTank extends Tank {
 		baseSpeed = 3;
 		speed = 3;
 		speedMod = 0;
-		new HealthBar(w, this);		
+		new HealthBar(w, this);
 	}
 
 	/**

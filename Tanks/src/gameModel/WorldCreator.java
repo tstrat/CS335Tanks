@@ -109,9 +109,6 @@ public class WorldCreator implements Serializable {
 		} catch (FileNotFoundException e) {
 			fileContents = "";
 		}
-		
-		tanks = new ArrayList<WorldCreator.TankPair>();
-		ais = new ArrayList<WorldCreator.AIPair>();
 	}
 	
 	/**
@@ -133,6 +130,9 @@ public class WorldCreator implements Serializable {
 	 * @param tankPair A TankPair describing the tank to be added.
 	 */
 	public void addTank(TankPair tankPair) {
+		if (tanks == null)
+			tanks = new ArrayList<TankPair>();
+		
 		tanks.add(tankPair);
 	}
 	
@@ -143,6 +143,9 @@ public class WorldCreator implements Serializable {
 	 * @param aiPair An AIPair describing the AI to be added.
 	 */
 	public void addAI(AIPair aiPair) {
+		if (ais == null)
+			ais = new ArrayList<AIPair>();
+		
 		ais.add(aiPair);
 	}
 	
@@ -156,6 +159,9 @@ public class WorldCreator implements Serializable {
 	}
 	
 	private TankPair findPair(String player) {
+		if (tanks == null)
+			return null;
+		
 		for (TankPair pair : tanks) {
 			if (pair.player.equals(player))
 				return pair;
@@ -248,6 +254,9 @@ public class WorldCreator implements Serializable {
 		}
 		
 		private void addAIPlayers() {
+			if (ais == null)
+				return;
+			
 			for (AIPair pair : ais) {
 				Integer xy = ai_xy.get(pair.player);
 				if (xy == null)
@@ -313,6 +322,9 @@ public class WorldCreator implements Serializable {
 	}
 
 	public void addAIActors(World world) {
+		if (ais == null)
+			return;
+		
 		for (AIPair pair : ais) {
 			
 			// Find the tank that belongs to me.

@@ -130,20 +130,19 @@ public class TanksDisplay extends JPanel implements Observer {
 		// Try to connect to host
 		TanksClient client = new TanksClient(host);
 		
+		if (host.equals("localhost")) {
+			client.addMap(creator);
+		}
+		
 		client.addFrom(creator);
 		
 		if (host.equals("localhost")) {
-			client.addMap(creator);
+			int result = JOptionPane.showOptionDialog(TanksDisplay.this,
+					"Waiting for players to join...", "Waiting",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+					null, new String[]{"Start", "Cancel"}, "Start");
 			
-			HostStartDialog dlg = new HostStartDialog();
-			
-			// Wait for the user to press start.
-			while (dlg.isAlive()) {
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-				}
-			}
+			// don't care what you pushed.
 			
 			client.becomeReady();
 		}
@@ -170,12 +169,12 @@ public class TanksDisplay extends JPanel implements Observer {
 		world = creator.getWorld();
 		world.setPlayer(player);
 		world.addObserver(this);
-		
+				
 		handler = new GameHandler(world);
 		MultiplayerBroadcaster receiver = new MultiplayerBroadcaster(handler, client);
 		
-		client.setReceiver(receiver);
-		creator.setCommandReceiver(receiver);
+		client.setReceiver(handler);
+		creator.setCommandReceiver(client);
 		creator.addAIActors(world);
 		
 		// Start a sync timer that will synchronize my player every second or so.
@@ -185,26 +184,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		addMouseListener(mouseListener = new TanksMouseListener(receiver, player));
 		addMouseMotionListener(mouseListener);
 	}
-	
-	/**
-	 * Opens a dialog box for the host that will let the server know when you are
-	 * done waiting for people to connect. This is done in a separate thread,
-	 * while TanksDisplay waits.
-	 */
-	private class HostStartDialog extends Thread {
 		
-		@Override
-		public void run() {
-			int result = JOptionPane.showOptionDialog(TanksDisplay.this,
-					"Waiting for players to join...", "Waiting",
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-					null, new String[]{"Start", "Cancel"}, "Start");
-			
-			// Uh, we don't care if they picked start or cancel for now...
-		}
-		
-	}
-	
 	/**
 	 * It syncs things I guess.
 	 * 

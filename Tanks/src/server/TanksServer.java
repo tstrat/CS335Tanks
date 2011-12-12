@@ -143,8 +143,9 @@ public class TanksServer {
 		for (ClientManager manager : clientList) {
 			manager.send(RECV_MAP, mapData);
 			
-			for (TankPair tp : tanksList)
+			for (TankPair tp : tanksList) {
 				manager.send(RECV_TANK, tp);
+			}
 			
 			for (int i = 0; i < ai; ++i) {
 				AIPair aipair = aiList.get(i);
@@ -238,6 +239,10 @@ public class TanksServer {
 						int size = header & 0xFFFFFF;
 						byte[] data = new byte[size];
 						int read = dis.read(data, 0, size);
+						
+						while (read < size) {
+							read += dis.read(data, read, size - read);
+						}
 												
 						receiveBytes(type, data);
 						
@@ -294,10 +299,12 @@ public class TanksServer {
 				case RECV_READY:
 					ready();
 					break;
+					
+				default:
+					for (ClientManager manager : clientList)
+						manager.send(type, bytes);
+					break;
 				}
-				
-				for (ClientManager manager : clientList)
-					manager.send(type, bytes);
 			}
 			
 		}
@@ -315,7 +322,8 @@ public class TanksServer {
 				objectstream.writeObject(o);
 				
 				byte[] bytes = bytestream.toByteArray();
-				send((type << 24) | bytes.length, bytes);
+				
+				send(type, bytes);
 			} catch (IOException e) {
 			}
 		}
