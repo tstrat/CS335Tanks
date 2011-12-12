@@ -1,5 +1,8 @@
 package server;
 import gameModel.*;
+import gameModel.WorldCreator.AIPair;
+import gameModel.WorldCreator.TankPair;
+
 import java.io.*;
 import java.net.*;
 import javax.swing.JOptionPane;
@@ -25,17 +28,28 @@ public class TanksClient {
 	
 	private int player = 0;
 	
+	private WorldCreator worldCreator;
+	
+	private boolean ready;
+	
 	/**
-	 * The constructor takes in an ip and a CommandReceiver, then proceeds to start creating the client socket
+	 * The constructor takes in an ip, then proceeds to start creating the client socket
 	 * and connect it to the server.
 	 * 
-	 * @param gameHandler - GameHandler class that the current player has
 	 * @param ip - String that contains the IP address for the socket to connect to
 	 */
-	public TanksClient(CommandReceiver receiver, String ip){
-		this.cr = receiver;
+	public TanksClient(String ip){
 		this.ip = ip;
 		start();
+	}
+	
+	/**
+	 * Sets a CommandReceiver to distribute messages.
+	 * 
+	 * @param receiver A CommandReceiver.
+	 */
+	public void setReceiver(CommandReceiver receiver) {
+		this.cr = receiver;
 	}
 	
 	/**
@@ -58,6 +72,21 @@ public class TanksClient {
 		
 		receivingThread = new ReceiveThread();
 		receivingThread.start();
+	}
+	
+	/**
+	 * @return True if a World can be obtained by calling getWorld, false if that method
+	 * will return null.
+	 */
+	public boolean isReady() {
+		return ready;
+	}
+		
+	/**
+	 * Gets the WorldCreator.
+	 */
+	public WorldCreator getWorldCreator() {
+		return worldCreator;
 	}
 	
 	/**
@@ -111,28 +140,80 @@ public class TanksClient {
 		 * @param data The content of the data received.
 		 */
 		private void receiveBytes(int type, byte[] data) {
-			if (type == TanksServer.RECV_PLAYERNO) {
+			switch (type) {
+			case TanksServer.RECV_PLAYERNO:
 				player = data[0];
-			} else if (type == TanksServer.RECV_SEED) {
+				break;
+				
+			case TanksServer.RECV_SEED:
 				try {
 					TRand.seed(new DataInputStream(new ByteArrayInputStream(data)).readDouble());
 				} catch (IOException e) {
 					// fuck this shit
 				}
-			} else if (type == TanksServer.RECV_COMMAND) {
+				break;
+				
+			case TanksServer.RECV_MAP:
+				try {
+					worldCreator =
+							(WorldCreator)new ObjectInputStream(new ByteArrayInputStream(data))
+							.readObject();
+				} catch (ClassNotFoundException e1) {
+				} catch (IOException e1) {
+				}
+				
+				break;
+				
+			case TanksServer.RECV_TANK:
+				if (worldCreator == null)
+					break;
+				
+				// Add a tank to the WorldCreator.
+				// It will then be added to the World after we get a RECV_READY message.
+				try {
+					worldCreator.addTank(
+							(TankPair)new ObjectInputStream(
+									new ByteArrayInputStream(data)).readObject());
+				} catch (ClassNotFoundException e1) {
+				} catch (IOException e1) {
+				}
+				break;
+				
+			case TanksServer.RECV_AI:
+				if (worldCreator == null)
+					break;
+				
+				// Add AI's to the map. They each get their own unique player number
+				// just like a normal player. It is important though that their player numbers
+				// are higher than 1-4, which are reserved for regular players.
+				try {
+					worldCreator.addAI(
+							(AIPair)new ObjectInputStream(
+									new ByteArrayInputStream(data)).readObject());
+				} catch (ClassNotFoundException e1) {
+				} catch (IOException e1) {
+				}
+				break;
+				
+			case TanksServer.RECV_READY:
+				ready = true;
+				break;
+				
+			case TanksServer.RECV_COMMAND:
 				try {
 					Command c = (Command)new ObjectInputStream(new ByteArrayInputStream(data))
 								.readObject();
 					
 					// Commands for my player are ignored, since they
 					// are processed by GameHandler.
-					if (c.getPlayer() != player)
+					if (c.getPlayer() != player && cr != null)
 						cr.receiveCommand(c);
 				}
 				catch (IOException e) {
 				}
 				catch (ClassNotFoundException e) {
 				}
+				break;
 			}
 		}
 		
@@ -173,5 +254,9 @@ public class TanksClient {
 			send((TanksServer.RECV_COMMAND << 24) | data.length, data);
 		} catch (IOException e) {
 		}
+	}
+
+	public void addFrom(WorldCreator creator) {
+		//...
 	}
 }

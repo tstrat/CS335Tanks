@@ -29,6 +29,7 @@ import gameModel.TreeStump;
 import gameModel.Tank;
 import gameModel.Wall;
 import gameModel.World;
+import gameModel.WorldCreator;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -70,62 +71,94 @@ public class TanksDisplay extends JPanel implements Observer {
 	 * Background music.
 	 */
 	private SoundPlayer soundPlayer;
-
+	
 	/**
-	 * The default constructor creates a World and GameHandler and adds a Tank
-	 * to the World.
+	 * Contains common initialization for both constructors.
 	 */
-	public TanksDisplay(String host) {
+	private TanksDisplay() {
 		super(true); // It is double buffered.
-
+		
 		setPreferredSize(new Dimension(800, 600));
 		setBackground(new Color(245, 228, 156));
-		
-		player = 1;
-		
-		world = new World();
-		new HoverTank(world, 200, 300, 0, 1);
-		Tank tank = new StandardTank(world, 500, 400, 0, 2);
-		new MudPatch(world, 300, 300, 0);
-		new SpeedPatch(world, 400, 400, 0);
-		//new HoverTank(world, 300, 600, 0, 3);
-		
-		handler = new GameHandler(world);
-		world.addObserver(this);
-		
-		CommandReceiver receiver = handler;
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
-		img = ii.getImage();
-		
-		if (host != null) {
-			// Try to connect to host
-			TanksClient client = new TanksClient(handler, host);
-			
-			// Wait for a maximum of 3 seconds to get a player number.
-			long targetTime = System.currentTimeMillis() + 3000L;
-			while (client.getPlayerNumber() == 0 && System.currentTimeMillis() < targetTime) {
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					break;
-				}
-			}
-			player = client.getPlayerNumber();
-			world.setPlayer(player);
-			
-			// Start a sync timer that will synchronize my player every second or so.
-			new SyncTimer(client).start();
-			
-			receiver = new MultiplayerBroadcaster(handler, client);
-		}
-		
-		//new SpinningAI(world, tank, receiver);
 		
 		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
 		soundPlayer.loop();
 
 		setFocusable(true);
 		requestFocus();
+		
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
+		img = ii.getImage();
+	}
+	
+	/**
+	 * Creates a World specified by the given WorldCreator, and adds one player.
+	 * 
+	 * @param creator A WorldCreator specifying how to create the World.
+	 */
+	public TanksDisplay(WorldCreator creator) {
+		this();
+		
+		world = creator.getWorld();
+		
+		player = 1;
+		world.setPlayer(1);
+		
+		handler = new GameHandler(world);
+		creator.setCommandReceiver(handler);
+		creator.addAIActors(world);
+		
+		world.addObserver(this);
+		
+		addKeyListener(keyListener = new TanksKeyboardListener(handler, player));
+		addMouseListener(mouseListener = new TanksMouseListener(handler, player));
+		addMouseMotionListener(mouseListener);
+	}
+
+	/**
+	 * Creates a display for a World synchronized over the network.
+	 */
+	public TanksDisplay(String host, WorldCreator creator) {
+		this();
+				
+		// Try to connect to host
+		TanksClient client = new TanksClient(host);
+		
+		client.addFrom(creator);
+		
+		// Wait for a maximum of 3 seconds to get a player number.
+		long targetTime = System.currentTimeMillis() + 3000L;
+		while (!client.isReady() && System.currentTimeMillis() < targetTime) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				break;
+			}
+		}
+		
+		if (!client.isReady()) {
+			return;
+			// TODO: Throw an exception.
+		}
+		
+		player = client.getPlayerNumber();
+		
+		// At this point, this World contains all the Tanks and AIs for everyone.
+		creator = client.getWorldCreator();
+		world = creator.getWorld();
+		world.setPlayer(player);
+		world.addObserver(this);
+		
+		handler = new GameHandler(world);
+		MultiplayerBroadcaster receiver = new MultiplayerBroadcaster(handler, client);
+		
+		client.setReceiver(receiver);
+		creator.setCommandReceiver(receiver);
+		creator.addAIActors(world);
+		
+		// Start a sync timer that will synchronize my player every second or so.
+		new SyncTimer(client).start();
+		
 		addKeyListener(keyListener = new TanksKeyboardListener(receiver, player));
 		addMouseListener(mouseListener = new TanksMouseListener(receiver, player));
 		addMouseMotionListener(mouseListener);
@@ -174,113 +207,6 @@ public class TanksDisplay extends JPanel implements Observer {
 		}
 		
 	}
-	
-	// Constructor for SinglePlayer Tanks game
-	public TanksDisplay(String host, String mapName, String tankName, int AInum) {
-		super(true); // It is double buffered.
-
-		setPreferredSize(new Dimension(800, 600));
-		setBackground(new Color(245, 228, 156));
-		
-		player = 1;
-		
-		world = new World();		
-		handler = new GameHandler(world);
-		world.addObserver(this);
-		
-		CommandReceiver receiver = handler;
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
-		img = ii.getImage();
-		
-		if (host != null) {
-			// Try to connect to host
-			TanksClient client = new TanksClient(handler, host);
-			receiver = new MultiplayerBroadcaster(handler, client);
-		}
-		world.loadFileSP(mapName, tankName, AInum, receiver);
-		
-		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
-		soundPlayer.loop();
-
-		setFocusable(true);
-		requestFocus();
-		addKeyListener(keyListener = new TanksKeyboardListener(receiver, player));
-		addMouseListener(mouseListener = new TanksMouseListener(receiver, player));
-		addMouseMotionListener(mouseListener);
-	}
-	
-	public TanksDisplay(String host, String mapName, String tankName, int AInum, int multiplayer, TanksServer server) {
-		super(true); // It is double buffered.
-
-		setPreferredSize(new Dimension(800, 600));
-		setBackground(new Color(245, 228, 156));
-		
-		player = 1;
-		
-		world = new World();		
-		handler = new GameHandler(world);
-		world.addObserver(this);
-		
-		CommandReceiver receiver = handler;
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
-		img = ii.getImage();
-		
-		if (host != null) {
-			// Try to connect to host
-			TanksClient client = new TanksClient(handler, host);
-			receiver = new MultiplayerBroadcaster(handler, client);
-			player = client.getPlayerNumber();
-		}
-		int numClients = server.getClients();
-		while(numClients < 2){
-			numClients = server.getClients();
-		}		
-		world.loadFileMP(mapName, tankName, AInum, receiver, player);
-		
-		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
-		soundPlayer.loop();
-
-		setFocusable(true);
-		requestFocus();
-		addKeyListener(keyListener = new TanksKeyboardListener(receiver, player));
-		addMouseListener(mouseListener = new TanksMouseListener(receiver, player));
-		addMouseMotionListener(mouseListener);
-	}
-	
-	public TanksDisplay(String host, String mapName, String tankName, int AInum, int multiplayer) {
-		super(true); // It is double buffered.
-
-		setPreferredSize(new Dimension(800, 600));
-		setBackground(new Color(245, 228, 156));
-		
-		player = 1;
-		
-		world = new World();		
-		handler = new GameHandler(world);
-		world.addObserver(this);
-		
-		CommandReceiver receiver = handler;
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
-		img = ii.getImage();
-		
-		if (host != null) {
-			// Try to connect to host
-			TanksClient client = new TanksClient(handler, host);
-			receiver = new MultiplayerBroadcaster(handler, client);
-			player = client.getPlayerNumber();
-		}
-		world.loadFileMP(mapName, tankName, AInum, receiver, player);
-		
-		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
-		soundPlayer.loop();
-
-		setFocusable(true);
-		requestFocus();
-		addKeyListener(keyListener = new TanksKeyboardListener(receiver, player));
-		addMouseListener(mouseListener = new TanksMouseListener(receiver, player));
-		addMouseMotionListener(mouseListener);
-	}
-
 	
 	@Override
 	public void paint(Graphics g) {

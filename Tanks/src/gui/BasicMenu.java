@@ -1,5 +1,10 @@
 package gui;
 
+import gameModel.World;
+import gameModel.WorldCreator;
+import gameModel.WorldCreator.AIPair;
+import gameModel.WorldCreator.TankPair;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -114,7 +119,7 @@ public class BasicMenu extends JFrame implements ActionListener {
 		o.setSize(h, w);
 	}
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
@@ -163,7 +168,18 @@ public class BasicMenu extends JFrame implements ActionListener {
 				dispose();
 				mapFrame.dispose();
 				JFrame tdHolder = new JFrame("Tanks");
-				tdHolder.add(new TanksDisplay(host, fName, tName, aiNums));
+				
+				// Construct a World.
+				WorldCreator wc = new WorldCreator(fName);
+				
+				// Add the single player.
+				wc.addTank(new TankPair("P1", tName));
+				
+				// Add the AIs, starting at player 2.
+				for (int i = 0; i < aiNums; ++i)
+					wc.addAI(new AIPair(2 + i));
+				
+				tdHolder.add(new TanksDisplay(wc));
 				tdHolder.pack();
 				tdHolder.setResizable(false);
 				tdHolder.setVisible(true);
@@ -182,10 +198,18 @@ public class BasicMenu extends JFrame implements ActionListener {
 				dispose();
 				mapFrame.dispose();
 				JFrame tdHolder = new JFrame("Tanks");
-				if(server != null)
-					tdHolder.add(new TanksDisplay(host, fName, tName, aiNums, 1, server));
-				else
-					tdHolder.add(new TanksDisplay(host, fName, tName, aiNums, 1));
+				
+				WorldCreator wc = new WorldCreator(fName);
+				
+				// We leave the player number null. It will be filled in by the server.
+				wc.addTank(new TankPair(null, tName));
+				
+				// The number here doesn't matter, because it will be filled in by the server later.
+				for (int i = 0; i < aiNums; ++i)
+					wc.addAI(new AIPair(0));
+				
+				tdHolder.add(new TanksDisplay(host, wc));
+
 				tdHolder.pack();
 				tdHolder.setResizable(false);
 				tdHolder.setVisible(true);

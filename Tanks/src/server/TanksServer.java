@@ -29,6 +29,10 @@ public class TanksServer {
 	public static final int RECV_PLAYERNO = 1;
 	public static final int RECV_COMMAND = 2;
 	public static final int RECV_SEED = 3;
+	public static final int RECV_MAP = 4;
+	public static final int RECV_TANK = 5;
+	public static final int RECV_AI = 6;
+	public static final int RECV_READY = 7;
 	
 	/**
 	 * The constructor creates an empty linkedList of clients.  Then, it starts the server.

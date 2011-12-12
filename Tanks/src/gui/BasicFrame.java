@@ -1,5 +1,8 @@
 package gui;
 
+import gameModel.WorldCreator;
+import gameModel.WorldCreator.TankPair;
+
 import javax.swing.JFrame;
 
 import server.TanksServer;
@@ -9,7 +12,9 @@ public class BasicFrame extends JFrame {
 	public BasicFrame(String host) {
 		super("Tanks basic display");
 		
-		add(new TanksDisplay(host));
+		WorldCreator wc = new WorldCreator("");
+		wc.addTank(new TankPair("P1", "Standard Tank"));
+		add(new TanksDisplay(host, wc));
 		
 		pack();
 		setResizable(false);
