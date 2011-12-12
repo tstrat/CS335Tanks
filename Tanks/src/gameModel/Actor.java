@@ -50,10 +50,6 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 		this.rotation = rotation;
 		w.addActor(this);
 		exists = true;
-		
-		SoundPlayer player = getSoundPlayer();
-		if (player != null)
-			player.play();
 	}
 	
 	/**
@@ -183,17 +179,6 @@ public abstract class Actor implements CommandReceiver, Comparable<Actor> {
 	
 	public abstract DrawObject getDraw();
 	
-	/**
-	 * Get a SoundPlayer to be played when this object is first created.
-	 * If this object has no associated sound effect, the default implementation
-	 * of this method can be used, which will return null.
-	 * 
-	 * @return A SoundPlayer representing this object's sound effect, or null.
-	 */
-	
-	public SoundPlayer getSoundPlayer() {
-		return null;
-	}
 	
 	/**
 	 * For non-player objects (the default), this should return 0,

@@ -40,7 +40,11 @@ public class TRand {
 	public static int randInt(int min, int max) {
 		return randInt(max - min) + min;
 	}
-
+	
+	/**
+	 * Sets a seed for the random so that all random events can be synchronized.
+	 * @param d - Double to change seed value.
+	 */
 	public static void seed(double d) {
 		rnd.setSeed((long)(d * 893473904));
 	}

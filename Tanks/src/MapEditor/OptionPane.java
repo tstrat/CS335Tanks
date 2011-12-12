@@ -40,7 +40,13 @@ public class OptionPane extends JFrame implements ActionListener {
 	ArrayList<JButton> tanksButList = new ArrayList<JButton>();
 	JButton save = new JButton("Save");
 	JButton load = new JButton("Load");
+	JButton undo = new JButton("Undo");
 	
+	/**
+	 * Default OptionPane constructor. Makes a standard OptionPane
+	 * 
+	 * @param ep - The Editor Pane, the OptionPane MUST know about this
+	 */
 	public OptionPane(EditorPane ep){
 		this.ep = ep;
 		this.setSize(300, 600);
@@ -52,8 +58,12 @@ public class OptionPane extends JFrame implements ActionListener {
 		placeButtons();
 		save.addActionListener(this);
 		load.addActionListener(this);
+		undo.addActionListener(this);
 	}
 	
+	/**
+	 * Sets up the OptionPane (panels, buttons, etc)
+	 */
 	public void setUp(){
 		this.add(options);
 		options.setSize(300,600);
@@ -63,6 +73,9 @@ public class OptionPane extends JFrame implements ActionListener {
 		createLists();
 	}
 	
+	/**
+	 * Places the buttons and adds action listeners
+	 */
 	public void placeButtons(){
 		for(int i = 1; i <= terList.size(); i++){
 			sets(terButList.get(i-1), 20, 30 + (i * 30), 120, 25);
@@ -80,6 +93,9 @@ public class OptionPane extends JFrame implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Creates the lists for button making
+	 */
 	public void createLists(){
 		terList.add("SpikePit");
 		terList.add("MudPatch");
@@ -104,6 +120,9 @@ public class OptionPane extends JFrame implements ActionListener {
 			tanksButList.add(new JButton(tanksList.get(j)));
 	}
 	
+	/**
+	 * Sets up remainder of the panel
+	 */
 	public void placeOptions(){
 		sets(header, 90, 0, 80, 30);
 		sets(terrain, 20, 20, 70, 30);
@@ -119,8 +138,18 @@ public class OptionPane extends JFrame implements ActionListener {
 		sets(tanks, 20, 330, 70, 30);
 		sets(save, 50, 520, 80, 25);
 		sets(load, 150, 520, 80, 25);
+		sets(undo, 100, 485, 80, 25);
 	}
 	
+	/**
+	 * Sets method to make setting easier and quicker when adding new things
+	 * 
+	 * @param o - The thing to add to the panel
+	 * @param x - It's x location
+	 * @param y - It's y location
+	 * @param h - It's height
+	 * @param w - It's width
+	 */
 	public void sets(Component o, int x, int y, int h, int w){
 		options.add(o);
 		o.setVisible(true);
@@ -128,6 +157,12 @@ public class OptionPane extends JFrame implements ActionListener {
 		o.setSize(h, w);
 	}
 
+	/**
+	 * When a button is press call correct method in
+	 * Editor pane depending on which button.
+	 * If save or load, pop up a dialog box asking for
+	 * name of map.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if(((AbstractButton) e.getSource()).getText().equals("SpikePit")){
 			ep.clickListen("spikePit.png", terRemaining);				
@@ -187,6 +222,10 @@ public class OptionPane extends JFrame implements ActionListener {
 				j.setEnabled(true);
 			String fName = JOptionPane.showInputDialog("Enter in Map name to load:");
 			ep.readFromFile(fName + ".txt", terRemaining, obsRemaining);
+		}
+		
+		if(((AbstractButton) e.getSource()).getText().equals("Undo")){
+			ep.undo();
 		}
 		
 	}

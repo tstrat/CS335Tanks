@@ -90,6 +90,17 @@ public class SoundPlayer {
 	}
 	
 	/**
+	 * Plays an MP3 file.
+	 * 
+	 * @param filename The name of the file to play.
+	 */
+	public static void play(String filename) {
+		SoundPlayer player = playerFromResource(filename);
+		if (player != null)
+			player.play();
+	}
+	
+	/**
 	 * Loops the sound after it is done playing.
 	 */
 	

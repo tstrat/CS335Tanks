@@ -50,6 +50,7 @@ public class ShotGun extends Gun {
 	@Override
 	public void fireMissile(Tank t) {
 		if(cDTimer == 0) {
+			SoundPlayer.play("shotgun.mp3");
 			for(int i = 0; i < simultRounds; i++) {
 				double rand = TRand.random() * .15;
 				new BounceShard(w, x, y, rand + rotation + .06 * (i - simultRounds / 2), t);

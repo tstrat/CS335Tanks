@@ -53,6 +53,10 @@ public class StandardTank extends Tank {
 		return draw;
 	}
 	
+	/**
+	 * Waits for cool down to reach zero, then lays a mine.  After mine is laid, cool down resets to
+	 * max cool down time.
+	 */
 	@Override
 	public void layMine() {
 		if(mineCD > 0)

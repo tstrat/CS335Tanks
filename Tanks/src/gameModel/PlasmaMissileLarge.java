@@ -76,6 +76,7 @@ public class PlasmaMissileLarge extends LargeMissile {
 		for(int i = 0; i < 4; i++)
 			new PlasmaBallSmall(w, x, y, rotation - 252 + i * Math.PI / 10, t);
 		explode();
+		SoundPlayer.play("plasmaburst.mp3");
 		
 	}
 	

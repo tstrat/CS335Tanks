@@ -30,66 +30,10 @@ public class Explosion {
 	 */
 	
 	public static void createExplosion(World w, double x, double y, int fireCount, double radius, int damage) {
-		new ExplosionSoundEffect(w, x, y);
+		SoundPlayer.play("explosion.mp3");
 		for(int i = 0; i < fireCount; i ++) {
 			new FireBall(w, x, y, 2 * Math.PI * TRand.random(), TRand.random() * radius/ 20,  damage);
 		}
-	}
-
-	/**
-	 * This class handles the sound of the explosion.  When appropriate, 
-	 * an outside class will call the ExplosionSoundEffect class' getSoundPlayer
-	 * method which will return a SoundPlayer object with the Explosion mp3 file.
-	 */
-	
-	private static class ExplosionSoundEffect extends Actor {
-
-		public ExplosionSoundEffect(World w, double x, double y) {
-			super(w, x, y, 0);
-		}
-
-		/**
-		 * Removes this object right after it is created.
-		 */
-		
-		@Override
-		public void act() {
-			exists = false;
-		}
-
-		/**
-		 * This is unimportant since this object doesn't get drawn.
-		 * 
-		 * @return Don't worry about it.
-		 */
-		
-		@Override
-		public int getDrawPriority() {
-			return 0;
-		}
-
-		/**
-		 * An ExplosionSoundEffect does not need to be drawn.
-		 * 
-		 * @return Null.
-		 */
-		
-		@Override
-		public DrawObject getDraw() {
-			return null;
-		}
-		
-		/**
-		 * Gets the SoundPlayer for the explosion sound effect.
-		 * 
-		 * @return A SoundPlayer loaded with an explosion sound.
-		 */
-		
-		@Override
-		public SoundPlayer getSoundPlayer() {
-			return SoundPlayer.playerFromResource("explode.mp3");
-		}
-		
 	}
 
 }

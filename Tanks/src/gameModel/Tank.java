@@ -62,6 +62,12 @@ public class Tank extends Obstacle {
 			mineCD--;
 	}
 	
+	
+	/**
+	 * This method takes in the speedMod from when a player runs over a special type of terrain.
+	 * The tank's speed is then altered by the mod, and slowly reverts back to normal speed after
+	 * a while.
+	 */
 	private void updateSpeed() {
 		speed = baseSpeed * (1 + (.005 * speedMod));
 		if (speedMod > 0)
@@ -194,6 +200,11 @@ public class Tank extends Obstacle {
 		gun.rotateTowards(x, y);
 	}
 	
+	/**
+	 * The speedMod is altered by the terrain that the tank has moved over.  It allows the tank's
+	 * speed to be slowed or sped up.
+	 * @param n - The rate of speed Modification
+	 */
 	public void modSpeed(int n) {
 		speedMod = n;
 	}

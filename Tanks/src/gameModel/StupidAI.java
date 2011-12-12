@@ -29,6 +29,11 @@ public class StupidAI extends AIController {
 	 */
 	private Tank target;
 	
+	/**
+	 * Constructs a new StupidAI and sets it to a defaukt state.
+	 * 
+	 * @see AIController.AIController(World, Tank, CommandReceiver)
+	 */
 	public StupidAI(World w, Tank tank, CommandReceiver receiver) {
 		super(w, tank, receiver);
 		
@@ -57,6 +62,10 @@ public class StupidAI extends AIController {
 		}
 	}
 
+	/**
+	 * The AI moves the Tank around the map with no knowledge of the obstacles. It always aims its gun
+	 * towards an enemy tank, and fires constantly.
+	 */
 	@Override
 	public void act() {
 		++step;

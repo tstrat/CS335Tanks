@@ -33,3 +33,7 @@ Indestructible.png 340 420
 Indestructible.png 460 420
 Indestructible.png 340 60
 Indestructible.png 460 60
+P1.png 120 552
+P2.png 120 24
+P3.png 648 24
+P4.png 696 504

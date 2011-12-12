@@ -31,6 +31,7 @@ public class ExplosiveMine extends Mine {
 	
 	@Override
 	public void activateMine() {
+		SoundPlayer.play("mineexplode.mp3");
 		new MineExplosion(w, x, y, rotation);
 		exists = false;
 	}
