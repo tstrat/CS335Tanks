@@ -40,6 +40,7 @@ public class OptionPane extends JFrame implements ActionListener {
 	ArrayList<JButton> tanksButList = new ArrayList<JButton>();
 	JButton save = new JButton("Save");
 	JButton load = new JButton("Load");
+	JButton undo = new JButton("Undo");
 	
 	/**
 	 * Default OptionPane constructor. Makes a standard OptionPane
@@ -57,6 +58,7 @@ public class OptionPane extends JFrame implements ActionListener {
 		placeButtons();
 		save.addActionListener(this);
 		load.addActionListener(this);
+		undo.addActionListener(this);
 	}
 	
 	/**
@@ -136,6 +138,7 @@ public class OptionPane extends JFrame implements ActionListener {
 		sets(tanks, 20, 330, 70, 30);
 		sets(save, 50, 520, 80, 25);
 		sets(load, 150, 520, 80, 25);
+		sets(undo, 100, 485, 80, 25);
 	}
 	
 	/**
@@ -219,6 +222,10 @@ public class OptionPane extends JFrame implements ActionListener {
 				j.setEnabled(true);
 			String fName = JOptionPane.showInputDialog("Enter in Map name to load:");
 			ep.readFromFile(fName + ".txt", terRemaining, obsRemaining);
+		}
+		
+		if(((AbstractButton) e.getSource()).getText().equals("Undo")){
+			ep.undo();
 		}
 		
 	}

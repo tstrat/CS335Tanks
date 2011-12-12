@@ -124,6 +124,21 @@ public class EditorPane extends JPanel implements MouseInputListener {
 		}
 
 	}
+	
+	/**
+	 * Undos the last placement
+	 */
+	public void undo(){
+		if(!savingList.get(savingList.size() - 1).substring(0, 1).equals("P"))
+			textF.setText("" + (Integer.parseInt(textF.getText()) + 1));
+		else
+			tankBut.setEnabled(true);
+		savingList.remove(savingList.size() - 1);
+		drawList.remove(drawList.size() - 1);
+		drawXList.remove(drawXList.size() - 1);
+		drawYList.remove(drawYList.size() - 1);
+		repaint();
+	}
 
 	/**
 	 * When the person loads the map, this method is called

@@ -36,6 +36,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -47,6 +48,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
@@ -574,7 +577,24 @@ public class TanksDisplay extends JPanel implements Observer {
 				gameOverImg = new ImageIcon(World.class.getResource("youlose.png")).getImage();
 			
 			repaint();
-			return;
+			JFrame meh = new JFrame();
+			Object[] options = {"Replay", "Main Menu", "Quit"};
+			int n = JOptionPane.showOptionDialog(meh, "Would you like to Replay, Main Menu or Quit?", "Replay", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			
+			if(n == 0){
+				//replay option
+			}
+			
+			if(n == 1){
+				JOptionPane.getFrameForComponent(this).dispose();
+				//soundPlayer.stop(); //This gets a null pointer for some reason
+				new BasicMenu();
+			}
+				
+			if(n == 2)
+				System.exit(0);
+			
+			return;			
 		}
 		
 		if (keyListener != null)

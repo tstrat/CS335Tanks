@@ -87,6 +87,7 @@ public class BasicMenu extends JFrame implements ActionListener {
 		theTanks.add("Hover Tank");
 		tankList = new JList(theTanks.toArray());
 		tankList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+		tankList.setSelectedIndex(0);
 		
 		ArrayList<String> theAi = new ArrayList<String>();
 		theAi.add("1 AI");
@@ -94,6 +95,7 @@ public class BasicMenu extends JFrame implements ActionListener {
 		theAi.add("3 AI");
 		aiList = new JList(theAi.toArray());
 		aiList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+		aiList.setSelectedIndex(0);
 		
 		ArrayList<String> theAiMp = new ArrayList<String>();
 		theAiMp.add("0 AI");
@@ -101,6 +103,7 @@ public class BasicMenu extends JFrame implements ActionListener {
 		theAiMp.add("2 AI");
 		aiMPlist = new JList(theAiMp.toArray());
 		aiMPlist.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+		aiMPlist.setSelectedIndex(0);
 	}
 	
 	public void addMaps(){
@@ -120,6 +123,7 @@ public class BasicMenu extends JFrame implements ActionListener {
 		
 		mapList = new JList(theMaps.toArray());
 		mapList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+		mapList.setSelectedIndex(0);
 	}
 	
 	public void sets(Component o, int x, int y, int h, int w){
