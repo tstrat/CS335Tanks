@@ -66,6 +66,7 @@ public class SnareMine extends Mine {
 		
 		public Snare(World w, double x, double y, double rotation) {
 			super(w, x, y, rotation);
+			SoundPlayer.play("snare.mp3");
 			ticks = 0;
 			setDraw();
 			maxHealth = 25;

@@ -38,6 +38,7 @@ public class PlasmaCannon extends Gun {
 	@Override
 	public void fireMissile(Tank t) {
 		if (cDTimer == 0) {
+			SoundPlayer.play("plasmashot.mp3");
 			new PlasmaMissileLarge(w, x, y, rotation, t);
 			cDTimer += cD;
 		}

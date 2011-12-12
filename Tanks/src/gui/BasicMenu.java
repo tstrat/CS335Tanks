@@ -139,7 +139,7 @@ public class BasicMenu extends JFrame implements ActionListener {
 		BasicMenu frame = new BasicMenu(1);
 		
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

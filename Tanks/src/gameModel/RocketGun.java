@@ -32,6 +32,7 @@ public class RocketGun extends Gun {
 	
 	public void fireMissile(Tank t) {
 		if (cDTimer == 0) {
+			SoundPlayer.play("rocketlaunch.mp3");
 			new Rocket(w, x, y, rotation, t);
 			cDTimer += cD;
 		}
