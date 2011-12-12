@@ -62,6 +62,12 @@ public class BasicMenu extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	/**
+	 * ...
+	 * 
+	 * @param i It uh, is an int, so that means a Splash screen. Is it 1? -345, 92923? Nope.
+	 * 			Doesn't matter. Don't worry about it.
+	 */
 	public BasicMenu(int i){
 		super("Splash Screen Dawg");
 		JPanel blah = new JPanel();

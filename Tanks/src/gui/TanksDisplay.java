@@ -90,7 +90,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		setFocusable(true);
 		requestFocus();
 		
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("map3.png"));
 		img = ii.getImage();
 	}
 	
