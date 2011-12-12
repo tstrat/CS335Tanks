@@ -125,6 +125,8 @@ public class MapSelectionFrame extends JFrame {
 			String tName = (String) tankList.getSelectedValue();
 			String ai = (String) aiList.getSelectedValue();
 			int aiNums = Integer.parseInt(ai.substring(0,1));
+			if (host != null)
+				--aiNums;
 			
 			if(fName != null && !fName.equals("") && tName != null && !tName.equals("")){	
 				dispose();
