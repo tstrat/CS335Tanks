@@ -92,6 +92,7 @@ public class TanksServer {
 				playerNum++; // increments the player number
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -115,7 +116,7 @@ public class TanksServer {
 		
 		try {
 			server.close();
-		} catch (IOException e) {
+		} catch (IOException e) {e.printStackTrace();
 		}
 	}
 	
@@ -203,7 +204,7 @@ public class TanksServer {
 				
 				send(RECV_PLAYERNO, teamNum);
 				send(RECV_SEED, seed);
-			} catch (IOException e) {
+			} catch (IOException e) {e.printStackTrace();
 				return;
 			}
 			
@@ -217,7 +218,7 @@ public class TanksServer {
 		public void becomeReady() {
 			try {
 				dos.writeInt(RECV_READY << 24);
-			} catch (IOException e) {
+			} catch (IOException e) {e.printStackTrace();
 			}
 		}
 
@@ -243,11 +244,11 @@ public class TanksServer {
 						receiveBytes(type, data);
 						
 					} catch (IOException e) {
-						
+						e.printStackTrace();
 						try {
 							ClientManager.this.socket.close();
 							return;
-						} catch (IOException e1) {
+						} catch (IOException e1) {e.printStackTrace();
 							return;
 						}
 					}
@@ -273,8 +274,8 @@ public class TanksServer {
 						// Set this tank's player number to the client's number.
 						tankPair.player = "P" + team;
 						tanksList.add(tankPair);
-					} catch (ClassNotFoundException e1) {
-					} catch (IOException e1) {
+					} catch (ClassNotFoundException e1) {e1.printStackTrace();
+					} catch (IOException e1) {e1.printStackTrace();
 					}
 					break;
 					
@@ -283,8 +284,8 @@ public class TanksServer {
 						aiList.add(
 								(AIPair)new ObjectInputStream(
 										new ByteArrayInputStream(bytes)).readObject());
-					} catch (ClassNotFoundException e1) {
-					} catch (IOException e1) {
+					} catch (ClassNotFoundException e1) {e1.printStackTrace();
+					} catch (IOException e1) {e1.printStackTrace();
 					}
 					break;
 					
@@ -320,7 +321,7 @@ public class TanksServer {
 				byte[] bytes = bytestream.toByteArray();
 				
 				send(type, bytes);
-			} catch (IOException e) {
+			} catch (IOException e) {e.printStackTrace();
 			}
 		}
 		
@@ -378,7 +379,7 @@ public class TanksServer {
 				is.close();
 				os.close();
 				socket.close();
-			}catch (IOException ioe){
+			}catch (IOException ioe){ioe.printStackTrace();
 			}
 		}
 	}

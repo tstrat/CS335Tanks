@@ -66,7 +66,7 @@ public class TanksClient implements CommandReceiver {
 			dis = new DataInputStream(is);
 			dos = new DataOutputStream(os);
 			
-		} catch (IOException e) {
+		} catch (IOException e) {e.printStackTrace();
 			return;
 		}
 		
@@ -89,7 +89,7 @@ public class TanksClient implements CommandReceiver {
 	public void becomeReady() {
 		try {
 			dos.writeInt(TanksServer.RECV_READY << 24);
-		} catch (IOException e) {
+		} catch (IOException e) {e.printStackTrace();
 		}
 	}
 		
@@ -131,12 +131,12 @@ public class TanksClient implements CommandReceiver {
 					
 					receiveBytes(type, data);
 					
-				} catch (IOException e) {
+				} catch (IOException e) {e.printStackTrace();
 					try {
 						client.close();
 						return;
 					}
-					catch (IOException e1) {
+					catch (IOException e1) {e.printStackTrace();
 						return;
 					}
 				}
@@ -159,7 +159,7 @@ public class TanksClient implements CommandReceiver {
 			case TanksServer.RECV_SEED:
 				try {
 					TRand.seed(new DataInputStream(new ByteArrayInputStream(data)).readDouble());
-				} catch (IOException e) {
+				} catch (IOException e) {e.printStackTrace();
 					// fuck this shit
 				}
 				break;
@@ -169,8 +169,8 @@ public class TanksClient implements CommandReceiver {
 					worldCreator =
 							(WorldCreator)new ObjectInputStream(new ByteArrayInputStream(data))
 							.readObject();
-				} catch (ClassNotFoundException e1) {
-				} catch (IOException e1) {
+				} catch (ClassNotFoundException e1) {e1.printStackTrace();
+				} catch (IOException e1) {e1.printStackTrace();
 				}
 				
 				break;
@@ -184,8 +184,8 @@ public class TanksClient implements CommandReceiver {
 					worldCreator.addTank(
 							(TankPair)new ObjectInputStream(
 									new ByteArrayInputStream(data)).readObject());
-				} catch (ClassNotFoundException e1) {
-				} catch (IOException e1) {
+				} catch (ClassNotFoundException e1) {e1.printStackTrace();
+				} catch (IOException e1) {e1.printStackTrace();
 				}
 				break;
 				
@@ -200,8 +200,8 @@ public class TanksClient implements CommandReceiver {
 					worldCreator.addAI(
 							(AIPair)new ObjectInputStream(
 									new ByteArrayInputStream(data)).readObject());
-				} catch (ClassNotFoundException e1) {
-				} catch (IOException e1) {
+				} catch (ClassNotFoundException e1) {e1.printStackTrace();
+				} catch (IOException e1) {e1.printStackTrace();
 				}
 				break;
 				
@@ -219,9 +219,9 @@ public class TanksClient implements CommandReceiver {
 					if (c.getPlayer() != player && cr != null)
 						cr.receiveCommand(c);
 				}
-				catch (IOException e) {
+				catch (IOException e) {e.printStackTrace();
 				}
-				catch (ClassNotFoundException e) {
+				catch (ClassNotFoundException e) {e.printStackTrace();
 				}
 				break;
 			}
@@ -244,7 +244,7 @@ public class TanksClient implements CommandReceiver {
 			dos.write(data);
 			dos.flush();
 		}
-		catch (IOException e) {
+		catch (IOException e) {e.printStackTrace();
 		}
 	}
 	
@@ -262,7 +262,7 @@ public class TanksClient implements CommandReceiver {
 			byte[] data = bytesout.toByteArray();
 			
 			send((TanksServer.RECV_COMMAND << 24) | data.length, data);
-		} catch (IOException e) {
+		} catch (IOException e) {e.printStackTrace();
 		}
 	}
 	
@@ -294,7 +294,7 @@ public class TanksClient implements CommandReceiver {
 				
 				send((TanksServer.RECV_TANK << 24) | data.length, data);
 			}
-			catch (IOException e) {
+			catch (IOException e) {e.printStackTrace();
 			}
 		}
 		
@@ -311,7 +311,7 @@ public class TanksClient implements CommandReceiver {
 				
 				send((TanksServer.RECV_AI << 24) | data.length, data);
 			}
-			catch (IOException e) {
+			catch (IOException e) {e.printStackTrace();
 			}
 		}
 	}
@@ -331,7 +331,7 @@ public class TanksClient implements CommandReceiver {
 			
 			send((TanksServer.RECV_MAP << 24) | data.length, data);
 		}
-		catch (IOException e) {
+		catch (IOException e) {e.printStackTrace();
 		}
 	}
 	
