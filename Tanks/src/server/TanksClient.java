@@ -254,7 +254,7 @@ public class TanksClient implements CommandReceiver {
 	 * 
 	 * @param c - Command
 	 */
-	public synchronized void sendCommand(Command c){
+	public void sendCommand(Command c){
 		try {
 			ByteArrayOutputStream bytesout = new ByteArrayOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(bytesout);
