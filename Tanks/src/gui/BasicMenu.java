@@ -39,11 +39,6 @@ public class BasicMenu extends JFrame {
 	private JButton mapEditing = new JButton("Map Editor");
 	private JButton exitG = new JButton ("Exit Game");
 	private JPanel mainP = new JPanel();
-	private JList mapList, tankList, aiList, aiMPlist;
-	
-	private JButton readyM = new JButton("Begin!");
-	private JFrame mapFrame = new JFrame("Map and Tank Chooser");
-
 	
 	public BasicMenu() {
 		super("Tanks basic display");
@@ -72,8 +67,7 @@ public class BasicMenu extends JFrame {
 		mapEditing.addActionListener(new MapEditActionListener());
 		exitG.addActionListener(new ExitActionListener());
 	}	
-	
-	
+		
 	
 	public void sets(Component o, int x, int y, int h, int w){
 		mainP.add(o);
@@ -91,6 +85,7 @@ public class BasicMenu extends JFrame {
 		}
 		
 	}
+	
 	
 	private class MultiPlayActionListener implements ActionListener {
 
