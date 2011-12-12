@@ -301,5 +301,24 @@ public class TanksClient {
 			}
 		}
 	}
+
+	/**
+	 * Sends the whole WorldCreator. Note the transient fields inside it however:
+	 * You must call addFrom separately to fill those on each client.
+	 * 
+	 * @param creator A WorldCreator containing the map for all clients to use.
+	 */
+	public void addMap(WorldCreator creator) {
+		try {
+			ByteArrayOutputStream bytesout = new ByteArrayOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(bytesout);
+			out.writeObject(creator);
+			byte[] data = bytesout.toByteArray();
+			
+			send((TanksServer.RECV_MAP << 24) | data.length, data);
+		}
+		catch (IOException e) {
+		}
+	}
 	
 }

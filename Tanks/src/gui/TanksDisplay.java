@@ -120,6 +120,9 @@ public class TanksDisplay extends JPanel implements Observer {
 
 	/**
 	 * Creates a display for a World synchronized over the network.
+	 * If you are hosting, this constructor assumes that host will
+	 * be the string "localhost". Please do not capitalize it, or use
+	 * 127.0.0.1 or whatever.
 	 */
 	public TanksDisplay(String host, WorldCreator creator) {
 		this();
@@ -129,8 +132,24 @@ public class TanksDisplay extends JPanel implements Observer {
 		
 		client.addFrom(creator);
 		
-		// Wait for a maximum of 3 seconds to get a player number.
-		long targetTime = System.currentTimeMillis() + 3000L;
+		if (host.equals("localhost")) {
+			client.addMap(creator);
+			
+			HostStartDialog dlg = new HostStartDialog();
+			
+			// Wait for the user to press start.
+			while (dlg.isAlive()) {
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+				}
+			}
+			
+			client.becomeReady();
+		}
+				
+		// Wait for a maximum of 20 seconds to receive info from the host.
+		long targetTime = System.currentTimeMillis() + 20000L;
 		while (!client.isReady() && System.currentTimeMillis() < targetTime) {
 			try {
 				Thread.sleep(10);
@@ -165,6 +184,25 @@ public class TanksDisplay extends JPanel implements Observer {
 		addKeyListener(keyListener = new TanksKeyboardListener(receiver, player));
 		addMouseListener(mouseListener = new TanksMouseListener(receiver, player));
 		addMouseMotionListener(mouseListener);
+	}
+	
+	/**
+	 * Opens a dialog box for the host that will let the server know when you are
+	 * done waiting for people to connect. This is done in a separate thread,
+	 * while TanksDisplay waits.
+	 */
+	private class HostStartDialog extends Thread {
+		
+		@Override
+		public void run() {
+			int result = JOptionPane.showOptionDialog(TanksDisplay.this,
+					"Waiting for players to join...", "Waiting",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+					null, new String[]{"Start", "Cancel"}, "Start");
+			
+			// Uh, we don't care if they picked start or cancel for now...
+		}
+		
 	}
 	
 	/**
