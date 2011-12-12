@@ -328,5 +328,19 @@ public class WorldCreator implements Serializable {
 			new StupidAI(world, tank, receiver);
 		}
 	}
+
+	/**
+	 * @return The list of tank pairs.
+	 */
+	public List<TankPair> getTankPairs() {
+		return tanks;
+	}
+	
+	/**
+	 * @return The list of AI pairs.
+	 */
+	public List<AIPair> getAIPairs() {
+		return ais;
+	}
 	
 }
