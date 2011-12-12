@@ -130,6 +130,7 @@ public class SoundPlayer {
 			return;
 		
 		player.stop();
+		player.setPlayBackListener(new DontLoopPlaybackListener());
 		player = null;
 	}
 	
@@ -142,6 +143,14 @@ public class SoundPlayer {
 		@Override
 		public void playbackFinished(PlaybackEvent evt) {
 			loop();
+		}
+		
+	}
+	
+	private class DontLoopPlaybackListener extends PlaybackListener {
+		
+		@Override
+		public void playbackFinished(PlaybackEvent evt) {
 		}
 		
 	}
