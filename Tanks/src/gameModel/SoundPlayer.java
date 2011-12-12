@@ -129,7 +129,6 @@ public class SoundPlayer {
 		if (player == null)
 			return;
 		
-		player.setPlayBackListener(null);
 		player.stop();
 		player = null;
 	}
