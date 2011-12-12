@@ -257,7 +257,7 @@ public class TanksClient implements CommandReceiver {
 	 * 
 	 * @param c - Command
 	 */
-	public void sendCommand(Command c){
+	public synchronized void sendCommand(Command c){
 		try {
 			ByteArrayOutputStream bytesout = new ByteArrayOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(bytesout);
@@ -274,7 +274,7 @@ public class TanksClient implements CommandReceiver {
 	 * uses sendCommand...
 	 */
 	@Override
-	public void receiveCommand(Command c) {
+	public synchronized void receiveCommand(Command c) {
 		sendCommand(c);
 	}
 
@@ -283,7 +283,7 @@ public class TanksClient implements CommandReceiver {
 	 * 
 	 * @param creator The WorldCreator to take tanks and AIs from.
 	 */
-	public void addFrom(WorldCreator creator) {
+	public synchronized void addFrom(WorldCreator creator) {
 		// First send tanks.
 		if (creator.getTankPairs() == null)
 			return;
@@ -325,7 +325,7 @@ public class TanksClient implements CommandReceiver {
 	 * 
 	 * @param creator A WorldCreator containing the map for all clients to use.
 	 */
-	public void addMap(WorldCreator creator) {
+	public synchronized void addMap(WorldCreator creator) {
 		try {
 			ByteArrayOutputStream bytesout = new ByteArrayOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(bytesout);

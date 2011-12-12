@@ -241,6 +241,9 @@ public class TanksServer {
 						byte[] data = new byte[size];
 						int read = dis.read(data, 0, size);
 						
+						if (read != size)
+							System.out.println("server: read " + read + ", size " + size);
+						
 						receiveBytes(type, data);
 						
 					} catch (IOException e) {
