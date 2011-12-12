@@ -92,7 +92,6 @@ public class TanksServer {
 				playerNum++; // increments the player number
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -116,7 +115,7 @@ public class TanksServer {
 		
 		try {
 			server.close();
-		} catch (IOException e) {e.printStackTrace();
+		} catch (IOException e) {
 		}
 	}
 	
@@ -204,7 +203,7 @@ public class TanksServer {
 				
 				send(RECV_PLAYERNO, teamNum);
 				send(RECV_SEED, seed);
-			} catch (IOException e) {e.printStackTrace();
+			} catch (IOException e) {
 				return;
 			}
 			
@@ -218,7 +217,7 @@ public class TanksServer {
 		public void becomeReady() {
 			try {
 				dos.writeInt(RECV_READY << 24);
-			} catch (IOException e) {e.printStackTrace();
+			} catch (IOException e) {
 			}
 		}
 
@@ -254,7 +253,7 @@ public class TanksServer {
 						try {
 							ClientManager.this.socket.close();
 							return;
-						} catch (IOException e1) {e.printStackTrace();
+						} catch (IOException e1) {
 							return;
 						}
 					}
@@ -280,8 +279,8 @@ public class TanksServer {
 						// Set this tank's player number to the client's number.
 						tankPair.player = "P" + team;
 						tanksList.add(tankPair);
-					} catch (ClassNotFoundException e1) {e1.printStackTrace();
-					} catch (IOException e1) {e1.printStackTrace();
+					} catch (ClassNotFoundException e1) {
+					} catch (IOException e1) {
 					}
 					break;
 					
@@ -290,8 +289,8 @@ public class TanksServer {
 						aiList.add(
 								(AIPair)new ObjectInputStream(
 										new ByteArrayInputStream(bytes)).readObject());
-					} catch (ClassNotFoundException e1) {e1.printStackTrace();
-					} catch (IOException e1) {e1.printStackTrace();
+					} catch (ClassNotFoundException e1) {
+					} catch (IOException e1) {
 					}
 					break;
 					
@@ -327,7 +326,7 @@ public class TanksServer {
 				byte[] bytes = bytestream.toByteArray();
 				
 				send(type, bytes);
-			} catch (IOException e) {e.printStackTrace();
+			} catch (IOException e) {
 			}
 		}
 		
@@ -385,7 +384,7 @@ public class TanksServer {
 				is.close();
 				os.close();
 				socket.close();
-			}catch (IOException ioe){ioe.printStackTrace();
+			}catch (IOException ioe){
 			}
 		}
 	}
