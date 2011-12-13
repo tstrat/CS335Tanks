@@ -162,7 +162,7 @@ public class TanksClient implements CommandReceiver {
 				
 			case TanksServer.RECV_SEED:
 				try {
-					TRand.seed(new DataInputStream(new ByteArrayInputStream(data)).readDouble());
+					TRand.seed(new DataInputStream(new ByteArrayInputStream(data)).readLong());
 				} catch (IOException e) {
 					// fuck this shit
 				}

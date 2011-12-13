@@ -1,23 +1,33 @@
 package gameModel;
 
-import java.util.Random;
-
 /**
- * This class is a replacement for TRand.random and similar, to allow
+ * This class is a replacement for Math.random and similar, to allow
  * synchronized random numbers across all networked copies of the game.
+ * It uses the complementary-multiply-with-carry algorithm, adapted
+ * from some C code on Wikipedia.
  * 
  * @author Parker Snell, Seungwoo Sun
  */
 public class TRand {
-	private static Random rnd = new Random();
+	private static final int PHI = 0x9e3779b9;
+	private static int[] q = new int[4096];
+	
+	private static int c = 362436;
+	
+	private static int i = 4095;
+	
+	{
+		// Seed the randomizer for local play.
+		seed(System.currentTimeMillis());
+	}
 	
 	/**
-	 * A drop-in replacement for TRand.random().
+	 * A drop-in replacement for Math.random().
 	 * 
 	 * @return A random number between 0 and 1.
 	 */
 	public static double random() {
-		return rnd.nextDouble();
+		return (double)randInt(Integer.MAX_VALUE) / Integer.MAX_VALUE;
 	}
 	
 	/**
@@ -27,7 +37,18 @@ public class TRand {
 	 * @return A random integer.
 	 */
 	public static int randInt(int max) {
-		return (int)(random() * max);
+		long t, a = 18782L;
+		int x, r = 0xfffffffe;
+		i = (i + 1) & 4095;
+		t = a * q[i] + c;
+		c = (int) (t >> 32);
+		x = (int) (t + c);
+		if (x < c) {
+			++x;
+			++c;
+		}
+		q[i] = r - x;
+		return q[i] % max;
 	}
 	
 	/**
@@ -43,9 +64,14 @@ public class TRand {
 	
 	/**
 	 * Sets a seed for the random so that all random events can be synchronized.
-	 * @param d - Double to change seed value.
+	 * @param l - Long value to change seed value.
 	 */
-	public static void seed(double d) {
-		rnd.setSeed((long)(d * 893473904));
+	public static void seed(long l) {
+		int x = (int)l;
+		q[0] = x;
+		q[1] = x + PHI;
+		q[2] = x + PHI + PHI;
+		for (int i = 3; i < q.length; ++i)
+			q[i] = q[i-3] ^ q[i-2] ^ PHI ^ i;
 	}
 }
