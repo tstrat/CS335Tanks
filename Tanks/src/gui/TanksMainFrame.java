@@ -46,6 +46,8 @@ public class TanksMainFrame extends JFrame {
 		setResizable(false);
 		
 		setVisible(true);
+		
+		requestFocus();
 		mainPanel.setFocusable(true);
 		mainPanel.requestFocus();
 	}
