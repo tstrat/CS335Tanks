@@ -33,6 +33,11 @@ public class SoundPlayer {
 	private File file;
 	
 	/**
+	 * The PlaybackListener that we can use to make the song loop or stop looping.
+	 */
+	private TanksPlaybackListener listener;
+	
+	/**
 	 * Loads an MP3 file into memory, preparing to play it.
 	 * 
 	 * @param mp3 The name of an MP3 file.
@@ -110,7 +115,7 @@ public class SoundPlayer {
 			public void run() {
 				try {
 					player = new AdvancedPlayer(new BufferedInputStream(new FileInputStream(file)));
-					player.setPlayBackListener(new TanksPlaybackListener());
+					player.setPlayBackListener(listener = new TanksPlaybackListener());
 					player.play();
 				} catch (JavaLayerException e) {
 					e.printStackTrace();
@@ -129,8 +134,10 @@ public class SoundPlayer {
 		if (player == null)
 			return;
 		
+		if (listener != null)
+			listener.setLooping(false);
+		
 		player.stop();
-		player.setPlayBackListener(new DontLoopPlaybackListener());
 		player = null;
 	}
 	
@@ -140,17 +147,16 @@ public class SoundPlayer {
 	
 	private class TanksPlaybackListener extends PlaybackListener {
 		
-		@Override
-		public void playbackFinished(PlaybackEvent evt) {
-			loop();
+		private boolean looping = true;
+		
+		public void setLooping(boolean looping) {
+			this.looping = looping;
 		}
 		
-	}
-	
-	private class DontLoopPlaybackListener extends PlaybackListener {
-		
 		@Override
 		public void playbackFinished(PlaybackEvent evt) {
+			if (looping)
+				loop();
 		}
 		
 	}
