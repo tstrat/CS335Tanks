@@ -1,6 +1,7 @@
 package MapEditor;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
@@ -16,7 +17,7 @@ public class MapEditorPanel extends JPanel {
 		
 		sets(ep, 0, 0, 800, 600);
 		sets(op, 800, 0, 300, 600);
-		System.out.println(op);
+		setPreferredSize(new Dimension(1100, 600));
 		setVisible(true);
 	}
 	
