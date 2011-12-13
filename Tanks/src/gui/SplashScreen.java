@@ -23,6 +23,6 @@ public class SplashScreen extends JFrame {
 			e.printStackTrace();
 		}
 		this.dispose();
-		new BasicMenu();
+		new TanksMainFrame();
 	}
 }

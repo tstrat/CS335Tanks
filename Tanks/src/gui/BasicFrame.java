@@ -14,7 +14,7 @@ public class BasicFrame extends JFrame {
 		
 		WorldCreator wc = new WorldCreator("");
 		wc.addTank(new TankPair("P1", "Standard Tank"));
-		add(new TanksDisplay(host, wc));
+		//add(new TanksDisplay(host, wc));
 		
 		pack();
 		setResizable(false);

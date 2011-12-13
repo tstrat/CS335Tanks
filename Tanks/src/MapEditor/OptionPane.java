@@ -4,6 +4,7 @@ import gameModel.Obstacle;
 import gameModel.Terrain;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -18,7 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class OptionPane extends JFrame implements ActionListener {
+public class OptionPane extends JPanel implements ActionListener {
 	EditorPane ep;
 	
 	int mouseX, mouseY;
@@ -48,11 +49,10 @@ public class OptionPane extends JFrame implements ActionListener {
 	 * @param ep - The Editor Pane, the OptionPane MUST know about this
 	 */
 	public OptionPane(EditorPane ep){
+		super();
 		this.ep = ep;
-		this.setSize(300, 600);
+		this.setPreferredSize(new Dimension(300, 600));
 		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setLocation(800, 0);
 		setUp();
 		placeOptions();
 		placeButtons();
@@ -65,10 +65,9 @@ public class OptionPane extends JFrame implements ActionListener {
 	 * Sets up the OptionPane (panels, buttons, etc)
 	 */
 	public void setUp(){
-		this.add(options);
-		options.setSize(300,600);
-		options.setVisible(true);
-		options.setLayout(null);		
+		this.setSize(300,600);
+		this.setVisible(true);
+		this.setLayout(null);		
 
 		createLists();
 	}
@@ -151,7 +150,7 @@ public class OptionPane extends JFrame implements ActionListener {
 	 * @param w - It's width
 	 */
 	public void sets(Component o, int x, int y, int h, int w){
-		options.add(o);
+		this.add(o);
 		o.setVisible(true);
 		o.setLocation(x, y);
 		o.setSize(h, w);

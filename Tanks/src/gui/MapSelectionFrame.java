@@ -26,9 +26,11 @@ public class MapSelectionFrame extends JFrame {
 	
 	private String host;
 	private TanksServer server;
+	private TanksMainFrame frame;
 	
-	public MapSelectionFrame(boolean isHosting) {
+	public MapSelectionFrame(boolean isHosting, TanksMainFrame f) {
 		super("Maps and Tank Chooser");
+		frame = f;
 		if(isHosting)
 			host = "localhost";
 		setFrame();
@@ -141,14 +143,11 @@ public class MapSelectionFrame extends JFrame {
 				// Add the AIs, starting at player 2.
 				for (int i = 0; i < aiNums; ++i)
 					wc.addAI(new AIPair(2 + i));
+				TanksDisplay tp;
 				if(host == null)
-					tdHolder.add(new TanksDisplay(wc));
+					frame.setPanel(new TanksDisplay(frame, wc));
 				else
-					tdHolder.add(new TanksDisplay(host, wc));
-				tdHolder.pack();
-				tdHolder.setResizable(false);
-				tdHolder.setVisible(true);
-				tdHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					frame.setPanel(new TanksDisplay(host, frame, wc));
 			}
 			
 		}

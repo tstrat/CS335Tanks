@@ -70,6 +70,8 @@ public class TanksDisplay extends JPanel implements Observer {
 	
 	private Image gameOverImg;
 	
+	private TanksMainFrame frame;
+	
 	/**
 	 * Background music.
 	 */
@@ -78,14 +80,16 @@ public class TanksDisplay extends JPanel implements Observer {
 	/**
 	 * Contains common initialization for both constructors.
 	 */
-	private TanksDisplay() {
+	private TanksDisplay(TanksMainFrame f) {
 		super(true); // It is double buffered.
+		frame = f;
 		
 		setPreferredSize(new Dimension(800, 600));
 		setBackground(new Color(245, 228, 156));
 		
 		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
 		soundPlayer.loop();
+
 
 		setFocusable(true);
 		requestFocus();
@@ -99,8 +103,8 @@ public class TanksDisplay extends JPanel implements Observer {
 	 * 
 	 * @param creator A WorldCreator specifying how to create the World.
 	 */
-	public TanksDisplay(WorldCreator creator) {
-		this();
+	public TanksDisplay(TanksMainFrame f, WorldCreator creator) {
+		this(f);
 		
 		world = creator.getWorld();
 		
@@ -124,8 +128,8 @@ public class TanksDisplay extends JPanel implements Observer {
 	 * be the string "localhost". Please do not capitalize it, or use
 	 * 127.0.0.1 or whatever.
 	 */
-	public TanksDisplay(String host, WorldCreator creator) {
-		this();
+	public TanksDisplay(String host, TanksMainFrame f, WorldCreator creator) {
+		this(f);
 				
 		// Try to connect to host
 		TanksClient client = new TanksClient(host);
@@ -232,7 +236,12 @@ public class TanksDisplay extends JPanel implements Observer {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
+		
 		((Graphics2D)g).drawImage(img, 0, 0, null);
+		
+		((Graphics2D)g).drawString("Wins: " + frame.getWins(), 10, 10);
+		((Graphics2D)g).drawString("Losses: " + frame.getLosses(), 100, 10);
+
 		
 		if (gameOverImg != null) {
 			g.drawImage(gameOverImg, 0, 0, null);
@@ -515,24 +524,26 @@ public class TanksDisplay extends JPanel implements Observer {
 		if (arg != null) {
 			// It's an Integer, indicating the number of the player that won.
 			
-			if ((Integer)arg == player)
+			if ((Integer)arg == player) {
+				frame.win(true);
 				gameOverImg = new ImageIcon(World.class.getResource("youwin.png")).getImage();
-			else
+			}
+			else {
+				frame.win(false);
 				gameOverImg = new ImageIcon(World.class.getResource("youlose.png")).getImage();
-			
+			}
 			repaint();
 			JFrame meh = new JFrame();
-			Object[] options = {"Replay", "Main Menu", "Quit"};
-			int n = JOptionPane.showOptionDialog(meh, "Would you like to Replay, Main Menu or Quit?", "Replay", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			Object[] options = {"Main Menu", "Quit"};
+			int n = JOptionPane.showOptionDialog(meh, "Would you like to go to the Main Menu or Quit?", "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 			
 			if(n == 0){
-				//replay option
+				soundPlayer.stop();
+				frame.setPanel(new BasicMenu(frame));
 			}
 			
 			if(n == 1){
-				JOptionPane.getFrameForComponent(this).dispose();
-				//soundPlayer.stop(); //This gets a null pointer for some reason
-				new BasicMenu();
+				System.exit(0);
 			}
 				
 			if(n == 2)

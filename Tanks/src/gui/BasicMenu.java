@@ -29,33 +29,28 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import MapEditor.MapEditor;
+import MapEditor.MapEditorPanel;
 
 import server.TanksServer;
 
-public class BasicMenu extends JFrame {
+public class BasicMenu extends JPanel {
 	
 	private JButton singlePlay = new JButton("SinglePlayer");
 	private JButton multiPlay = new JButton("MultiPlayer");
 	private JButton mapEditing = new JButton("Map Editor");
 	private JButton exitG = new JButton ("Exit Game");
-	private JPanel mainP = new JPanel();
+	private TanksMainFrame frame;
 	
-	public BasicMenu() {
-		super("Tanks basic display");
-		add(mainP);
-		mainP.setPreferredSize(new Dimension(800, 600));
-		mainP.setLayout(null);
+	public BasicMenu(TanksMainFrame f) {
+		//add(mainP);
+		super();
+		frame = f;
+		this.setPreferredSize(new Dimension(800, 600));
+		this.setLayout(null);
 		setup();
-
-		
-		pack();
-		setResizable(false);
 		setVisible(true);
-		setLocation(400, 200);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-	
+
 	public void setup(){
 		sets(singlePlay, 0, 0, 810, 155);
 		sets(multiPlay, 0, 155, 810, 155);
@@ -70,7 +65,7 @@ public class BasicMenu extends JFrame {
 		
 	
 	public void sets(Component o, int x, int y, int h, int w){
-		mainP.add(o);
+		this.add(o);
 		o.setVisible(true);
 		o.setLocation(x, y);
 		o.setSize(h, w);
@@ -81,7 +76,7 @@ public class BasicMenu extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			new MapSelectionFrame(false);			
+			new MapSelectionFrame(false, frame);			
 		}
 		
 	}
@@ -97,11 +92,11 @@ public class BasicMenu extends JFrame {
 			int n = JOptionPane.showOptionDialog(hostjoin, "Would you like to Host or Join a game?", "Host/Join", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 			if(n == 0) {
 				new TanksServer();	
-				new MapSelectionFrame(true);
+				new MapSelectionFrame(true, frame);
 			} else {			
 				
 				String joinIp = JOptionPane.showInputDialog("Enter IP address to connect to.");
-				new JoinGameFrame(joinIp);			
+				new JoinGameFrame(joinIp, frame);			
 			}
 			
 		}
@@ -112,8 +107,9 @@ public class BasicMenu extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			dispose();
-			new MapEditor();
+			//dispose();
+			//new MapEditor();
+			frame.setPanel(new MapEditorPanel());
 		}
 		
 	}

@@ -18,9 +18,11 @@ public class JoinGameFrame extends JFrame {
 
 	private String host;
 	private JList tankList;
+	private TanksMainFrame frame;
 
-	public JoinGameFrame(String host) {
+	public JoinGameFrame(String host, TanksMainFrame f) {
 		super("Join a Game");
+		frame = f;
 		this.host = host;
 		tankList = new JList(new String[]{"Standard Tank", "Heavy Tank", "Hover Tank"});
 		tankList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
@@ -57,11 +59,12 @@ public class JoinGameFrame extends JFrame {
 				// Add the single player.
 				wc.addTank(new TankPair("P1", tName));
 				
-				tdHolder.add(new TanksDisplay(host, wc));
+				/*tdHolder.add(new TanksDisplay(host, wc));
 				tdHolder.pack();
 				tdHolder.setResizable(false);
 				tdHolder.setVisible(true);
-				tdHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				tdHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
+				frame.setPanel(new TanksDisplay(host, frame, wc));
 			}
 			
 		}
