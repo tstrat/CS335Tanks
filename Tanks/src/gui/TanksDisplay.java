@@ -71,6 +71,9 @@ public class TanksDisplay extends JPanel implements Observer {
 	private Image gameOverImg;
 	
 	private TanksMainFrame frame;
+	private WorldCreator c;
+	
+	private boolean isMulti;
 	
 	/**
 	 * Background music.
@@ -83,7 +86,7 @@ public class TanksDisplay extends JPanel implements Observer {
 	private TanksDisplay(TanksMainFrame f) {
 		super(true); // It is double buffered.
 		frame = f;
-		
+		isMulti = false;
 		setPreferredSize(new Dimension(800, 600));
 		setBackground(new Color(245, 228, 156));
 		
@@ -105,6 +108,7 @@ public class TanksDisplay extends JPanel implements Observer {
 	 */
 	public TanksDisplay(TanksMainFrame f, WorldCreator creator) {
 		this(f);
+		c = creator;
 		
 		world = creator.getWorld();
 		
@@ -130,7 +134,7 @@ public class TanksDisplay extends JPanel implements Observer {
 	 */
 	public TanksDisplay(String host, TanksMainFrame f, WorldCreator creator) {
 		this(f);
-				
+		isMulti = true;	
 		// Try to connect to host
 		TanksClient client = new TanksClient(host);
 		
@@ -534,9 +538,15 @@ public class TanksDisplay extends JPanel implements Observer {
 			}
 			repaint();
 			JFrame meh = new JFrame();
-			Object[] options = {"Main Menu", "Quit"};
-			int n = JOptionPane.showOptionDialog(meh, "Would you like to go to the Main Menu or Quit?", "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-			
+			int n;
+			if(!isMulti) {
+				Object[] options = {"Main Menu", "Quit", "Replay"};
+				n = JOptionPane.showOptionDialog(meh, "Would you like to Replay, go to the Main Menu or Quit?", "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			}
+			else {
+				Object[] options = {"Main Menu", "Quit"};
+				n = JOptionPane.showOptionDialog(meh, "Would you like to go to the Main Menu or Quit?", "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			}
 			if(n == 0){
 				soundPlayer.stop();
 				frame.setPanel(new BasicMenu(frame));
@@ -547,7 +557,7 @@ public class TanksDisplay extends JPanel implements Observer {
 			}
 				
 			if(n == 2)
-				System.exit(0);
+				frame.setPanel(new TanksDisplay(frame, c));
 			
 			return;			
 		}
