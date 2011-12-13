@@ -13,23 +13,25 @@ import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
 
 /**
- * Plays an MP3 file.
+ * Plays an MP3 file. This class also limits the number of sounds that can
+ * play simultaneously. It is assumed that as soon as you obtain a handle to
+ * a SoundPlayer, you are going to ask it to play. If you don't do this,
+ * that object is still added to the currently playing count, and will
+ * count against the number of SoundPlayers you can create later, until that
+ * one has played through or been stopped.
  * 
  * @author Parker Snell
  */
-
 public class SoundPlayer {
 
 	/**
 	 * The JLayer player which actually plays the MP3.
 	 */
-	
 	private AdvancedPlayer player;
 	
 	/**
 	 * The MP3 file handle.
 	 */
-	
 	private File file;
 	
 	/**
@@ -38,12 +40,21 @@ public class SoundPlayer {
 	private TanksPlaybackListener listener;
 	
 	/**
+	 * The maximum number of SoundPlayers that are allowed to be playing at one time.
+	 */
+	private static final int maxSounds = 7;
+	
+	/**
+	 * The number of SoundPlayers playing right now (must be <= maxSounds).
+	 */
+	private static int currentlyPlaying = 0;
+	
+	/**
 	 * Loads an MP3 file into memory, preparing to play it.
 	 * 
 	 * @param mp3 The name of an MP3 file.
 	 */
-	
-	public SoundPlayer(String mp3) {
+	private SoundPlayer(String mp3) {
 		file = new File(mp3);
 	}
 	
@@ -52,43 +63,47 @@ public class SoundPlayer {
 	 * 
 	 * @param uri The URI representing the file path.
 	 */
-	
-	public SoundPlayer(URI uri) {
+	private SoundPlayer(URI uri) {
 		file = new File(uri.getPath());
 	}
 	
 	/**
-	 * A convenience method to get a SoundPlayer for a given resource filename.
+	 * A convenience method to get a SoundPlayer for a given resource filename. If too many sounds
+	 * are playing, it will return null. Otherwise, currentlyPlaying is incremented and
+	 * a valid SoundPlayer is returned.
 	 * 
 	 * @param filename The name of the resource file.
 	 * @return A SoundPlayer object for the resource, or null if one couldn't be created.
 	 */
-	
 	public static SoundPlayer playerFromResource(String filename) {
+		if (currentlyPlaying >= maxSounds)
+			return null;
+		
 		try {
-			return new SoundPlayer(SoundPlayer.class.getResource(filename).toURI());
+			SoundPlayer player = new SoundPlayer(SoundPlayer.class.getResource(filename).toURI());
+			++currentlyPlaying;
+			return player;
 		} catch (URISyntaxException e) {
 			return null;
 		}
 	}
 	
 	/**
-	 * Plays the sound in a separate thread.
+	 * Plays the sound in a separate thread, as long as too many other
+	 * sounds are not already playing.
 	 */
-	
 	public void play() {
 		new Thread() {
 			@Override
 			public void run() {
 				try {
 					player = new AdvancedPlayer(new BufferedInputStream(new FileInputStream(file)));
+					player.setPlayBackListener(listener = new TanksPlaybackListener(false));
 					player.play();
 				} catch (JavaLayerException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					--currentlyPlaying;
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					--currentlyPlaying;
 				}
 			}
 		}.start();
@@ -108,19 +123,18 @@ public class SoundPlayer {
 	/**
 	 * Loops the sound after it is done playing.
 	 */
-	
 	public void loop() {
 		new Thread() {
 			@Override
 			public void run() {
 				try {
 					player = new AdvancedPlayer(new BufferedInputStream(new FileInputStream(file)));
-					player.setPlayBackListener(listener = new TanksPlaybackListener());
+					player.setPlayBackListener(listener = new TanksPlaybackListener(true));
 					player.play();
 				} catch (JavaLayerException e) {
-					e.printStackTrace();
+					--currentlyPlaying;
 				} catch (FileNotFoundException e) {
-					e.printStackTrace();
+					--currentlyPlaying;
 				}
 			}
 		}.start();
@@ -129,7 +143,6 @@ public class SoundPlayer {
 	/**
 	 * Stops playing the sound.
 	 */
-	
 	public void stop() {
 		if (player == null)
 			return;
@@ -137,17 +150,21 @@ public class SoundPlayer {
 		if (listener != null)
 			listener.setLooping(false);
 		
+		// This will invoke playbackFinished, which will decrement currentlyPlaying
+		// and set player to null.
 		player.stop();
-		player = null;
 	}
 	
 	/**
 	 * Used for looping playback - makes the player start again once it finishes. 
 	 */
-	
 	private class TanksPlaybackListener extends PlaybackListener {
 		
-		private boolean looping = true;
+		private boolean looping;
+		
+		public TanksPlaybackListener(boolean looping) {
+			this.looping = looping;
+		}
 		
 		public void setLooping(boolean looping) {
 			this.looping = looping;
@@ -155,8 +172,12 @@ public class SoundPlayer {
 		
 		@Override
 		public void playbackFinished(PlaybackEvent evt) {
-			if (looping)
+			if (looping) {
 				loop();
+			} else {
+				player = null;
+				--currentlyPlaying;
+			}
 		}
 		
 	}
