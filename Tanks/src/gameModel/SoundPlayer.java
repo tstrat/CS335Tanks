@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -80,7 +81,11 @@ public class SoundPlayer {
 			return null;
 		
 		try {
-			SoundPlayer player = new SoundPlayer(SoundPlayer.class.getResource(filename).toURI());
+			URL resource = SoundPlayer.class.getResource(filename);
+			if (resource == null || resource.toURI() == null || resource.toURI().getPath() == null)
+				return null;
+			
+			SoundPlayer player = new SoundPlayer(resource.toURI());
 			++currentlyPlaying;
 			return player;
 		} catch (URISyntaxException e) {

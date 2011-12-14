@@ -91,8 +91,8 @@ public class TanksDisplay extends JPanel implements Observer {
 		setBackground(new Color(245, 228, 156));
 		
 		soundPlayer = SoundPlayer.playerFromResource("elevatormusic.mp3");
-		soundPlayer.loop();
-
+		if (soundPlayer != null)
+			soundPlayer.loop();
 
 		setFocusable(true);
 		requestFocus();
@@ -548,7 +548,8 @@ public class TanksDisplay extends JPanel implements Observer {
 				n = JOptionPane.showOptionDialog(meh, "Would you like to go to the Main Menu or Quit?", "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 			}
 			if(n == 0){
-				soundPlayer.stop();
+				if (soundPlayer != null)
+					soundPlayer.stop();
 				frame.setPanel(new BasicMenu(frame));
 			}
 			
