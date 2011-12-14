@@ -42,7 +42,7 @@ public class TRand {
 	 */
 	public static int randInt(int max) {
 		long t, a = 18782L;
-		long x, r = 0xfffffffe;
+		long x, r = 0xfffffffeL;
 		i = (i + 1) & 4095;
 		t = a * q[i] + c;
 		c = (int) (t >>> 32);
@@ -53,9 +53,7 @@ public class TRand {
 		}
 		q[i] = (int)(r - x);
 
-		int result = q[i] & 0x7fffffff;
-		result /= Integer.MAX_VALUE / max;
-		return result;
+		return (q[i] & 0x7fffffff) % max;
 	}
 	
 	/**
