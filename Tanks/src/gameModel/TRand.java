@@ -10,14 +10,18 @@ package gameModel;
  */
 public class TRand {
 	private static final int PHI = 0x9e3779b9;
-	private static int[] q = new int[4096];
+	private static int[] q;
 	
-	private static int c = 362436;
+	private static int c;
 	
-	private static int i = 4095;
+	private static int i;
 	
+	static
 	{
 		// Seed the randomizer for local play.
+		q = new int[4096];
+		c = 365436;
+		i = 4095;
 		seed(System.currentTimeMillis());
 	}
 	
@@ -48,7 +52,7 @@ public class TRand {
 			++c;
 		}
 		q[i] = r - x;
-		return q[i] % max;
+		return Math.abs(q[i] % max);
 	}
 	
 	/**
