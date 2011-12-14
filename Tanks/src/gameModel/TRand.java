@@ -22,7 +22,7 @@ public class TRand {
 		q = new int[4096];
 		c = 365436;
 		i = 4095;
-		seed(System.currentTimeMillis());
+		seed(System.nanoTime());
 	}
 	
 	/**
@@ -42,17 +42,20 @@ public class TRand {
 	 */
 	public static int randInt(int max) {
 		long t, a = 18782L;
-		int x, r = 0xfffffffe;
+		long x, r = 0xfffffffe;
 		i = (i + 1) & 4095;
 		t = a * q[i] + c;
-		c = (int) (t >> 32);
-		x = (int) (t + c);
+		c = (int) (t >>> 32);
+		x = (t + c) & 0x7fffffff;
 		if (x < c) {
 			++x;
 			++c;
 		}
-		q[i] = r - x;
-		return Math.abs(q[i] % max);
+		q[i] = (int)(r - x);
+
+		int result = q[i] & 0x7fffffff;
+		result /= Integer.MAX_VALUE / max;
+		return result;
 	}
 	
 	/**
@@ -71,11 +74,11 @@ public class TRand {
 	 * @param l - Long value to change seed value.
 	 */
 	public static void seed(long l) {
-		int x = (int)l;
+		int x = (int)l ^ (int)(l >> 32);
 		q[0] = x;
 		q[1] = x + PHI;
 		q[2] = x + PHI + PHI;
-		for (int i = 3; i < q.length; ++i)
-			q[i] = q[i-3] ^ q[i-2] ^ PHI ^ i;
+		for (int idx = 3; idx < q.length; ++idx)
+			q[idx] = q[idx-3] ^ q[idx-2] ^ PHI ^ idx;
 	}
 }
