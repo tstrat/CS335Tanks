@@ -547,9 +547,11 @@ public class TanksDisplay extends JPanel implements Observer {
 				Object[] options = {"Main Menu", "Quit"};
 				n = JOptionPane.showOptionDialog(meh, "Would you like to go to the Main Menu or Quit?", "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 			}
+			
+			if (soundPlayer != null)
+				soundPlayer.stop();
+			
 			if(n == 0){
-				if (soundPlayer != null)
-					soundPlayer.stop();
 				frame.setPanel(new BasicMenu(frame));
 			}
 			
