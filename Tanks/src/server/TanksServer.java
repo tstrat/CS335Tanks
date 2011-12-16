@@ -34,7 +34,7 @@ public class TanksServer {
 	
 	private boolean doneConnecting;
 	
-	private double seed;
+	private long seed;
 	
 	private List<TankPair> tanksList;
 	private List<AIPair> aiList;
@@ -63,7 +63,7 @@ public class TanksServer {
 		tanksList = new ArrayList<TankPair>();
 		aiList = new ArrayList<AIPair>();
 		
-		seed = TRand.random();
+		seed = System.currentTimeMillis();
 		
 		// Start the listener in a new thread.
 		new Thread() {
@@ -365,10 +365,10 @@ public class TanksServer {
 			}
 		}
 		
-		public synchronized void send(int type, double d) {
+		public synchronized void send(int type, long l) {
 			try {
 				dos.writeInt((type << 24) | 8);
-				dos.writeDouble(d);
+				dos.writeLong(l);
 			}
 			catch (IOException e) {
 			}
