@@ -8,6 +8,7 @@ import gameModel.WorldCreator.TankPair;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -34,28 +35,35 @@ import MapEditor.MapEditorPanel;
 import server.TanksServer;
 
 public class BasicMenu extends JPanel {
-	
-	private JButton singlePlay = new JButton("SinglePlayer");
-	private JButton multiPlay = new JButton("MultiPlayer");
-	private JButton mapEditing = new JButton("Map Editor");
-	private JButton exitG = new JButton ("Exit Game");
+	private ImageIcon bgIcon = new ImageIcon(this.getClass().getResource("okay.png"));
+	private JLabel bg  = new JLabel(bgIcon);
+	private JButton singlePlay = new JButton("SINGLEPLAYER");
+	private JButton multiPlay = new JButton("MULTIPLAYER");
+	private JButton mapEditing = new JButton("MAP EDITOR");
+	private JButton exitG = new JButton ("EXIT GAME");
 	private TanksMainFrame frame;
 	
 	public BasicMenu(TanksMainFrame f) {
 		//add(mainP);
 		super();
+		
+
+		setBackground(Color.YELLOW);
 		frame = f;
-		this.setPreferredSize(new Dimension(800, 600));
+		this.setPreferredSize(new Dimension(800, 720));
 		this.setLayout(null);
 		setup();
 		setVisible(true);
 	}
 
 	public void setup(){
-		sets(singlePlay, 0, 0, 810, 155);
-		sets(multiPlay, 0, 155, 810, 155);
-		sets(mapEditing, 0, 310, 810, 155);
-		sets(exitG, 0, 465, 810, 155);
+
+		
+		sets(singlePlay, 200, 330, 400, 50);
+		sets(multiPlay, 200, 420, 400, 50);
+		sets(mapEditing, 200, 510, 400, 50);
+		sets(exitG, 200, 600, 400, 50);
+		sets(bg, 0, 0, 820, 820);
 		
 		singlePlay.addActionListener(new SinglePlayActionListener());
 		multiPlay.addActionListener(new MultiPlayActionListener());
@@ -64,11 +72,12 @@ public class BasicMenu extends JPanel {
 	}	
 		
 	
-	public void sets(Component o, int x, int y, int h, int w){
+	public void sets(Component o, int x, int y, int w, int h){
 		this.add(o);
+		o.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		o.setVisible(true);
 		o.setLocation(x, y);
-		o.setSize(h, w);
+		o.setSize(w, h);
 	}
 	
 	

@@ -45,7 +45,7 @@ public class EditorPane extends JPanel implements MouseInputListener {
 	public EditorPane() {
 		super(true);
 		setPreferredSize(new Dimension(800, 600));
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("map.png"));
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("map2.png"));
 		img = ii.getImage();
 
 		addMouseListener(this);
