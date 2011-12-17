@@ -249,7 +249,6 @@ public class TanksServer {
 						receiveBytes(type, data);
 						
 					} catch (IOException e) {
-						e.printStackTrace();
 						try {
 							ClientManager.this.socket.close();
 							return;
