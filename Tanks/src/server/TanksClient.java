@@ -5,7 +5,6 @@ import gameModel.WorldCreator.TankPair;
 
 import java.io.*;
 import java.net.*;
-import javax.swing.JOptionPane;
 
 
 /**

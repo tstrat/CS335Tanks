@@ -1,18 +1,8 @@
 package gameModel;
 
 import java.awt.Rectangle;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 
@@ -29,10 +19,6 @@ public class World extends Observable {
 	private List<Tank> tanks;
 	private int player;
 	private boolean needsSorting;
-	private String singleplayertank;
-	private int aiNumber;
-	private CommandReceiver receive;
-
 	/**
 	 * Constructor for a new World. A world holds a list of Actors and Collidables.
 	 * This constructor initializes those to empty. The player is set to the default
@@ -51,13 +37,20 @@ public class World extends Observable {
 	 * for those objects
 	 */
 	public void handleCollisions() {
+		Collidable iC, jC;
 		for (int i = 0; i < collidables.size(); i++) {
 			for (int j = i + 1; j < collidables.size(); j++) {
-				Rectangle collis = collidables.get(i).getCollisionBox()
-						.intersection(collidables.get(j).getCollisionBox());
-				if (collis.width > 0 && collis.height > 0){
-						collidables.get(i).collide(collidables.get(j));
-						collidables.get(j).collide(collidables.get(i));
+				iC = collidables.get(i);
+				jC = collidables.get(j);
+				if(Math.abs(iC.getX() - jC.getX()) < 120) {
+					if(Math.abs(iC.getY() - jC.getY()) < 120) {
+						Rectangle collis = collidables.get(i).getCollisionBox()
+								.intersection(collidables.get(j).getCollisionBox());
+						if (collis.width > 0 && collis.height > 0){
+								collidables.get(i).collide(collidables.get(j));
+								collidables.get(j).collide(collidables.get(i));
+						}
+					}
 				}
 			}
 		}

@@ -1,5 +1,4 @@
 package server;
-import gameModel.TRand;
 import gameModel.WorldCreator.AIPair;
 import gameModel.WorldCreator.TankPair;
 

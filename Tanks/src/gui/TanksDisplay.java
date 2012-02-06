@@ -6,28 +6,15 @@ import gameModel.CommandReceiver;
 import gameModel.DrawObject;
 import gameModel.FireCommand;
 import gameModel.GameHandler;
-import gameModel.HealingBeacon;
-import gameModel.HeavyTank;
-import gameModel.HoverTank;
-import gameModel.Indestructible;
 import gameModel.LayMineCommand;
 import gameModel.MoveCommand;
-import gameModel.MudPatch;
 import gameModel.MultiplayerBroadcaster;
 import gameModel.RotateCommand;
 import gameModel.RotateGunCommand;
 import gameModel.RotateGunCommand2;
 import gameModel.SoundPlayer;
-import gameModel.SpeedPatch;
-import gameModel.SpikePit;
-import gameModel.SpinningAI;
-import gameModel.StandardTank;
-import gameModel.StupidAI;
 import gameModel.SyncCommand;
-import gameModel.TNTBarrel;
-import gameModel.TreeStump;
 import gameModel.Tank;
-import gameModel.Wall;
 import gameModel.World;
 import gameModel.WorldCreator;
 
@@ -37,14 +24,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -55,8 +37,8 @@ import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 import server.TanksClient;
-import server.TanksServer;
 
+@SuppressWarnings("serial")
 public class TanksDisplay extends JPanel implements Observer {
 
 	private World world;
@@ -145,7 +127,7 @@ public class TanksDisplay extends JPanel implements Observer {
 		client.addFrom(creator);
 		
 		if (host.equals("localhost")) {
-			int result = JOptionPane.showOptionDialog(TanksDisplay.this,
+			JOptionPane.showOptionDialog(TanksDisplay.this,
 					"Waiting for players to join...", "Waiting",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 					null, new String[]{"Start", "Cancel"}, "Start");

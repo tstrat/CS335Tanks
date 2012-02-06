@@ -1,39 +1,23 @@
 package gui;
 
-import gameModel.World;
-import gameModel.WorldCreator;
-import gameModel.WorldCreator.AIPair;
-import gameModel.WorldCreator.TankPair;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.swing.DefaultListSelectionModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import MapEditor.MapEditor;
 import MapEditor.MapEditorPanel;
 
 import server.TanksServer;
 
+@SuppressWarnings("serial")
 public class BasicMenu extends JPanel {
 	private ImageIcon bgIcon = new ImageIcon(this.getClass().getResource("okay.png"));
 	private JLabel bg  = new JLabel(bgIcon);
