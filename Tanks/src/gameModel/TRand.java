@@ -1,5 +1,7 @@
 package gameModel;
 
+import java.util.Random;
+
 /**
  * This class is a replacement for Math.random and similar, to allow
  * synchronized random numbers across all networked copies of the game.
@@ -9,6 +11,9 @@ package gameModel;
  * @author Parker Snell, Seungwoo Sun
  */
 public class TRand {
+	
+	private static final Random r = new Random();
+	
 	private static final int PHI = 0x9e3779b9;
 	private static int[] q;
 	
@@ -19,9 +24,6 @@ public class TRand {
 	static
 	{
 		// Seed the randomizer for local play.
-		q = new int[4096];
-		c = 365436;
-		i = 4095;
 		seed(System.nanoTime());
 	}
 	
@@ -41,19 +43,7 @@ public class TRand {
 	 * @return A random integer.
 	 */
 	public static int randInt(int max) {
-		long t, a = 18782L;
-		long x, r = 0xfffffffeL;
-		i = (i + 1) & 4095;
-		t = a * q[i] + c;
-		c = (int) (t >>> 32);
-		x = (t + c) & 0x7fffffff;
-		if (x < c) {
-			++x;
-			++c;
-		}
-		q[i] = (int)(r - x);
-
-		return (q[i] & 0x7fffffff) % max;
+		return r.nextInt(max);
 	}
 	
 	/**
@@ -72,11 +62,6 @@ public class TRand {
 	 * @param l - Long value to change seed value.
 	 */
 	public static void seed(long l) {
-		int x = (int)l ^ (int)(l >> 32);
-		q[0] = x;
-		q[1] = x + PHI;
-		q[2] = x + PHI + PHI;
-		for (int idx = 3; idx < q.length; ++idx)
-			q[idx] = q[idx-3] ^ q[idx-2] ^ PHI ^ idx;
+		r.setSeed(l);
 	}
 }
