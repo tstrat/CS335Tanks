@@ -209,7 +209,7 @@ public class LineCounter {
 	}
 
 	/**
-	 * Asks if you wanto to repeat because this program's pretty cool. Only
+	 * Asks if you want to to repeat because this program's pretty cool. Only
 	 * makes sense in the context of the main method. Which probably makes this
 	 * program bad. But it's a main method program. So deal with it.
 	 * 
