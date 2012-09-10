@@ -1,5 +1,6 @@
 package gameModel;
 
+
 	/**
 	 *  Creates a Terrain that actors can interact with in different ways.
 	 *  Usually harmful, but sometimes helpful Terrain can be found at locations

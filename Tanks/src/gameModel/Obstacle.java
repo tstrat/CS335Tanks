@@ -1,5 +1,6 @@
 package gameModel;
 
+
 public abstract class Obstacle extends Collidable{
 	
 	/**

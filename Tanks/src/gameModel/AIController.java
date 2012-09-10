@@ -1,5 +1,6 @@
 package gameModel;
 
+
 /**
  * Base class for AI. It is an Actor, like anything else on the board.
  * This means its act() method is called every turn, when it will decide

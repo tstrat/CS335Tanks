@@ -1,5 +1,6 @@
 package gameModel;
 
+
 /**
  * 
  * 		The SpikePit class defines a type of terrain that damages any tanks on top of it.

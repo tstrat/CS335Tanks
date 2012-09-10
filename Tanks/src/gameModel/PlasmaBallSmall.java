@@ -1,5 +1,6 @@
 package gameModel;
 
+
 /**
  * The PlasmaBallSmall class is very similar to the larger plasma Missile however instead of exploding
  * into multiple missiles on impact, this one will not disperse.  The ball is also a lot smaller

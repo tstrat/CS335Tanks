@@ -1,5 +1,6 @@
 package gameModel;
 
+
 /**
  * Defines an AI that just goes to the middle of the screen and then shoots in circles.
  * 

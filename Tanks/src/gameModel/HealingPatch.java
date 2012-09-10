@@ -1,5 +1,6 @@
 package gameModel;
 
+
 /**
  *  The HealingPatch Object is of type Terrain.  When a Tank moves over it, it gets broken up
  *  and creates dust clouds underneath it.  The HealingBeacon class creates the patch, and is

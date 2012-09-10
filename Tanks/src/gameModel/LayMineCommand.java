@@ -1,5 +1,6 @@
 package gameModel;
 
+
 /**
  * 
  * This Command triggers a mine to be laid on the world.  The command is then sent to all

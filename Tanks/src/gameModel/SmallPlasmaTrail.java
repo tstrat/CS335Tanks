@@ -1,5 +1,6 @@
 package gameModel;
 
+
 /**
  * 
  * This is the trail objects that follow a small plasma ball

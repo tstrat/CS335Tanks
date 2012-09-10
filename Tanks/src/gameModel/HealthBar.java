@@ -1,5 +1,6 @@
 package gameModel;
 
+
 /**
  * An indicator of how much "health" a tank has remaining.
  * @author Sean

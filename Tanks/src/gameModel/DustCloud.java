@@ -1,5 +1,6 @@
 package gameModel;
 
+
 /**
  * Creates a graphical dust cloud that follows rockets after they have been shot by a tank.
  * 
