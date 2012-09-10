@@ -31,8 +31,8 @@ public class BounceShard extends Missile {
 	public BounceShard(World w, double x, double y, double rotation, Tank t) {
 		super(w, x, y, rotation, t);
 		damage = 70;
-		speed = 12;
-		maxBounces = 0;
+		speed = 9;
+		maxBounces = 1;
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class BounceShard extends Missile {
 	public void act() {
 		this.bounce();
 		super.act();
-		DustPuff.add(w, x, y);
+		//DustPuff.add(w, x, y);
 	}
 	
 	/**
@@ -117,7 +117,10 @@ public class BounceShard extends Missile {
 	@Override
 	public void collide(Collidable c) {
 		if (c.equals(t) && bounces == 0)
-			return;	
+			return;
+		else if(c instanceof LargeMissile) {
+			explode();
+		}
 		super.collide(c);
 	}
 	
