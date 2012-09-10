@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * 
  * The MudPatch object causes Tank objects to slow down when moving across it.

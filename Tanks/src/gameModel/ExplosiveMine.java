@@ -1,6 +1,5 @@
 package gameModel;
 
-
 public class ExplosiveMine extends Mine {
 
 	/**

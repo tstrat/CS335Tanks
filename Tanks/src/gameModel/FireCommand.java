@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * Creates a new FireCommand controlling if a player has fired. 
  *

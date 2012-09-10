@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * This class defines the base of a tree obstacle. The stump is an indestructible
  * obstacle, and is connected to tree leaves. Whenever the trunk takes damage, there

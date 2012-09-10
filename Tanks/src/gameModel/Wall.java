@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * 
  * 		The Wall class defiens a high health obstacle shaped like a square, making it ideal

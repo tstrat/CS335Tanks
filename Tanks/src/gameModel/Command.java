@@ -1,6 +1,5 @@
 package gameModel;
 
-
 import java.io.Serializable;
 
 /**

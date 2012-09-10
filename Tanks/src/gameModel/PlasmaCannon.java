@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * 
  * The PlasmaCannon is a type of Gun turret that is connected to the Heavy Tank.

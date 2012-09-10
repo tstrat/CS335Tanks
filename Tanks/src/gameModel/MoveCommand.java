@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * Creates a Command for moving the tank with keyboard controls
  *

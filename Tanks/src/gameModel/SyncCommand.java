@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * 
  * This command saves the instance of the tank, and then synchronizes it with the other players

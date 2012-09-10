@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * Creates a fireball that spawns from an explosion.
  * An explosion spawns fireballs from every direction once it happens.

@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * 
  * 		The Rocket class defiens a special kind of missile that creates an explosion on contact

@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * 
  * This class controls the plasma trial for the large plasma missile.

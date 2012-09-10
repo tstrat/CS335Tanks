@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * Creates a Command for rotating the gun on a tank with keyboard controls
  * 

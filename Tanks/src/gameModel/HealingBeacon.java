@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * This class is a HealingBeacon Object.  This object will heal an obstacle that moves over its
  * collision box.

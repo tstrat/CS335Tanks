@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * This is a very basic AI that just moves the tank forward
  * and occasionally rotates it.

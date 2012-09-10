@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * Creates a graphical dust cloud that follows missiles after they have been shot by a tank.
  *

@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * 
  * This command rotates an actor towards a location specified in the constructor.

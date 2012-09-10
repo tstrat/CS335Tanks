@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * 
  * This mine damages enemy tanks and then stops their movement for a few seconds.

@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * This piece of Terrain speeds up the tanks that cross over it.
  */

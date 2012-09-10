@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * Indestructible is a type of Obstacle.  This specific type of obstacle cannot be
  * destroyed by means of explosions.
