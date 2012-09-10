@@ -211,7 +211,7 @@ public class LineCounter {
 	/**
 	 * Asks if you want to to repeat because this program's pretty cool. Only
 	 * makes sense in the context of the main method. Which probably makes this
-	 * program bad. But it's a main method program. So deal with it.
+	 * program bad. But it's a main method program, so deal with it.
 	 * 
 	 * @param keyScan
 	 *            Passes the old scanner because it makes no sense to make a new
